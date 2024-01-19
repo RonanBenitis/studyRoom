@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Varela+Round&display=swap'); /* Método de importação de fontes. Aqui estamos dizendo ao CSS "Importe o conteúdo da seguinte URL", que no caso é a fonte desejada. Aqui estamos chamando a fonte para dentro do nosso projeto, mas SÓ CHAMANDO, não utiliando-a ainda.
+
+    Para isso, estamos indo no site "google fonts", escolhendo a fonte desejada, acessando-a e selecionadno a familia da fonte. Na aba lateral que abrir, colcoamos em "export" e selecionamos a linha de código entre os styles para colar em nosso CSS externo. */
+
+/* RESET BÁSICO - Seletor "*" refere-se a TODOS os elementos dentro do arquivo. */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+        /* Acrescentado em versões mais atualizadas do curso: Creio que para deixar melhor centralizado (mas não fica bem responsivo ao minimizar, mas fica dimensão mais fixa) */
+    align-items: center;
+        /* Mesmo comment de acima */
+    height: 100vh; 
+        /* vh significa "viewpoert height". Viewport é o que foi abordado anteriormente em uma de nossas meta-informações, ou seja, viewport é a tela onde estamos acessando nosso projeto. 100vh estamos dizendo que a altura de nossa tela (do body) ocupará 100% a altura de nossa viewport.  */
+        /* Ou seja, conseguimos inspecionar no navegador que, antes o código ocupava o espaço de até onde seus elementos são demonstrados, agora ao inspecionar o body é selecionada TODA a área de visualização. */
+    width: 100%;
+        /* Acrescentado em cersão mais atualizada do curso */
+    box-sizing: border-box; 
+        /* Box-sizing: border-box serve para manter o conteúdo do elemento-filho, assim como sua borda, dentro do elemento-pai. Ou seja, Box-sizing é para indicar como as dimensões do box (conjunto do elemento que trata-se de seu conteúdo, preenchimento, borda e margem) se comportarão. box-sizing: content-box terá como base o conteudo do box (manterá o conteúdo dentro do elemento pai, mas comumente pode sair). Já o border-box terá como base a borda do elemento filho (muito mais comum de manter o conteúdo do elemento filho dentro do elemento pai) */
+        /* Documentação ilustrada do box-sizing: https://cursos.alura.com.br/course/html-css-classes-posicionamento-flexbox/task/118640. */
+    background-color: #000000;
+    color: white;
+}
+
+.titulo-destaque {
+    color: #FC3A85;
+}
+
+span {
+    color: #22D4FD;;
+}
+
+.apresentacao {
+    margin: 10% 15%;
+    display: flex;
+    flex-wrap: wrap;
+        /* Conteúdo novo, atualizou o curso, pois, agora, trata-se do tema de responsividade */
+    width: 100%;
+        /* Coloquei este valor pois nas versões novas do curso recomenda-se utilizar o Display Flex no body. Quando fazemos isso, "compactamos" de forma fixa as dimensões dos elementos filhos quando eles não possuem dimensões declarada. Então, para o justify-content dos elementos filhos deste seletor, precisamos definir sua dimensão (pelo menos a largura), já que esta classe esta "compactada" pelo elemento pai dela (o body) */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.apresentacao__conteudo {
+    width: 615px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.apresentacao__conteudo__titulo {
+    font-size: 36px;
+    font-family: 'Krona One', sans-serif;
+}
+
+.apresentacao__conteudo__texto{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.apresentacao__conteudo__link{
+    display: flex;
+    justify-content: space-between;
+}
+
+.apresentacao__conteudo__link__linkUnit{
+    background-color: #22d4fd;
+    width: 280px;
+    /* height: 79px; Utilizamos Padding com o 21.5px (pego do elemento figma) e não o height, pois, se usarmos o height, o texto não fica centralizado verticalmente. Neste casso, queremos preencher o espaço entre o elemento e a borda e não definir a altura do elemento. Para este preenchimento, usamos padding */
+    padding: 21.5px 0;
+        /* Usado apenas no top/bottom pois as laterais já estavam com uma distancia legal. Acima, nessa sintaxe fica padding: tamanho_top/bottom tamanho_laterais */
+    border-radius: 16px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none; /* Para retirarmos qualquer decoração prévia ou padrão do texto, no caso, limpamos a decoração padrão de 'link' para aplicarmos a nossa decoração */
+    color: #000000;
+    font-family: 'Montserrat', sans-serif;
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+    <!-- Sobre DOCTYPE: O "!DOCTYPE html" indica que o código deverá ser interpretado como "HTML5", ou seja, todos os navegadores e aplicações que lerão esse código lerão como HTML5. Caso deixarmos sem qualquer !DOCTYPE, as aplicações não terão parametros de como lê-lo. O Chrome lerá como "QUIRK MODE" ou "MODO PECULIARIDADES". Este modo serve para compatibilizar com paginas webs antigas. Ou seja, se você não tiver intenção expressa de trabalhar neste modo, recomenda-se fortemente atribuir um tipo de documento ao seu  ódigo.-->
+    <!-- CURIOSIDADE: No inspecionador do Chrome, é interessante estar de olho na aba "Issue", ou o botãozinho no canto superior (e inferior também) direito (parece um icone de mensagem). Nele é relatado alguns possiveis problemas acompanhado por documentações que expliquem sobre este possivel problema. -->
+<html lang="pt-br">
+    <!-- Define a linguagem de exibição do código, no caso, sendo PT-BR aceitará nossas acentuações e a Ç -->
+<head>
+    <meta charset="UTF-8">
+        <!-- Codificação/interpretação dos caracteres que serão usados (a mais usada). É aquela forma aprendida na AOC sobre interpretação de caracteres e o peso em bits utilizado em cada uma. Ou seja, UNICODE: Um grande "dicionário" de caracteres. Se não usar o UTF-8, pode dar aquele bug de trocar interrogação nos caracteres que não conseguem ser interpretados. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <!-- Indicação para o navegador EDGE em especifico, indicado para utilizar a ultima versão deste. Importante ter esta tag pois independente se nós usamos ou não este navegador, um usuário da nossa aplicação poderá usar. Logo, é bom ter isso previsto. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Meta informação, de nome "viewport", que trata-se do dispositivo que está acessando nosso código tendo como conteúdo (contet) orientação para utilizar a largura do dispositivo como referência de escala, iniciando por 1 (não sei necessariamente o que é esse 1.0 mas suspeito que seja um multiplicador). Com isso, uma fonte tamanho 24 terá a mesma proporção em um monitor, tanto quanto em um celular ao invés de não levar em consideração o dispositivo onde o código está sendo mostrado. -->
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="./styles/style.css"> 
+        <!-- Tag link funciona para ligar um arquivo a outro (fazemos isso sempre que precisamos que arquivos distintos operem em sintonia) / rel, ou relação, indica a relação deste arquivo que está sendo ligado com este documento que estamos trabalhando (o HTML) - que no caso é uma relação de "folha de estilo" ou "stylesheet" / href é a nossa referência, o caminho do arquivo. Como ele está na mesma pasta que nosso HTML, então o referenciamos apenas com seu nome e extensão. -->
+        
+        <!-- === ARQUITETURA DE PASTAS ===
+
+        - O arquivo css foi movido para uma pasta chamada 'styles', assim como as imagens estão em uma pasta image (ou assets), pois, essa organização chama-se 'Arquitetura de Pastas'.
+    
+        - Busca organizar os componentes de um projeto para tornar sua manipulação mais intuitiva. Deixando os componentes principais externamente (paginas html). -->
+</head>
+<body>
+    <header class="cabecalho">
+        <nav class="cabecalho__menu">
+            <!-- Tag semantica para indicar um menu de navegação -->
+            <a class="cabecalho__menu__link" href="index.html">Home</a> 
+                <!-- Referenciamos o index pois é para retornar, justamente, para a pagina principal. -->
+            <a class="cabecalho__menu__link" href="about.html">Sobre mim</a>
+                <!-- Href na ancora é para levar a outro link, neste caso, é nossa outra pagina. -->
+        </nav>
+    </header>
+        <!-- Header, main, section, nav e footer são tags semanticas. São importantes para indicar o conteúdo da sua página. Além das funcionalidades similares a div, facilita o acesso de pesquisa pelos mecanismos de pesquisa e torna o código semantico (mais intuitivo para a interpretação humana).
+        
+        - Header: Cabeçalho da página;
+        - Nav: Porção de navegação da página, onde se guarda a maioria dos botões de acessos e afins;
+        - Main: Conteúdo principal da página;
+        - Section: indica uma porção de conteúdo de mesmo tema dentro do container principal (main);
+        - Footer: rodapé da página;
+    
+        Observação: Não é recomendável usar tag header/footer dentro de outra tag header/footer-->
+    <main class="apresentacao">
+        <section class="apresentacao__conteudo">
+            <h1 class="apresentacao__conteudo__titulo">Eleve seu negócio digital a outro nível <strong class="titulo-destaque">com um Front-end de qualidade!</strong></h1>
+                <!-- elemento h1 é interessante utilizado apenazs uma vez, para o titulo principal, pois essa caracteristica é utilizada pelos buscadores de internet -->
+            <p class="apresentacao__conteudo__texto">Olá! Sou Joana Santos, desenvolvedora <span>Front-end</span> com especialidade em <strong>React, HTML e CSS.</strong> Ajudo pequenos negócios e designers a colocarem em prática boas ideias. Vamos conversar?</p>
+                <!-- Tag strong marca trechos do código, passiveis a alterar no CSS, deixando-os em negrito. Tag span faz o mesmo, mas, não os deixa em negrito por padrão. -->
+            <div class="apresentacao__conteudo__link">
+                <!-- Utilizamos a div aqui apenas para organização interna, sem necessidade de ter valor semantico (portanto, não significa nada para os navegadores e mecanismos de pesquisa). 
+                    
+                O elemento de divisão, ou div, é um container genérico e tem a função de organizar e agrupar elementos para possibilitar manipulá-los como bloco -->
+                <h2 class="apresentacao_conteudo_link_subt">Acesse minhas redes:</h2>
+                    <!-- Importante ser h2 (subtitulo), pois já utilizamos o h1 (titulo) e este, o h1, serve para o titulo principal do texto (ideal usar uma unica vez). Essa caracteristica é utilizada pelos buscadores de internet -->
+                <a class="apresentacao__conteudo__link__linkUnit" href="https://github.com/">
+                    <img src ="./image/github.png"> <!-- Tag a aceita outras tags dentro dela, então, para colocar imagem, inserimos a tag img -->
+                    GitHub</a>
+                <a class="apresentacao__conteudo__link__linkUnit" href="https://www.linkedin.com/">
+                    <img src="./image/linkedin.png">
+                    LinkedIn</a> 
+                <a class="apresentacao__conteudo__link__linkUnit" href="https://twitch.tv/guilimadev">
+                    <img src="./image/twitch.png">
+                    Twitch</a>
+                    <!-- Chamada de TAG "ancora" -->
+            </div>
+        </section>
+        <img class="apresentacao__image" src="./image/Imagem.png" alt="Imagem de Joana Santos programando">
+            <!-- É uma boa pratica a organização de pastas, no caso, estamos isolando as imagens em uma pasta chamada "image". No curso, utilizaram o termo "assets" ao invés de "image" -->
+
+    </main>
+    <footer class="rodape">
+        <p>Desenvolvido por Alura.</p>
+    </footer>
+    
+    <!-- EXPLICAÇÕES DA AULA: trabalhando com responsividade e publicação de projetos 
+    
+    UNIDADES DE MEDIDA
+
+        REM
+            - Quando vamos nas opções do navegador e optamos por alterar o tamanho da fonte dele, em nosso projeto não é alterado, pois, trabalhamos com PIXEL.
+            - Pixel é uma unidade de medida absoluta (fixa) e para possibilitarmos que nossos elementos sejam alterados pelas configurações do navegador, precisamos utilizar uma unidade de medida relativas (não-fixa).
+            - É impotante darmos essa flexibilidade para configurações pelo usuário, pois, isso vacilitaria, por exemplo, uma pessoa com dificuldade de visão a adequar nossa pagina a uma situação mais confortável de sua utilização.
+            - Para dar essa flexibilidade, utilizaremos a medida REM (root element), que tem seu tamanho relativo ao elemento raiz da pagina HTML, o qual recebe as alterações do navegador pelo usuário.
+            - Os navegadores normalmente utilizam uma escala padrão para transformação do REM, sendo 1 REM = 16px.
+            - Com isso, toda vez que tivermos o font-size, mudaremos o valor do px para rem.
+        
+        PORCENTAGEM
+            - Unidade de medida RELATIVA (Não absoluta, como pixel) que se refere à porcentagem do tamanho definido na tag pai (ou seja, na tag ao qual este elemento está dentro)
+        
+        CONFERINDO RESPONSIVIDADE E DIFERENTES DISPLAYS
+            - No inspecionar (ou ctrl+shift+C) clique no toggle device toolbar (simbolo no canto superior esquerdo, de um notebook e um celular na frente, atalho ctrl+shift+M quando inspecionar estiver aberto);
+            - Há diversas dimensões que podemos colocar e até touchscreen. A primeira opção é a Dimensão Responsiva, nela podemos editar as dimensões em pixel ou até selecionar e arrastar as partes externas para redimensionar na mão.
+
+    MEDIA QUERIES
+        
+        Documentação sobre MEDIA QUERIES: https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_media_queries/Using_media_queries
+
+        O QUE É MEDIA QUERIES
+            - Elemento CSS para aplicar determinadas instruções quando for verdadeira sua condição (que está expressada entre parenteses), ou seja, se definirmos que @media (max-width: 600px), estamos dizendo que quando um display tiver até no máximo 600px, a sequencia de instruções será aplicada.
+            - Isso é utilizado para definir comportamentos específicos para uma gama de dispositivos, como exemplo, alterando o comportamento de uma imagem em determinado display.
+            - Podemos aplicar o Media tanto no momento da importação de um arquivo CSS (usando o argumento media="") quanto dentro de um stylesheet (dentro de um CSS).
+            - O elemento media é carregado na pagina independente se o valor for verdadeiro ou falso, mas, só é aplicado quando verdadeiro.
+            - É possivel, também, utilizar mais de um media query dentro do mesmo projeto, por exemplo: @media (max-width: 480px) para celular e @media (max-width: 800px) para tablets
+            - É possivel defirnir intervalos em um media query utilizando operadores lógicos, como exemplo: @media (min-width: 480px ) and (max-width: 800px)
+
+        VERIFICANDO COMPORTAMENTO EM DIMENSÕES
+            - Uma tecnica interessante é utilizar a Dimensão Repsonsiva do inspecionar do Chrome e arrastando (nas laterais do display do site) para analisar o comportamento da pagina frente a diferentes dimensões. Quando, a partir de determinada dimensão, a pagina se comportar estranho, conseguimos ver em cima o valor desta dimensão para poder levar em consideração em nosso código.
+
+
+
+        -->
+
+</body>
+</html>
