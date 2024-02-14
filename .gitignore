@@ -1,3 +1,4 @@
+# Disabling, for now, unity folder: Document names too long
 learning__unity/
 
-.gitignore
+# When upload University Center documents, set the excepcion here (like Class Roll, class slides and go on)
