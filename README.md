@@ -7,10 +7,15 @@ Hello, mate!
 This is my study room, where i publicize (and control the documents) of what i am studying right now and the path that i took on previous studies.
 I'm using this repository as a learning process of Git and GitHub too, so, expect testing here! :)
 
+>**MODEL_NOTEBOOK-ANOTATION AND JUPYTER NB**
+>- Today, i'm using Jupyter Notebook as platform for my anotations and documentations. Even if i can't run the specific snipet on different languages than Python, i loved the organizational structer of a Notebook. Using it i don't have to create lots of documents, like what is done in "Guanabara > Mundo 01", creating one document for anotations and a ton for exercises. Using Jupyter Notebok, i can anotate in Markdown (instead of commenting on code) and mescling with coding snipet! When in Python, even run it! For my buddies starting in Programming, i would recommend it!
+>- In the main, you'll see my model to start a notebook document.
+
 Let's do this!
 
 ## Learning right now
 - [Python](https://github.com/RonanBenitis/studyRoom/tree/main/learning__python)
+  - [Mundo 02 - Guanabara's Course](https://github.com/RonanBenitis/studyRoom/tree/main/learning__python/course__guanabara/Mundo%2002)
 - [Web Programming](https://github.com/RonanBenitis/studyRoom/tree/main/learning__web-programming)
     - [Course: Alura](https://github.com/RonanBenitis/studyRoom/tree/main/course_alura)
 
