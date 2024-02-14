@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<!-- Sobre DOCTYPE: O "!DOCTYPE html" indica que o código deverá ser interpretado como "HTML5", ou seja, todos os navegadores e aplicações que lerão esse código lerão como HTML5. Caso deixarmos sem qualquer !DOCTYPE, as aplicações não terão parametros de como lê-lo. O Chrome lerá como "QUIRK MODE" ou "MODO PECULIARIDADES". Este modo serve para compatibilizar com paginas webs antigas. Ou seja, se você não tiver intenção expressa de trabalhar neste modo, recomenda-se fortemente atribuir um tipo de documento ao seu  ódigo.-->
+<!-- CURIOSIDADE: No inspecionador do Chrome, é interessante estar de olho na aba "Issue", ou o botãozinho no canto superior (e inferior também) direito (parece um icone de mensagem). Nele é relatado alguns possiveis problemas acompanhado por documentações que expliquem sobre este possivel problema. -->
+<html lang="pt-br">
+<!-- Define a linguagem de exibição do código, no caso, sendo PT-BR aceitará nossas acentuações e a Ç -->
+<head>
+    <meta charset="UTF-8">
+    <!-- Codificação/interpretação dos caracteres que serão usados (a mais usada). É aquela forma aprendida na AOC sobre interpretação de caracteres e o peso em bits utilizado em cada uma. Ou seja, UNICODE: Um grande "dicionário" de caracteres. Se não usar o UTF-8, pode dar aquele bug de trocar interrogação nos caracteres que não conseguem ser interpretados. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <!-- Indicação para o navegador EDGE em especifico, indicado para utilizar a ultima versão deste. Importante ter esta tag pois independente se nós usamos ou não este navegador, um usuário da nossa aplicação poderá usar. Logo, é bom ter isso previsto. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta informação, de nome "viewport", que trata-se do dispositivo que está acessando nosso código tendo como conteúdo (contet) orientação para utilizar a largura do dispositivo como referência de escala, iniciando por 1 (não sei necessariamente o que é esse 1.0 mas suspeito que seja um multiplicador). Com isso, uma fonte tamanho 24 terá a mesma proporção em um monitor, tanto quanto em um celular ao invés de não levar em consideração o dispositivo onde o código está sendo mostrado. -->
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css"> <!-- Tag link funciona para ligar um arquivo a outro (fazemos isso sempre que precisamos que arquivos distintos operem em sintonia) / rel, ou relação, indica a relação deste arquivo que está sendo ligado com este documento que estamos trabalhando (o HTML) - que no caso é uma relação de "folha de estilo" ou "stylesheet" / href é a nossa referência, o caminho do arquivo. Como ele está na mesma pasta que nosso HTML, então o referenciamos apenas com seu nome e extensão. -->
+</head>
+<body>
+    <h1>ONDE BUSCAREMOS DOCUMENTAÇÃO</h1>
+    <a href="https://www.w3schools.com/" target="_blank">W3School (ver na intro)</a>
+    <h2>Documentações específicas inteterssantes</h2>
+    <a href="https://www.w3schools.com/css/css_boxmodel.asp" target="_blank"> W3School - Sobre box model </a>
+    <h1>Isso é um título</h1>
+    <p>Isso é um parágrafo</p>
+    <img style="margin-top: 10px" src="./html.png" alt="Imagem do logo da HTML5">
+    <h1>ATALHOS PARA O VS CODE</h1>
+    <p>Alt+Z faz com que o código seja mostrado dentro da exibição, ou seja, que não ultrapasse a janela. Note conforme o texto ou o código desce quando o Alt+Z está ativado, a sua linha aumenta, ou seja, mesmo que na exibição aparece, no código não é acrescentado mais linhas.</p>
+    
+</body>
+</html>

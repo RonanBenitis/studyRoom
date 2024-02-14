@@ -1,0 +1,16 @@
+=== O QUE É VERCEL? ===
+
+Plataforma de serviços de nuvem.
+
+=== PRA QUE SERVE ===
+
+Voltada para hospedagem de aplicação simples e rápida.
+
+=== COMO FAZER ===
+
+- Inscreva-se no vercel e peça para entrar pelo GitHub. Com ele conectado, será disponibilizada as opções.
+- Importe repositório do Git.
+- "Continuar com GitHub" e selecione o repositório desejado.
+- Nome do projeto: Literalmente aparece o nome que aparece em cima
+- Vercel roda os arquivos na raiz, ou seja, se o projeto estiver dentro de alguma outra pasta e não na raiz do repositório (dentro do repósitorio e fora de qualquer pasta), a Vercel pode não conseguir rodar o programa.
+- Implantado, agora o arquivo passa a ser rodado como um "live server", mas, na nuvem. Logo, qualquer um pode acessá-lo.
