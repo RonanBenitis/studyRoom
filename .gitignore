@@ -1,4 +1,7 @@
 # Disabling, for now, unity folder: Document names too long
 learning__unity/
 
+# Avoiding copyright violation
+bookshelf/
+
 # When upload University Center documents, set the excepcion here (like Class Roll, class slides and go on)
