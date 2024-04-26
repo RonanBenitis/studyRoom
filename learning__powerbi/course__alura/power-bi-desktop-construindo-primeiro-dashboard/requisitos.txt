@@ -1,0 +1,18 @@
+CONTROLE
+- Faturamento
+> Ultimos periodos para ver se o negócio está crescendo
+
+- Filtro por marca
+> Saber marcas que mais vendem
+
+- Produtos disponíveis
+> Controle de estoque
+
+- Gênero que mais compra
+> Para campanha de marketing direcionada
+
+- Média de pet dos clientes
+> Impacta na quantidade de vendas
+
+PRETENSÃO
+- Abrir novas lojas
