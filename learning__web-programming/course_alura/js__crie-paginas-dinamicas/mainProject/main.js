@@ -1,14 +1,24 @@
-// Snipet in JavaScript
-
-// Pom ------------------------------------------------
-function tocaSomPom(){
-    // Bloco ou corpo da função
-    document.querySelector('#som_tecla_pom').play();
+function tocaSom(idElementoAudio) {
+    document.querySelector(idElementoAudio).play();
 }
 
 // Declaração de referência
 const listaDeTeclas = document.querySelectorAll('.tecla'); 
 
-listaDeTeclas[0].onclick = tocaSomPom;
+let i = 0;
 
-// Desafio: Automatizar a reprodução sem utilizar o método de copiar e colar para cada indice existente.
+while(i < listaDeTeclas.length) {
+    const tecla = listaDeTeclas[i]; // deixando código mais limpo
+    const instrumento = tecla.classList[1];
+
+    // Aplicando Template String
+    const idAudio = `#som_${instrumento}`;
+
+    tecla.onclick = function () {
+        tocaSom(idAudio) // concatenando com o
+                                        // valor obtido
+    };
+
+    i++;
+    // console.log(i);
+}
