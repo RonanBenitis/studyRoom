@@ -41,3 +41,38 @@ for (let i = 0; i < listaDeTeclas.length; i++) {
         tecla.classList.remove('ativa');
     }
 }
+
+// APLICANDO DATA ATTRIBUTES CONFORME VISTO EM
+// https://cursos.alura.com.br/extra/alura-mais/data-attributes-do-html5-c109
+const titulos = document.querySelectorAll('[data-titulo]');
+
+// Deixado para visualizar sintaxe do forEach
+// function esconderConteudos() {
+//     const conteudos = document.querySelectorAll('[data-conteudo]');
+
+//     conteudos.forEach(conteudo => conteudo.classList.add('hide'));
+// }
+
+function alternaConteudo(valor) {
+    const conteudo = document.querySelector(`[data-conteudo="${valor}"]`);
+
+    if (conteudo.classList.contains('hide')) {
+        conteudo.classList.remove('hide');
+    } else {
+        conteudo.classList.add('hide');
+    }
+}
+
+titulos.forEach(titulo => titulo.addEventListener('click', function() {
+    /*
+    captura o valor do Data Attribute data-titulo, que nos casos
+    seria "abrir"
+    */
+    const valor = titulo.dataset.titulo;
+
+    /*
+    passando o valor como parametro, conseguimos selecionar o
+    [data-conteudo="abrir"], possibilitando sua manipulação pontual
+    */
+    alternaConteudo(valor);
+}))
