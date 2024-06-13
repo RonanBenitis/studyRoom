@@ -1,0 +1,5 @@
+======================
+=  SOBRE JAVASCRIPT  =
+======================
+https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/First_steps/What_is_JavaScript
+https://www.alura.com.br/artigos/javascript
