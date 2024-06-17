@@ -1,6 +1,6 @@
 # BY GPT
 
-## SOBRE GIT -U ORIGIN MAIN E O QUE SERIA -U
+## SOBRE GIT PUSH -U ORIGIN MAIN E O QUE SERIA -U
 Claro! O comando `git push -u origin main` é usado no Git, um sistema de controle de versões distribuído, para enviar (push) as alterações do repositório local para um repositório remoto. Vamos analisar cada parte do comando em detalhes:
 
 1. **`git`**: Este é o comando principal do Git. Tudo começa com `git` para indicar que você está usando uma funcionalidade do Git.
