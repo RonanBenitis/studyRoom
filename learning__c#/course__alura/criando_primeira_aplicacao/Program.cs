@@ -1,5 +1,10 @@
 // Screen Sound
 string mensagemBoasVindas = "Boas vindas ao Screen Sound";
+// instanciando uma nova lista, estando vazia
+// List<string> listaBandas = new List<string>();
+
+// instanciando uma nova lista com valores pré-definidos, mas não fechados
+List<string> listaBandas = new List<string> { "U2", "The Beatles", "Calypso" };
 
 void ExibirLogo()
 {
@@ -35,7 +40,7 @@ void ExibirOpcoesMenu()
             RegistrarBandas();
             break;
         case 2:
-            Console.WriteLine("Você escolheu a opção " + opcaoEscolhidaNum);
+            MostrarBandas();
             break;
         case 3:
             Console.WriteLine("Você escolheu a opção " + opcaoEscolhidaNum);
@@ -55,11 +60,33 @@ void ExibirOpcoesMenu()
 void RegistrarBandas()
 {
     Console.Clear();
+    Console.WriteLine("***************************");
     Console.WriteLine("Registro de bandas");
+    Console.WriteLine("***************************\n");
     Console.Write("Digite o nome da banda que deseja registrar: ");
     string nomeBanda = Console.ReadLine()!;
+    listaBandas.Add(nomeBanda);
     Console.WriteLine($"A banda {nomeBanda} foi registrada com sucesso!");
     Thread.Sleep(2000); // Número representado em ms (milisegundo)
+    Console.Clear();
+    ExibirOpcoesMenu();
+}
+
+void MostrarBandas()
+{
+    Console.Clear();
+    Console.WriteLine("**************************************");
+    Console.WriteLine("Exibindo todas as bandas registradas");
+    Console.WriteLine("**************************************\n");
+
+    foreach (string banda in listaBandas)
+    {
+        Console.WriteLine($"Banda: {banda}");
+    }
+
+    Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
+    // Lê o apertar de tecla, no caso, captura qualquer tecla
+    Console.ReadKey();
     Console.Clear();
     ExibirOpcoesMenu();
 }
