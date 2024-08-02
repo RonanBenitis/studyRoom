@@ -67,7 +67,7 @@ def exibir_subtitulo(texto):
     print(linha)
     print() # Outra forma de pular linha
 
-def cadastrar_novo_reastaurante():
+def cadastrar_novo_restaurante():
     '''Essa função é responsável por cadastrar um novo restaurante
     
     Inputs:
@@ -141,7 +141,7 @@ def escolher_opcao():
         opcao_escolhida = int(input('Escolha uma opção: '))
         
         if opcao_escolhida == 1:
-            cadastrar_novo_reastaurante()
+            cadastrar_novo_restaurante()
         elif opcao_escolhida == 2:
             listar_restaurantes()
         elif opcao_escolhida == 3:
