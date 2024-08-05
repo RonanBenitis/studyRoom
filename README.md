@@ -3,13 +3,14 @@
 # Ronan's Study Room
 ![study room image](https://img.freepik.com/premium-photo/cozy-reading-nook-with-comfortable-chairs-bookshelves-inviting-students_741910-47561.jpg?size=626&ext=jpg&ga=GA1.1.1618076671.1697857789&semt=ais)
 
-Hello, mate!
+Olá!
 
-Welcome to my study room, where I publicize and control the documents related to what i am currently studying and the paths i took in previous studies. I'm using this repository as part of my learning process with Git and GitHub, so expect some testing here! :)
+Esta é a Sala de Estudo. Aqui estão reunidos os meus repositórios de estudo: nomeados como Seção de Aprendizagem e carategorizados com `learning__` em seu prefixo.
 
->**Model my_notes - Annotations and Jupyter NB**
->
->- Today, I'm using Jupyter Notebook as the platform for my annotations and documentation. Even if I can't run specific snippets in languages other than Python, I love the organizational structure of a notebook. Using it, I don't have to create lots of files like in "Guanabara > Mundo 01," where one file is for annotations and a ton are for exercises. With Jupyter Notebook, I can annotate in Markdown (instead of commenting directly on the code) and mix it with coding snippets! When in Python, I can even run the code! For my buddies starting in programming, I highly recommend it!
->- In the main directory, you'll see my template for starting a notebook document.
+## Ideia da Sala de Estudos
+Este repositório é a representação de uma "biblioteca" pessoal, onde cada diretório é um repositório (submodulo), uma representação dos "livros" dessa biblioteca.
 
-Let's do this!
+## Motivo da criação
+Inicialmente, este repositório era, de fato, a união de diretórios controlados apenas por este repositório. Para facilitar na publicização e na organização do aprendizado de uma linguagem específica, ramificar esse repositório em diversos módulos pareceu uma boa ideia.
+
+Logo, quando necessário demonstrar o andamento no aprendizado de uma linguagem específica, não será mais necessaário percorrer por toda a biblioteca, podendo versionar e publicizar diretamente o repositório da linguagem sem prejudicar a visão geral que a biblioteca proporciona, logo, poderei compartilhar de forma mais organizada tanto o cenário completo de estudos (StudyRoom), quando da linguagem específica (learning__).
