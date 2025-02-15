@@ -1,4 +1,13 @@
-const listaEstudantes = ['João', 'Ana', 'Caio', 'Lara', 'Marjorie', 'Leo'];
-const outraArray = ['1', '2', '3']
-listaEstudantes.splice(3, 5, outraArray);
-console.log(listaEstudantes) // [ 'João', 'Ana', 'Caio', ['1', '2', '3'] ]
+const notas = [10, 6.5, 8, 7.5];
+
+let somaDasNotas = 0;
+
+notas.forEach(somaNotas)
+
+function somaNotas (nota) {
+    somaDasNotas += nota;
+}
+
+const media = somaDasNotas / notas.length;
+
+console.log(`A média das notas é ${media}`);
