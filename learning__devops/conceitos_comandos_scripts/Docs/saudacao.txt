@@ -1,0 +1,2 @@
+Olá, Mundo!
+Bem-vindo ao Linux!

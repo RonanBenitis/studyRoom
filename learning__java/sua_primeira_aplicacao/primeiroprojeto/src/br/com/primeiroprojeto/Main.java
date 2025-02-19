@@ -1,17 +1,24 @@
 package br.com.primeiroprojeto;
 
-import br.com.primeiroprojeto.model.Student;
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Alo Mundo!");
-        System.out.println("Hello, World!");
+        System.out.println("Esse é o Screen Match!");
+        System.out.println("Filme: Top Gun: Maverick");
+
+        int anoDeLancamento = 2022;
+        String sinopse;
+        sinopse = """
+                Filme Top Gun
+                Filme de aventura com galã dos anos 80
+                Muito bom!
+                """ + anoDeLancamento;
+
+        System.out.println(sinopse);
 
 
-
-        Student rojinho = new Student("Rojinho", 22,123);
-
-        System.out.println(rojinho);
-
+        double media = 8.9;
+        int classificacao;
+        classificacao = (int) (media);
+        System.out.println(classificacao);
     }
 }

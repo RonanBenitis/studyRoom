@@ -356,3 +356,162 @@ man apt
 - `cd caminho`: **change directory** - Muda de diretório. Nesse caso, podemos passar o caminho completo ou o relacional (tipo, passar só o nome do diretório caso este esteja imediatamente acessivel no diretório ao qual atualmente estamos)
 - `cd ..` = Este comando nós retornamos uma pasta de nível superior
 - `cd` = Change Directory sem nada, nós voltamos para o ponto inicial. Neste caso, é a pasta home do usuário.
+- `history` = Lista um histórico de todos os comandos utilizados no ambiente
+
+## GERENCIANDO ARQUIVOS
+Apesar de não parecer tão intuitivo utilizar o terminal, frente ao que geralmente estamos acostumados (com a interface gráfica), no entanto, quando colocamos sistemas em produção e utilizamos servidores, é esse tipo de ambiente que encontraremos.
+
+Além disso, ambientes como este carrega certa praticidade, uma vez que os comandos passam a ser intuitivos e estes funcionarão em qualquer outro servidor, as mesmas ferramentas indepente do servidor e onde ele esteja.
+
+### Criando arquivo (touch)
+**Criando um arquivo:**
+```bash
+touch notas.txt
+```
+Note que criamos os arquivo mas há nada dentro dele.
+
+### Inserindo notas e conferindo (cat)
+**Adicionar notas dentro deste arquivo:**
+```bash
+cat > notas.txt
+# Agora, a barra ficará piscante aguardando o texto que desejamos incluir
+# CTRL + D para sair
+```
+
+**Verificando conteúdo do arquivo:**
+```bash
+cat notas.txt
+# Printado no terminal o conteudo do arquivo
+```
+
+### Alternativas de inserção de conteúdo com echo
+O comando **echo** também consegue inserir conteúdo em um arquivo
+```bash
+touch notas_com_echo.txt # criando arquivo
+echo Isso é um teste > notas_com_echo.txt # resultado será parecido, mas não sei como funcionaria com multiline
+```
+
+Ao utilizar `echo` sem indicar um arquivo, a ação será um print no terminal
+- Isso será muito util para escrevermos código no futuro
+```bash
+echo "Hello World"
+```
+
+### Outra alternativa comum para edição de texto (nano)
+Nano é um editor de texto comum para ambientes Linux. Caso rodarmos o comando `nano` e termos o retorno `-bash: nano: command not found` é por que não temos instalado essa ferramenta. Necessitando instala-la.
+
+Podemos instalar o nano com o seguinte comando
+```bash
+sudo apt-get install nano
+```
+
+Agora, damos o comando `nano` e a interface do editor será aberta.
+- Escrevemos algumas notas
+- `CTRL + X` para sair
+- Quando ele pede para **save modified buffer?**, nós damos Y e indicamos onde
+- Escrevemos o nome de um arquivo que desejamos salvar este conteúdo, pode ser um novo arquivo
+
+### Movendo arquivos (mv)
+Agora, queremos mover estes arquivos para a pasta devops, mas, fazer um por um não seria adequado. Para isso, a opção que o professor utilizou é compactar os arquivos.
+
+```bash
+tar -czf compactado.tar.gz arquivo_2.txt notas.txt
+```
+Explicação do comando:
+- **tar:** Comando tar é o de compactação
+- **-czf:** c (cria um arquivo compactado) | z (gera um arquivo zip) | f (vou especificar o nome do arquivo)
+- **compactado.tar.gz:** nome_do_arquivo_compactado.extensao (que é o .tar.gz)
+- **arquivo_2.txt notas.txt**: arquivos que quero **compactar**
+- **IMPORTANTE:** cria-se um arquivo compactado com os arquivos desejados mas preserva-os, não os deleta
+
+Agora, vamos mover os arquivos desejados
+```bash
+mv compactado.tar.gz /home/lucasrm/devops
+```
+
+### Removendo arquivos (rm)
+Para deletar um arquivo, é só rodar `rm` e o nome do arquivo:
+```bash
+rm notas.txt
+```
+
+## REMOVENDO ARQUIVOS E DIRETÓRIOS
+No Linux, a remoção de arquivos e diretórios pode ser feita de forma simples utilizando comandos no terminal como rm para arquivos e rmdir ou rm -r para diretórios. No entanto, é importante ter cautela ao utilizar opções como -f e -r, pois a remoção é definitiva e não há uma lixeira para recuperação posterior.
+
+Para remover um arquivo, use o comando rm (remove):
+```bash
+rm nome_do_arquivo
+```
+
+Para remover um diretório vazio, use o comando rmdir:
+```bash
+rmdir pasta_vazia
+```
+
+Remover um diretório com conteúdo Para remover um diretório e todos os seus arquivos e subdiretórios, use o comando rm com a opção -r (recursivo):
+```bash
+rm -r nome_do_diretorio
+```
+
+## IMPORTANTE DICA
+Caso queiramos ver as opções de um comando, podemos utilizar a opção `--h` ao lado de qualquer comando:
+```bash
+mkdir --h
+```
+
+## PARAMETROS DE LISTAGEM
+```bash
+ls arc* # Lista arquivos/diretórios iniciados com "arc"
+ls arcf? # Lista arquuivos/diretórios que iniciam com "arcf" e possuem qualquer outro caracter após arcf, limitado a 1. O "?" indica existencia de algum caracter que você não conhece. Exemplos encontrados: arcf1, arcf2 ...
+ls arcf?? # Mesma situação acima, mas com 2 caracteres. Como arcf12 ...
+ls 2 # Lista todos os arquivos/diretórios que possuem 2 em qualquer posição do nome
+ls ????? # Lista todos os arquivos/diretórios que possuem exatamente 5 caracteres
+```
+
+## Praticando
+1. Criar dois diretórios chamados dir1 e dir2 na mesma posição hierárquica;
+2. Entrar no diretório dir1 e criar dois arquivos chamados data1 e data2;
+3. Copiar somente o conteúdo de dir1 para dir2;
+4. Criar um novo diretório chamado dir3;
+5. Mover o conteúdo de dir1 para dir3.
+```bash
+mkdir dir1 dir2 # etapa 1
+cd dir1 # etapa 2.1
+touch data1 data2 # etapa 2.2
+cd ..
+cp dir1/* dir2 # etapa 3
+ls dir2
+mkdir dir3 # etapa 4
+mv dir1/* dir3 # etapa 5
+```
+
+### Outra atividade
+Passo 1
+- mkdir Docs
+- Utilizamos o comando mkdir para criar um novo diretório. Aqui, estamos criando o diretório Docs no diretório atual.
+
+Passo 2
+- O comando nano abre o editor de texto Nano, permitindo a edição do arquivo "notas.txt". Se o arquivo não existir, o Nano o criará.
+- nano notas.txt
+
+Passo 3
+- Usamos o comando touchpara criar um novo arquivo vazio.
+- touch novo.txt
+
+Passo 4
+- O comando echo exibe a string especificada e o operador > redireciona a saída para o arquivo "saudacao.txt", criando-o se ainda não existir.
+- echo "Olá, Mundo!" > saudacao.txt
+
+Passo 5
+- O comando cat exibe o conteúdo de um arquivo no terminal.
+- cat saudacao.txt
+
+Neste caso, será exibido o conteúdo do arquivo "saudacao.txt".
+
+Passo 6
+- O operador >> é usado para adicionar (anexar) texto ao final de um arquivo existente.
+- echo "Bem-vindo ao Linux!" >> saudacao.txt
+
+Passo 7
+- O comando ls é utilizado para listar o conteúdo de um diretório.
+- ls Docs
