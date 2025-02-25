@@ -1,8 +1,61 @@
 # <span style="color: #87BBA2">===   DevOps: explorando conceitos, comandos e scripts no Linux CLI   ===</span> <!-- omit in toc -->
 
 # <span style="color: #87BBA2">INDICE</span> <!-- omit in toc -->
-- [Aula XX: TituloAula](#aula-xx-tituloaula)
-  - [Capitulo](#capitulo)
+- [LINUX E DEVOPS](#linux-e-devops)
+  - [MUNDO DEVOPS](#mundo-devops)
+    - [Abordagem DevOps](#abordagem-devops)
+    - [Virtual Machine](#virtual-machine)
+    - [VirtualBox da Oracle](#virtualbox-da-oracle)
+    - [Passo a passo](#passo-a-passo)
+    - [Baixando Ubuntu](#baixando-ubuntu)
+  - [CONFIGURANDO UM AMBIENTE LINUX](#configurando-um-ambiente-linux)
+    - [Passo a passo](#passo-a-passo-1)
+      - [Avançando: Opções de Memória](#avançando-opções-de-memória)
+      - [Avançando: Disco Rígido Virtual](#avançando-disco-rígido-virtual)
+      - [IMPORTANTE: Sobre as Specs](#importante-sobre-as-specs)
+      - [Avançando: Sintese](#avançando-sintese)
+      - [Avançando: Iniciando VM](#avançando-iniciando-vm)
+    - [É comum nós estarmos próximos do servidor quando colocamos um software em produção?](#é-comum-nós-estarmos-próximos-do-servidor-quando-colocamos-um-software-em-produção)
+  - [WSL COMO ALTERNATIVA AO USO DO VIRTUALBOX](#wsl-como-alternativa-ao-uso-do-virtualbox)
+    - [O que é WSL?](#o-que-é-wsl)
+  - [ACESSO VIA SSH](#acesso-via-ssh)
+    - [Porque Linux?](#porque-linux)
+    - [O que é Sistema Operacional?](#o-que-é-sistema-operacional)
+    - [Acesso remoto](#acesso-remoto)
+    - [Passo a passo](#passo-a-passo-2)
+    - [Acessando VM](#acessando-vm)
+  - [COMANDOS PARA PRATICAR](#comandos-para-praticar)
+- [EXPLORANDO O LINUX SERVER](#explorando-o-linux-server)
+  - [NAVEGANDO NO LINUX SERVER](#navegando-no-linux-server)
+    - [**Escalando privilégios com `sudo`**](#escalando-privilégios-com-sudo)
+    - [**Verificando pacotes e atualizações**](#verificando-pacotes-e-atualizações)
+    - [**📌 Significado de algumas siglas importantes**](#-significado-de-algumas-siglas-importantes)
+    - [**📌 O que é Shell CLI?**](#-o-que-é-shell-cli)
+    - [**📌 Por que o nome "Shell"?**](#-por-que-o-nome-shell)
+    - [**📌 Tipos de Shell**](#-tipos-de-shell)
+    - [**📌 Shell no contexto do VirtualBox e Ubuntu**](#-shell-no-contexto-do-virtualbox-e-ubuntu)
+    - [**📌 Estrutura Geral de um Comando no Linux**](#-estrutura-geral-de-um-comando-no-linux)
+    - [**📌 Exemplo 1: Comando `ls`**](#-exemplo-1-comando-ls)
+    - [**📌 Exemplo 2: Comando `sudo apt install`**](#-exemplo-2-comando-sudo-apt-install)
+    - [**📌 Tipos de Elementos em um Comando**](#-tipos-de-elementos-em-um-comando)
+    - [**📌 Teste na Prática**](#-teste-na-prática)
+    - [Criando um diretório (pasta) e indo até ele](#criando-um-diretório-pasta-e-indo-até-ele)
+  - [GERENCIANDO ARQUIVOS](#gerenciando-arquivos)
+    - [Criando arquivo (touch)](#criando-arquivo-touch)
+    - [Inserindo notas e conferindo (cat)](#inserindo-notas-e-conferindo-cat)
+    - [Alternativas de inserção de conteúdo com echo](#alternativas-de-inserção-de-conteúdo-com-echo)
+    - [Outra alternativa comum para edição de texto (nano)](#outra-alternativa-comum-para-edição-de-texto-nano)
+    - [Movendo arquivos (mv)](#movendo-arquivos-mv)
+    - [Removendo arquivos (rm)](#removendo-arquivos-rm)
+  - [REMOVENDO ARQUIVOS E DIRETÓRIOS](#removendo-arquivos-e-diretórios)
+  - [IMPORTANTE DICA](#importante-dica)
+  - [PARAMETROS DE LISTAGEM](#parametros-de-listagem)
+  - [Praticando](#praticando)
+    - [Outra atividade](#outra-atividade)
+- [SHELL SCRIPTING](#shell-scripting)
+  - [CONSTRUINDO SCRIPTS NO SHELL](#construindo-scripts-no-shell)
+    - [Caso prático](#caso-prático)
+    - [Criando Shell Script](#criando-shell-script)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -515,3 +568,56 @@ Passo 6
 Passo 7
 - O comando ls é utilizado para listar o conteúdo de um diretório.
 - ls Docs
+
+# <span style="color: #87BBA2">SHELL SCRIPTING</span>
+
+## CONSTRUINDO SCRIPTS NO SHELL
+Aqui entra um tópico importante, que seria **automatização de tarefas**, util para não termos que ficar executando comando por comando em ações repetidas.
+> A nossa principal ideia com automatização é executar de uma forma mais inteligente e ágil uma série de comandos que teríamos que fazer manualmente na interface.
+
+Então, criamos o que chamamos de `script` para fazer isso. E aí já demos até uma pista do que vamos usar. Vamos usar aqui o que chamamos de Shell Scripting (roteiro de comandos).
+
+E o que é o `script`? O próprio nome sugere que é um roteiro, que vai definir como uma atividade será desempenhada de forma automatizada em nosso servidor. Vamos criá-lo usando uma linguagem própria de script. No nosso caso vai ser o Bash.
+
+### Caso prático
+Uma empresa que necessita, de forma rotineira, criar backup dos dados.
+- Não seria ideal termos que entrar no terminal e todo dia executarmos o mesmo comando. Para isso, faremos o Shell Scripting
+
+### Criando Shell Script
+Para criarmos os nossos scripts, utilizaremos o editor de texto **Nano**, já visto anteriormente.
+
+**Escrevendo Shell Script**
+- A primeira linha é para informar quem será o interpretador do comando
+  - Escrevemos: `#! /bin/bash`, para dizer que será interpretado pelo bash.
+- Em seguida, criamos uma variável para armazenar o diretório de backup desejado:
+  - `diretorio_backup="/home/lucasrm/devops"
+- Na linha de baixo, criamos variável para o nome do arquivo
+  - `nome_arquivo="backup_$(date +%Y%m%d_%H%M%S).tar.gz"`
+  - Ou seja: variavel="nomeFixo_$(instrucao de coleta de data).extensaoFixa"
+- Na linha de baixo, executaremos o comando para compilação
+  - `tar -czf "$nome_arquivo" "diretorio_backup"`
+  - **-czf:** c (cria um arquivo compactado) | z (gera um arquivo zip) | f (vou especificar o nome do arquivo)
+  - "$nome_arquivo": nome do arquivo a ser criado na compactação
+  - "diretorio_backup": arquivos que serão compactados
+- No fim, informaremos ao usuários que o processo foi realizado com sucesso
+  - Utilizaremos o `echo`
+  - `echo "Backup concluido em $nome_arquivo"`
+- Agora damos um `ctrl X` para sair da interface
+- Damos um `Y` para salvar
+- Acrescentamos o nome para o shell script
+  - Colocamos o nome como "backup.sh" e ele foi salvo no "working directory".
+
+**Executando Shell Script**
+- Primeiro, alteramos o shell script
+  - `chmod +x backup.sh`
+- Depois, executamos
+  - `bash backup.sh`
+
+**Retornos da execução**
+```bash
+
+```
+
+Sobre o $():
+- Instrumento de execução de comando, que no caso, usamos o date
+- 
