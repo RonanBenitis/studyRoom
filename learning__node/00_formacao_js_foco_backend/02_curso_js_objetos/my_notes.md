@@ -352,7 +352,7 @@ Método para iterar (ação de repetição) um objeto.
 
 ### Diferença entre for...of e for...in
 - **For...of** é utilizado, geralmente, para iterar uma lista de forma mais semantica, porém, com menos controle, iterando do iniciao ao fim da lista (array).
-- **For...of** é utilizado para iterar um objeto, acessando, a cada iteração, uma chave do objeto indicado. Ou seja, para o seguinte objeto, temos o seguinte retorno:
+- **For...in** é utilizado para iterar um objeto, acessando, a cada iteração, uma chave do objeto indicado. Ou seja, para o seguinte objeto, temos o seguinte retorno:
 ```js
 const estudante = {
   nome: 'José Silva',
@@ -431,255 +431,6 @@ for (let chave in estudante) {
 - typeof coleta o tipo do dados
 - Caso o tipo seja object ou function, ignore, pois, são os casos que causariam este erro
   - **DETALHE**: Importante lembrar que uma **array TAMBÉM É um Object, assim como null**. Ou seja, não existe "typeof array" ou "typeof null";
-
-## MÉTODOS DE OBJETO
-Um método importante da classe Object é o `Object.keys()`. Este método printa todas a propriedades de um objeto, possibilitando fazermos instruções para verificar, por exemplo, se uma propriedade existe ou não neste objeto.
-
-```js
-const estudante = {
-  nome: 'José Silva',
-  idade: 32,
-  cpf: '12312312312',
-  turma: 'JavaScript',
-  bolsista: true,
-  telefones: ['551199999998', '551199999993'],
-  enderecos: [{
-     rua: 'Rua Joseph Climber',
-     numero: '45',
-     complemento: 'apto 43'
-   },
-   {
-     rua: 'Rua Dona Clotilde',
-     numero: '71',
-     complemento: null
-  }]
-}
-
-const chavesObjeto = Object.keys(estudante);
-console.log(chavesObjeto) // Printa todas as chaves de primeiro nível do objeto
-```
-
-### Verificando se um objeto possui uma propriedade especifica
-```js
-if (!chavesObjeto.includes('endereço')) {
-  console.error('è necessário ter um endereço cadastrado');
-}
-```
-No VsCode, `console.error()` não tem muita diferença visual do `console.log()`, mas em um navegador a diferença seria mais visível.
-
-### Mais sobre funções de objetos
-- `Object`
-  - `.keys()`: Retorna uma array com as propriedades de um objeto (suas chaves);
-  - `.values()`: Retorna uma array com os valores das chaves de um objeto;
-  - `.entries()`: Retorna um array de array com pares de chaves e valos
-    - Algo como: `// Saída: [['a', 1], ['b', 2], ['c', 3]]`
-  - `.assign()`: Combina propriedades de diferentes objetos em único. Caso o segundo objeto tiver propriedades iguais ao primeiro, o segundo sobrescrevará a propriedade igual do primeiro.
-
-## Um pouco sobre enumerabilidade
-Em JavaScript, objetos são estruturas que armazenam dados em pares chave-valor. Cada propriedade em um objeto possui atributos que determinam seu comportamento e acessibilidade. Uma característica importante dessas propriedades é a enumeração, que define se uma propriedade será incluída em operações como iteração.
-
-### Propriedades enumeráveis
-Propriedades enumeráveis são aquelas que são consideradas durante operações de iteração, como for … in e métodos como Object.keys(). Por padrão, todas as propriedades criadas diretamente em um objeto são enumeráveis, o que significa que elas são visíveis durante a iteração.
-```js
-const meuObjeto = {
-  nome: "ChatGPT",
-  linguagem: "JavaScript",
-  versao: "3.5"
-};
-
-for (let chave in meuObjeto) {
-  console.log(chave); // Saída: nome, linguagem, versao
-}
-```
-
-### Propriedades não enumeráveis
-Propriedades não enumeráveis não são consideradas durante operações de iteração. Essas propriedades são geralmente associadas a métodos internos de objetos ou configurações específicas que não precisam ser expostas durante iterações comuns.
-```js
-const meuObjeto = {};
-
-Object.defineProperty(meuObjeto, 'propriedadeNaoEnumeravel', {
-  value: 42,
-  enumerable: false
-});
-
-for (let chave in meuObjeto) {
-  console.log(chave); // Saída: (nenhuma, pois não há propriedades enumeráveis)
-}
-```
-
-### Manipulando enumerabilidade
-Para controlar a enumerabilidade de uma propriedade, a função Object.defineProperty() pode ser utilizada. O segundo argumento desta função permite a configuração de diversas propriedades, incluindo a enumerabilidade.
-```js
-const meuObjeto = {};
-
-Object.defineProperty(meuObjeto, 'propriedadeNaoEnumeravel', {
-  value: 42,
-  enumerable: false
-});
-
-console.log(Object.keys(meuObjeto)); // Saída: []
-```
-```js
-const meuObjeto = {};
-
-// Criando uma propriedade não enumerável
-Object.defineProperty(meuObjeto, 'propriedadeNaoEnumeravel', {
-  value: 42,
-  enumerable: true // Definindo a enumerabilidade como true
-});
-
-// Mesmo com enumerable:true, Object.keys ainda pode ser utilizado
-console.log(Object.keys(meuObjeto)); // Saída: ['propriedadeNaoEnumeravel']
-
-// Exibindo o valor da propriedade
-console.log(meuObjeto.propriedadeNaoEnumeravel); // Saída: 42
-```
-Neste exemplo, a propriedade propriedadeNaoEnumeravel é configurada com enumerable: true, o que significa que a propriedade será listada quando utilizamos Object.keys(). Mesmo sendo enumerável, o valor da propriedade ainda pode ser acessado normalmente.
-
-A enumerabilidade é uma das diversas propriedades de objetos em JavaScript e está relacionada à forma como eles são construídos na linguagem. Você pode consultar [a documentação do MDN sobre enumerabilidade e posse de propriedades](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Enumerability_and_ownership_of_properties) para conferir mais dados e exemplos.
-
-## OPERADOR DE ESPALHAMENTO
-```js
-const estudante = {
-  nome: 'José Silva',
-  idade: 32,
-  cpf: '12312312312',
-  turma: 'JavaScript',
-  bolsista: true,
-  telefones: ['551199999998', '551199999993'],
-  enderecos: [{
-    rua: 'Rua Joseph Climber',
-    numero: '45',
-    complemento: 'apto 43'
-  },
-  {
-    rua: 'Rua Dona Clotilde',
-    numero: '71',
-    complemento: null
-  }]
-}
-
-```
-
-Queremos printar os telefones de um estudante, para isso criamos a seguinte função:
-```js
-function exibirTelefones(telefone1, telefone2) {
-  console.log(`ligar para ${telefone1}`);
-  console.log(`ligar para ${telefone2}`);
-}
-```
-
-Para coletar o telefone de um estudante, uma opção seria essa:
-```js
-exibirTelefones(estudante.telefones[0], estudante.telefones[1]);
-```
-Porém, não recomenda-se "chumbar" os valores através de indexações. Utilizar indexação tem sua utilidade, mas são em cenários especificos. No geral, não recomenda-se utilizar indexação.
-
-Uma alternativa mais robusta e elegante seria utilizando o operador de espalhamento:
-```js
-exibirTelefones(...estudante.telefones); // Retorno será o mesmo do de cima
-```
-
-### Sobre operador de espalhamento
-O que sabemos sobre esse operador?
-- Que ele literalmente abre uma array e espalhá-lo.
-- No nosso exemplo, nós acessamos a propriedade `telefone` do objeto `estudante` e espalhamos o seu conteúdo dentro da função `exibirTelefones`.
-
-### Outro teste: Dados envio
-Vamos simular a coleta de dados de um estudante como se fosse para envio de algo pelo correio:
-```js
-const dadosEnvio = {
-  destinatario: estudante.nome,
-  endereço: estudante.endereço[0]
-}
-
-/*
-Retorno:
-{
-    destinatario: 'José Silva',
-    endereco: {rua: 'Rua Joseph Climber', numero: '45', complemento: 'apto 43'}
-}
-*/
-```
-
-Neste caso, além de termos chumbado o index no endereço, estamos retornando, no endereço, um print do objeto de endereço mesmo. E no caso, não gostariamos de fazer isso aqui. Queriamos o seu valor.
-
-**Outro exemplo:**
-```js
-const dadosEnvio = {
-  destinatario: estudante.nome,
-  rua: estudante.enderecos[0].rua,
-  numero: estudante.ednerecos[0].numero
-  // ...
-}
-```
-Este exemplo também não é legal, além de estarmos chumbando, estamos fazendo um trabalho muito artesanal.
-
-
-### Montando objetos com partes de outros
-**Mais um exemplo:**
-```js
-const dadosEnvio = {
-  destinatario: estudante.nome,
-  ...estudante.enderecos[0]
-}
-
-/*
-Retonro:
-{
-    destinatario: 'José Silva',
-    rua: 'Rua Joseph Climber',
-    numero: '45',
-    complemento: 'apto 43'
-}
-*/
-```
-Agora sim o objeto faz sentido!
-- Com esse espalhamento, construimos um objeto de 4 propriedades facilmente acessáveis
-- Chumbar o indice 0 dessa maneira, neste cenário, faz sentido pois estamos expicitando e configurando para pegarmos sempre **o primeiro endereço**.
-
-E o que o operador de espalhamento fez nesse caso? **Montou um objeto dentro de outro!**
-- Ele pegou o objeto de endereço e espalhou seu conteúdo dentro do objeto de `dadosEnvio`.
-- Com isso, conseguimos montar objetos com partes de outros
-
-Usamos muito o operador de espalhamento justamente para realizar essa ação: Para tirar dados de um objeto e montar dados de outro objeto a partir disso.
-
-## MAIS SOBRE SPREAD OPERATOR
-### Pontos de destaque da leitura
-- Apesar de prático, o uso da sintaxe de espalhamento pode gerar bastante processamento, então deve ser usado com cuidado em caso de loops ou funções recursivas.
-- O JavaScript sobrescreve as chaves com o mesmo nome a cada ocorrência, fazendo com que o resultado final seja somente o último objeto declarado dentro do objeto personagens
-
-### Link da leitura
-[Para saber mais: operador de espalhamento](https://cursos.alura.com.br/course/javascript-conhecendo-objetos/task/150931)
-
-# CONHECENDO O JSON
-
-## O FORMATO JSON
-Uma estrutura de dados baseado em objetos JavaScript, é a interface de comunicação entre diversas tecnologias.
-
-Ou seja, é a interface que faz esse intermédio formatando os dados que são coletados de um banco de dados. O Frontend solicita uma informação, o Backend coleta do banco de dados, faz os processamentos necessários e retorna com essa interface (**chamado de JSON**) para leitura de aplicações diversas. É uma convenção de "linguagem de comunicação" intendível por todos.
-
-JSON = Java Script Object Notation
-- Estrutura de Dados Baseado em Objetos Javascript
-
-### Pontos importantes sobre JSON
-O Json:
-- Não é um tipo de dado JS
-- Ele é **baseado em um objeto Javascript**, mas **não é um objeto Javascript**, ele, por si só, não é atribuído a uma variável (detalhe, ele não é atribuido mas é **atribuível**);
-- Json necessita de  DUPLAS no nome de suas chaves, ao contrário de um objeto JavaScript (que não precisa de aspas em suas chaves).
-- Json só trabalha com aspas duplas
-- Json não aceita virgulas sobrando, as **Trailing commas**, ao contrário do objeto Javascript Literal que aceita.
-- Não são permitidos:
-  - Funções
-  - Comentários
-- Tipos suportados:
-  - Primitivos (string, number, boolean, null),
-  - arrays,
-  - objetos
-
-Porque o Json é tão utilizado:
-- Ele veio substituir um formato anterior de dados, o XML.
-- O motivo é a sua simplicidade em trabalhar com JSON e, por ser bem menos verboso, ocupa relativamente menos espaço.****
 
 ## SOBRE APIS
 
@@ -854,7 +605,7 @@ Se precisar de algo mais avançado, me chama! 😃
 
 # <span style="color: #87BBA2">MANIPULANDO LISTAS DE OBJETOS</span>
 
-## OPERAÇÕES COM JSON
+## OPERAÇÕES COM JSON (ENCONTRANDO OBJETO)
 Agora vamos praticar a manipulação de elementos de JSON
 ```js
 const estudantes = require('../assets/estudantes.json');
@@ -901,3 +652,116 @@ console.log(telefoneEcontrado); // Retorno: Objeto encontrado
 
 ### Concluindo
 O que fizemos agora é algo muito comum no dia a dia, que são forma de acessar e capturar elementos. Neste exemplo, fizemos a captura com formas de acessar uma Array e capturar os objetos que nela existem.
+
+## FILTRANDO OBJETOS
+Quando estamos trabalhando com find, desejamos encontrar uma informação especifica, mas, agora, desejamos fazer um filtro.
+
+```js
+const estudantes = require('./assets/estudantes.json');
+
+// Função para verificar quais estudantes não possuem a propriedade informada em seu endereço
+function filtraPorPropriedade(lista, propriedadade) {
+    return lista.filter((estudante) => {
+        return !estudante.endereço.hasOwnProperty(propriedadade);
+    })
+}
+
+const listaEnderecosIncompletos = filtraPorPropriedade(estudantes, 'cep').endereço
+console.log(listaEnderecosIncompletos);
+```
+**O que é hasOwnProperty?**
+- Função para verificar a existencia da propriedade inserida em seus parenteses no objeto que se chama este método
+> The hasOwnProperty() method of Object instances returns a boolean indicating whether this object has the specified property as its own property (as opposed to inheriting it).
+- Ou seja, verifica se o objeto possui a propriedade informada como própria. (Ou seja, desconsidera propriedades herdadas).
+
+### Lembrando diferença de Find e Filter
+- **Find**: Retorna **A primeira ocorrencia** ou undefined.
+  - O método find() retorna o valor do primeiro elemento do array que satisfizer a função de teste provida. Caso contrario, undefined é retornado.
+- **Filter**: Retorna **Array de ocorrencias** ou array vazia.
+  - O método filter() cria um novo array com todos os elementos que passaram no teste implementado pela função fornecida.
+
+## ORDENANDO OBJETOS
+Outra operação comum é ordenação dos elementos em uma array
+
+```js
+const estudantes = require('./assets/estudantes.json');
+
+function ordena(lista, propriedade) {
+    return lista.sort((a, b) => {
+        if (a[propriedade] < b[propriedade]) return -1;
+        if (a[propriedade] > b[propriedade]) return 1;
+        return 0;
+    });
+}
+
+const listaOrdenada = ordena(estudantes, 'nome');
+console.log(listaOrdenada);
+```
+**O que é .sort()**?
+- Método do JavaScript de ordenação de Array conforme lógica que indicarmos.
+> O método sort() ordena os elementos do próprio array e retorna o array. A ordenação não é necessariamente estável. A ordenação padrão é de acordo com a pontuação de código unicode.
+>
+> A complexidade do tempo de execução ou a quantidade de memória utilizada pela ordenação não pode ser garantido e depende da implementação realizada.
+
+O .sort() utiliza lógica de comparação para ordenar os elementos, e, também, tem comportamento padrão. [Veja mais aqui](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
+
+Exemplo:
+```js
+var stringArray = ["Blue", "Humpback", "Beluga"];
+var numericStringArray = ["80", "9", "700"];
+var numberArray = [40, 1, 5, 200];
+var mixedNumericArray = ["80", "9", "700", 40, 1, 5, 200];
+
+function compararNumeros(a, b) {
+  return a - b;
+}
+
+console.log("stringArray:", stringArray.join());
+console.log("Ordenada:", stringArray.sort());
+
+console.log("numberArray:", numberArray.join());
+console.log("Ordenada sem função de comparação:", numberArray.sort());
+console.log("Ordenada com compararNumeros:", numberArray.sort(compararNumeros));
+
+console.log("numericStringArray:", numericStringArray.join());
+console.log("Ordenada sem função de comparação:", numericStringArray.sort());
+console.log(
+  "Ordenada com compararNumeros:",
+  numericStringArray.sort(compararNumeros),
+);
+
+console.log("mixedNumericArray:", mixedNumericArray.join());
+console.log("Ordenada sem função de comparação:", mixedNumericArray.sort());
+console.log(
+  "Ordenada com compararNumeros:",
+  mixedNumericArray.sort(compararNumeros),
+);
+
+// RETORNOS
+/* stringArray: Blue,Humpback,Beluga
+Ordenada: Beluga,Blue,Humpback
+
+numberArray: 40,1,5,200
+Ordenada sem função de comparação: 1,200,40,5
+Ordenada com compararNumeros: 1,5,40,200
+
+numericStringArray: 80,9,700
+Ordenada sem função de comparação: 700,80,9
+Ordenada com compararNumeros: 9,80,700
+
+mixedNumericArray: 80,9,700,40,1,5,200
+Ordenada sem função de comparação: 1,200,40,5,700,80,9
+Ordenada com compararNumeros: 1,5,9,40,80,200,700 */
+```
+
+### Explicação Alura
+Utilizamos o sort() de array e tem duas formas de ser utilizado:
+- **A forma mais simples (sem parametros)**
+  - não possibilita nos acessarmos as propriedades internas de um objeto.
+  - Funciona apenas para textos, e não para valores numéricos, (como vimos, ele pega o valor unicode, ou seja, 100 virá antes de 2 pois o valor numérico unicode de 100, que começa com 1, vem antes de 2)
+  - Ideal mais para lista de strings.
+- **Forma de comparação (a, b)**
+  - a e b são representações dos elementos internos a array, por exemplo, a é o elemento atualmente iterado e o b é o elemento subsequente ao a.
+  - Ao fazermos comparação, caso a comparação for negativa, a fica antes de b, caso positiva, b fica antes de a, caso 0, mantêm-se como está.
+  - No caso, compara-se string com operador lógico pois o sort verifica o valor unicode da primeira letra, ou seja, a palavra "Abelha" tem valor menor que "Bufalo", já que o valor unicode da palavra A é menor que a palavra B.
+  - Isso gera algumas particularidades, por isso, é importante ter em mente [a documentação](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).

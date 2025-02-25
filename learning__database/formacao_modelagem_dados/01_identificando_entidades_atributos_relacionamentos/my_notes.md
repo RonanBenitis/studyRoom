@@ -269,3 +269,150 @@ Ou seja, se for:
 ### Ordem de leitura do relacionamento
 A ordem de leitura de um relacionamento **sempre será**: ENTIDADE + RELACIONAMENTO + CARDINALIDADE + ENTIDADE.
 - DEPARTAMENTO + pode CONTER + 1:N + FUNCIONARIOS
+
+## MAIS SOBRE CARDINALIDADE
+A cardinalidade nos relacionamentos em um modelo conceitual é um aspecto fundamental que descreve como as entidades estão quantitativamente relacionadas em um banco de dados. Em outras palavras, a cardinalidade define o número de instâncias de uma entidade que podem ou devem estar associadas a um número de instâncias de outra entidade. Este conceito é crucial para desenhar um sistema de banco de dados que reflita com precisão as regras e necessidades de negócio.
+
+### Tipos de Cardinalidade
+A cardinalidade é tipicamente expressa em termos das possíveis quantidades de conexões entre entidades e é categorizada principalmente em três tipos:
+
+Obs.: Nesta representação, apenas a cardinalidade máxima é informada
+
+#### Um-para-Um (1:1):
+Descrição: Cada instância de uma entidade está associada a no máximo uma instância da outra entidade.
+
+Exemplo: Suponha um sistema onde cada Gerente é responsável por um único Departamento e cada Departamento é gerenciado por um único Gerente. Aqui, a relação entre Gerente e Departamento é um-para-um.
+
+#### Um-para-Muitos (1:N):
+Descrição: Uma instância de uma entidade pode estar associada a várias instâncias de outra entidade, mas uma instância da segunda entidade pode estar associada a no máximo uma instância da primeira entidade.
+
+Exemplo: Em um sistema escolar, um Professor pode lecionar várias Turmas, mas cada Turma é lecionada por apenas um Professor. Assim, a relação entre Professor e Turma é um-para-muitos.
+
+#### Muitos-para-Muitos (N:M):
+Descrição: Instâncias de uma entidade podem estar associadas a várias instâncias da outra entidade e vice-versa.
+
+Exemplo: Em uma universidade, um Estudante pode se inscrever em várias Disciplinas e cada Disciplina pode ter vários Estudantes inscritos. Esta é uma relação muitos-para-muitos.
+
+### Representação da Cardinalidade
+Em um Diagrama Entidade-Relacionamento (DER), a cardinalidade é representada por meio de símbolos ou etiquetas nas linhas que conectam as entidades. Esses símbolos indicam as regras de cardinalidade, como "1", "N" ou "M", mostrando como as entidades estão relacionadas.
+
+### Importância da Cardinalidade
+Integridade dos Dados: As regras de cardinalidade ajudam a manter a integridade dos dados ao garantir que os relacionamentos entre as entidades respeitem as regras de negócio definidas. Isso previne erros como ter uma Turma sem Professor em um sistema que exige que todas as turmas tenham professores.
+
+Eficiência na Consulta: Entender as cardinalidades ajuda a otimizar as consultas ao banco de dados. Por exemplo, saber que a relação entre Professor e Turma é 1 permite otimizações ao buscar todas as turmas de um professor específico.
+
+Design do Banco de Dados: A cardinalidade informa decisões sobre como as tabelas devem ser estruturadas, como os índices devem ser criados e como as chaves estrangeiras são definidas, influenciando diretamente a performance e a escalabilidade do banco de dados.
+
+Portanto, definir corretamente as cardinalidades dos relacionamentos no modelo conceitual é crucial para o sucesso do design e da funcionalidade de um sistema de banco de dados, garantindo que ele seja capaz de atender eficientemente às necessidades do usuário e às exigências do negócio.
+
+## CARDINALIDADE
+Realizar a definição correta de cardinalidade estamos garantindo que nossos dados sejam integro e estamos atendendo às regras de negócio, como visto no exemplo da conta conjunta. Onde, quando a conta é de uma pessoa, tinhamos a relação de N:1 entre Cliente e Conta e quando passou a ser conjunta se tornou N:N.
+
+Para representar nossas cardinalidades, é **importantissimo** sempre seguirmos as **regras de negócios**;
+
+### Regras de negócio da FlexEmpresta
+- Um cliente pode ter nenhum ou varios emprestimos
+- Um emprestimo DEVE estar associado a UMA e exclusivamente UMA pessoa
+- Ao criar um emprestimo, não precisa-se pagar a primeira parcela de imediato, mas o pagamento poderá ser parcelado
+- Um pagamento sempre deve estar associado a um emprestimo, quitando apenas um emprestimo
+- Nem todo colaborador gerencia um cliente, mas pode gerenciar mais de um
+  - Pois, temos colaboradores que não são gerentes
+  - Mas um gerente pode gerenciar mais de um cliente
+- Um cliente sempre será gerenciado por um colaborador
+- Um departamento precisa ser gerenciado no minimo e no maximo 1 colaborador (gerente)
+- Nem todo colaborador é gerente, então, nem todos estarão gerenciando um Departamento
+  - Mas quando o colaborador gerencia, ele só pode gerenciar um departamento
+- Um departamento pode conter no minimo 2 colaboradores atuando e no maximo é N
+- Um colaborador deve e só pode pertencer a um departamento
+- Um cliente, no momento da criação, PRECISA ter uma conta, no minimo, e varias contas no maximo
+- Pra conta existir, precisa estar associada a um cliente, mas, no maximo, precisará de varios clientes pois a FlexEmpresta aceita conta conjunta
+
+## SOBRE REGRAS DE NEGÓCIO
+
+Quando estamos criando um sistema, uma das etapas mais importantes é entender como esse sistema vai funcionar, certo? É aí que entram as Regras de Negócio. Imagine que você está montando um quebra-cabeça. As peças são os dados que você tem, e as regras de negócio são as instruções de como essas peças devem se encaixar. Sem essas instruções, você pode até montar algo, mas provavelmente não será o que você queria no início.
+
+### O que são Regras de Negócio?
+As regras de negócio são, basicamente, as leis que definem como uma empresa ou sistema deve operar. Elas são as diretrizes que dizem como os dados devem ser tratados, quais operações são permitidas, e como diferentes partes do sistema interagem entre si. Por exemplo, uma regra de negócio pode dizer que "um cliente deve ter mais de 18 anos para abrir uma conta".
+
+### Por que são importantes?
+Sem regras de negócio bem definidas e implementadas, um sistema pode se comportar de maneira imprevisível, causar erros, ou até mesmo falhar em realizar suas funções básicas. Além disso, elas ajudam a garantir que o sistema esteja alinhado com os objetivos da empresa, cumprindo com regulamentações e oferecendo um serviço de qualidade para os usuários.
+
+### Influência no Modelo Conceitual
+O Modelo Conceitual é como o esboço de um edifício antes de começar a construção. Ele mostra a estrutura dos dados, como eles se relacionam, e quais são as principais operações que podem ser realizadas. As regras de negócio influenciam diretamente esse modelo porque definem:
+
+Quais dados são necessários: Se a regra diz que todo cliente deve ter mais de 18 anos, o modelo precisa de um campo para a data de nascimento ou idade do cliente.
+Como os dados se relacionam: Se uma regra determina que cada pedido deve estar associado a um único cliente, isso define uma relação específica entre os dados de pedidos e clientes.
+Restrições e validações: Por exemplo, se uma regra estabelece que o estoque de um produto não pode ser negativo, isso precisa ser considerado no modelo para garantir que a regra seja respeitada.
+
+### Implementação no Modelo Conceitual
+A implementação dessas regras no modelo conceitual é crucial para o sucesso do sistema. Isso geralmente envolve:
+
+Definir entidades e atributos: Identificar quais são os elementos de dados necessários e suas características.
+Estabelecer relações: Determinar como as entidades se relacionam entre si.
+Aplicar restrições: Incluir regras que limitam os valores que os dados podem ter ou como eles podem ser alterados.
+
+### Exemplo Prático
+Vamos considerar um sistema de biblioteca. Uma regra de negócio pode ser que "um usuário pode pegar no máximo 5 livros por vez". No modelo conceitual, isso influencia:
+
+A criação de uma entidade Usuário e uma entidade Livro.
+Uma relação entre Usuário e Livro que permite associar múltiplos livros a um único usuário.
+Uma restrição na relação que limita o número de livros associados a um usuário a no máximo 5.
+
+### Conclusão
+As regras de negócio são fundamentais para o desenvolvimento de sistemas eficientes e eficazes. Elas orientam a modelagem de dados, garantindo que o sistema atenda às necessidades da empresa e dos usuários. Implementá-las corretamente no modelo conceitual é essencial para construir uma base sólida para o desenvolvimento do sistema. Portanto, entender e aplicar essas regras é uma habilidade valiosa para qualquer desenvolvedor ou analista de sistemas.
+
+## ENTIDADE ASSOCIATIVA
+Para um banco de dados relacional, não é possivel mantermos um relacionamento muitos-para-muitos (N:N), mas, como podemos resolver a questão deste relacionamento, uma vez que se faz necessário a relação de muitos-para-muitos entre essas duas entidades. Resolvemos isso através das **Entidades Associativas**, tornando uma relação N:N em uma relação indireta.
+
+A entidade associativa não é nem uma entidade, nem um relacionamento. Ela vem da mistura desses dois objetos. Trata-se da junção de uma entidade com um relacionamento, porque ela será uma entidade ao final do projeto, mas também é responsável por associar duas entidades.
+
+### Como o banco se comportaria sem entidade associativa
+
+#### Sem associação
+![tab sem associacao](./assets/sem_assoc.png)
+- Observe que Luiza e Carlos compartilhar a mesma conta 12487
+
+#### Representação do banco sem associação
+![representacao do banco](./assets/represent_banco_sem_assoc.png)
+![highlight na repeticao](./assets/repeticao_highlited.png)
+- Como Luiza e Carlos estavam fazendo referencia a uma mesma linha, e isso não é possivem no banco de dados, uma solução para isso seria replicar a linha, tornando uma delas associada a Luiza e uma delas associada a Carlos.
+- Isso não é pratico, pois, se tivesse um caso de 30 instancias de um objeto fazendo referencia a 2 instancia de outro objeto, já seriam 60 linhas. Se fossem para 3 instancias, 90 linhas, sendo 60 linhas replicadas (só mudando a quem está associado), ocupando desnecessariamente espaço no banco e necessitando realizar operações especificas para fazer alguma alteração, caso necessita-se de atualização, e afins.
+
+#### Com associação
+![Realizando associação](./assets//com_assoc.png)
+Agora, tendo uma tabela intermediaria realizando as associações, sempre teremos relacionamentos unicos.
+- A tabela de associação unirá uma entidade com a outra, ou seka, Luiza tem conta X, Luiza tem conta Y, Carlos tem Conta Z, Carlos tem conta Y, e por aí vai.
+- Isso facilita a manutenção e economiza espaço, pois associa-se apenas chaves únicas.
+
+## MAIS SOBRE ENTIDADE ASSOCIATIVA
+Uma entidade associativa no contexto de modelagem de dados é um conceito crucial quando se lida com relacionamentos muitos-para-muitos (N:M) entre duas entidades. Em modelos conceituais, uma entidade associativa é usada para resolver a complexidade que surge ao tentar implementar diretamente um relacionamento muitos-para-muitos em um sistema de banco de dados relacional.
+
+### Definição de Entidade Associativa
+Uma entidade associativa, também conhecida como tabela de junção, tabela de associação, ou tabela intermediária, é uma tabela que serve como uma ponte entre duas outras entidades para gerenciar um relacionamento muitos-para-muitos entre elas. Essa entidade não só armazena as chaves das duas entidades relacionadas como também pode conter atributos adicionais que são específicos para o relacionamento.
+
+### Funcionalidade da Entidade Associativa
+Gerenciamento de Relacionamentos (N:M): A principal função de uma entidade associativa é transformar um complicado relacionamento muitos-para-muitos em dois relacionamentos um-para-muitos (1:N), o que é mais simples de implementar em bancos de dados relacionais.
+
+Armazenamento de Dados de Relacionamento: Além de conectar duas entidades, a entidade associativa frequentemente armazena informações relevantes para o relacionamento. Por exemplo, se uma entidade associativa conecta Estudantes e Cursos em um relacionamento de inscrição, ela pode também armazenar informações como Data de Inscrição, Nota Final ou Status da Inscrição.
+
+#### Exemplo de Entidade Associativa
+Vamos considerar um sistema de gerenciamento universitário onde estudantes podem se inscrever em múltiplos cursos e cada curso pode ter vários estudantes. Aqui, temos um relacionamento muitos-para-muitos entre as entidades Estudante e Curso.
+
+- Estudantes (EstudanteID, Nome, Email)
+- Cursos (CursoID, NomeCurso, Professor)
+
+Para gerenciar esse relacionamento, criamos uma entidade associativa chamada Inscrições:
+
+- Inscrições (EstudanteID, CursoID, DataInscrição, NotaFinal)
+
+Aqui, EstudanteID e CursoID são chaves que referenciam Estudantes e Cursos, respectivamente, e DataInscrição e NotaFinal são atributos específicos do relacionamento.
+
+### Benefícios da Entidade Associativa
+Clareza e Organização: Facilita o entendimento e a gestão de relacionamentos muitos-para-muitos, proporcionando uma visão clara de como as entidades estão inter-relacionadas.
+
+Integridade de Dados: Mantém a integridade referencial ao garantir que todas as relações sejam válidas dentro do contexto das regras de negócio definidas.
+
+Flexibilidade para Armazenar Dados Complexos: Permite o armazenamento de dados detalhados sobre o relacionamento, que não seriam possíveis de armazenar diretamente nas tabelas das entidades principais.
+
+Em resumo, a entidade associativa é uma ferramenta valiosa no arsenal de modelagem de dados, essencial para lidar com complexidades específicas de relacionamentos muitos-para-muitos e para enriquecer o banco de dados com informações detalhadas sobre as interações entre entidades.
+
