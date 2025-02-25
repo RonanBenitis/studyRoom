@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio2\\desafio\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|solutionrelative:desafio\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio2\\desafio\\model\\carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio2\\desafio\\model\\contabancaria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF972AE-7A52-4C20-A473-18F8477597CA}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\contabancaria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ContaBancaria.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\model\\ContaBancaria.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\ContaBancaria.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\model\\ContaBancaria.cs",
+              "RelativeToolTip": "Desafio\\model\\ContaBancaria.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T19:59:12.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Carro.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\model\\Carro.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Carro.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\model\\Carro.cs",
+              "RelativeToolTip": "Desafio\\model\\Carro.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T19:53:59.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\Program.cs",
+              "RelativeDocumentMoniker": "Desafio\\Program.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio2\\Desafio\\Program.cs",
+              "RelativeToolTip": "Desafio\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T19:49:39.361Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

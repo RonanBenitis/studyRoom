@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\screensound04\\screensound04\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|solutionrelative:screensound04\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\screensound04\\screensound04\\filtros\\linqfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|solutionrelative:screensound04\\filtros\\linqfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\screensound04\\screensound04\\modelos\\musica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABB6EC5E-16D5-449D-8A49-6DDCEF374C6F}|ScreenSound04\\ScreenSound04.csproj|solutionrelative:screensound04\\modelos\\musica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Program.cs",
+              "RelativeDocumentMoniker": "ScreenSound04\\Program.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Program.cs",
+              "RelativeToolTip": "ScreenSound04\\Program.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAABsAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T20:26:39.832Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LinqFilter.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Filtros\\LinqFilter.cs",
+              "RelativeDocumentMoniker": "ScreenSound04\\Filtros\\LinqFilter.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Filtros\\LinqFilter.cs",
+              "RelativeToolTip": "ScreenSound04\\Filtros\\LinqFilter.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T19:20:42.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Musica.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Modelos\\Musica.cs",
+              "RelativeDocumentMoniker": "ScreenSound04\\Modelos\\Musica.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\consumindo_api_arquivos_linq\\ScreenSound04\\ScreenSound04\\Modelos\\Musica.cs",
+              "RelativeToolTip": "ScreenSound04\\Modelos\\Musica.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T17:58:03.055Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

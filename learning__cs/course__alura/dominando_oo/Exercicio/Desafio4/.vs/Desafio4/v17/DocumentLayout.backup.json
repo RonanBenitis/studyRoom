@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\dominando_oo\\exercicio\\desafio4\\desafio\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|solutionrelative:desafio\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\dominando_oo\\exercicio\\desafio4\\desafio\\armazenamento\\bancodedados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|solutionrelative:desafio\\armazenamento\\bancodedados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\dominando_oo\\exercicio\\desafio4\\desafio\\armazenamento\\arquivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|solutionrelative:desafio\\armazenamento\\arquivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\dominando_oo\\exercicio\\desafio4\\desafio\\armazenamento\\iarmazenavel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A476DCF-2E47-4D1A-96DB-D29524744B2E}|Desafio\\Desafio.csproj|solutionrelative:desafio\\armazenamento\\iarmazenavel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Program.cs",
+              "RelativeDocumentMoniker": "Desafio\\Program.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Program.cs",
+              "RelativeToolTip": "Desafio\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-26T18:36:16.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BancoDeDados.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\BancoDeDados.cs",
+              "RelativeDocumentMoniker": "Desafio\\Armazenamento\\BancoDeDados.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\BancoDeDados.cs",
+              "RelativeToolTip": "Desafio\\Armazenamento\\BancoDeDados.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T18:19:45.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Arquivo.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\Arquivo.cs",
+              "RelativeDocumentMoniker": "Desafio\\Armazenamento\\Arquivo.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\Arquivo.cs",
+              "RelativeToolTip": "Desafio\\Armazenamento\\Arquivo.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T18:17:28.743Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IArmazenavel.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\IArmazenavel.cs",
+              "RelativeDocumentMoniker": "Desafio\\Armazenamento\\IArmazenavel.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\dominando_oo\\Exercicio\\Desafio4\\Desafio\\Armazenamento\\IArmazenavel.cs",
+              "RelativeToolTip": "Desafio\\Armazenamento\\IArmazenavel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T18:16:33.513Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
