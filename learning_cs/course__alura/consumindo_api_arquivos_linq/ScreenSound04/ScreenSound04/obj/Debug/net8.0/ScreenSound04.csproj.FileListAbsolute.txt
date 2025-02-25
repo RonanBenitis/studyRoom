@@ -1,0 +1,15 @@
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\bin\Debug\net8.0\ScreenSound04.exe
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\bin\Debug\net8.0\ScreenSound04.deps.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\bin\Debug\net8.0\ScreenSound04.runtimeconfig.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\bin\Debug\net8.0\ScreenSound04.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\bin\Debug\net8.0\ScreenSound04.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.AssemblyInfoInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.AssemblyInfo.cs
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.csproj.CoreCompileInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.sourcelink.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\refint\ScreenSound04.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ScreenSound04.genruntimeconfig.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\ScreenSound04\ScreenSound04\obj\Debug\net8.0\ref\ScreenSound04.dll

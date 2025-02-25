@@ -1,0 +1,190 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\restaurante\\cardapio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\restaurante\\cardapio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\restaurante\\restaurante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\restaurante\\restaurante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\restaurante\\pedido.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\restaurante\\pedido.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\restaurante\\mesa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\restaurante\\mesa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\restaurante\\produtorestaurante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\restaurante\\produtorestaurante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\escola\\disciplina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\escola\\disciplina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\escola\\aluno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\escola\\aluno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\escola\\professor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\escola\\professor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\estoque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\estoque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|d:\\workroom\\studyroom\\learning__cs\\course__alura\\aplicando_oo\\exercicios\\desafio3\\desafio\\model\\titular.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52EF3AA3-66CD-4F82-BE98-60B384734F6D}|Desafio\\Desafio.csproj|solutionrelative:desafio\\model\\titular.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Restaurante.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Restaurante.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Restaurante\\Restaurante.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Restaurante.cs",
+              "RelativeToolTip": "Desafio\\model\\Restaurante\\Restaurante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:22:37.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cardapio.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Cardapio.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Restaurante\\Cardapio.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Cardapio.cs",
+              "RelativeToolTip": "Desafio\\model\\Restaurante\\Cardapio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:21:47.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Pedido.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Pedido.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Restaurante\\Pedido.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Pedido.cs",
+              "RelativeToolTip": "Desafio\\model\\Restaurante\\Pedido.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:21:02.922Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProdutoRestaurante.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\ProdutoRestaurante.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Restaurante\\ProdutoRestaurante.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\ProdutoRestaurante.cs",
+              "RelativeToolTip": "Desafio\\model\\Restaurante\\ProdutoRestaurante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:19:58.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Mesa.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Mesa.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Restaurante\\Mesa.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Restaurante\\Mesa.cs",
+              "RelativeToolTip": "Desafio\\model\\Restaurante\\Mesa.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:19:43.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Disciplina.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Disciplina.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Escola\\Disciplina.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Disciplina.cs",
+              "RelativeToolTip": "Desafio\\model\\Escola\\Disciplina.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:19:22.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Professor.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Professor.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Escola\\Professor.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Professor.cs",
+              "RelativeToolTip": "Desafio\\model\\Escola\\Professor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:19:08.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Aluno.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Aluno.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Escola\\Aluno.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Escola\\Aluno.cs",
+              "RelativeToolTip": "Desafio\\model\\Escola\\Aluno.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:18:22.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Estoque.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Estoque.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Estoque.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Estoque.cs",
+              "RelativeToolTip": "Desafio\\model\\Estoque.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:17:10.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Titular.cs",
+              "DocumentMoniker": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Titular.cs",
+              "RelativeDocumentMoniker": "Desafio\\model\\Titular.cs",
+              "ToolTip": "D:\\Workroom\\studyRoom\\learning__cs\\course__alura\\aplicando_oo\\Exercicios\\Desafio3\\Desafio\\model\\Titular.cs",
+              "RelativeToolTip": "Desafio\\model\\Titular.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T17:12:06.269Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

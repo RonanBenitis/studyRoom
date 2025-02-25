@@ -1,0 +1,15 @@
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\bin\Debug\net8.0\Desafio.exe
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\bin\Debug\net8.0\Desafio.deps.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\bin\Debug\net8.0\Desafio.runtimeconfig.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\bin\Debug\net8.0\Desafio.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\bin\Debug\net8.0\Desafio.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.AssemblyInfoInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.AssemblyInfo.cs
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.csproj.CoreCompileInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.sourcelink.json
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\refint\Desafio.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\Desafio.genruntimeconfig.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\consumindo_api_arquivos_linq\exercicios\Desafio1\Desafio\obj\Debug\net8.0\ref\Desafio.dll

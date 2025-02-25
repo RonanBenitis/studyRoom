@@ -1,0 +1,15 @@
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\bin\Debug\net8.0\Desafio1.exe
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\bin\Debug\net8.0\Desafio1.deps.json
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\bin\Debug\net8.0\Desafio1.runtimeconfig.json
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\bin\Debug\net8.0\Desafio1.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\bin\Debug\net8.0\Desafio1.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.AssemblyInfoInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.AssemblyInfo.cs
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.csproj.CoreCompileInputs.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.sourcelink.json
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\refint\Desafio1.dll
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.pdb
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\Desafio1.genruntimeconfig.cache
+D:\Workroom\studyRoom\learning__cs\course__alura\aplicando_oo\Exercicios\Desafio1\obj\Debug\net8.0\ref\Desafio1.dll
