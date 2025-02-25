@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
+    /* Método de importação de fontes. Aqui estamos dizendo ao CSS "Importe o conteúdo da seguinte URL", que no caso é a fonte desejada. Aqui estamos chamando a fonte para dentro do nosso projeto, mas SÓ CHAMANDO, não utiliando-a ainda.
+
+    Para isso, estamos indo no site "google fonts", escolhendo a fonte desejada, acessando-a e selecionadno a familia da fonte. Na aba lateral que abrir, colcoamos em "export" e selecionamos a linha de código entre os styles para colar em nosso CSS externo. */
+
+    /* === VARIÁVEIS NO CSS (custom properties) ===
+    Variáveis é um endereço reservado na mémoria para armazenar um valor. 
+    
+    Escopo local: Variável que só pode ser chamada dentro de um local, no caso, dentro de um elemento (variável declarada dentro de um elemento).
+    
+    Escopo global: Variável que pode ser chamada em todo o projeto por qualquer elemento (variável declarada fora de qualquer elemento). */
+
+:root{
+    /* :root é o local para criar variáveis (custom properties) globais */
+    --cor-primaria: #2C3639 /* #000000 */;
+    --cor-secundaria: #DCD7C9 /* #F6F6F6 */; 
+    --cor-terciaria: #A27B5C/* #22D4FD */;
+    --cor-hover: #3F4E4F/* #272727 */;
+    
+    --fonte-primaria: 'Krona One', sans-serif;
+    --fonte-secundaria: 'Montserrat', sans-serif;
+        /* 
+        DECLARAÇÃO DE VARIAVEL
+        declara-se as variaveis (custom properties) com dois traços + nome desejado: valor.
+        A forma de declaração de variaveis (custom properties) serve tanto para as globais (:root) como as locais (dentro dos elementos): Começou com dois traços, é variável (custom propertie).  
+        
+        CHAMAR VARIAVEL
+        Para chamar, deve-se colocar no valor de uma propriedade de um elemento, o nome das variáveis declaradas dentro dos parenteses da "função" var, ou seja:
+        
+        elemento{
+            propriedade: var(--nomeDaVariavelDeclarada);
+        }*/
+        --fonte-tam-primaria: 2.25rem;
+             /* {Aula 04} Conversão de Pixel para REM: 36 pixels, o qual nós definimos, é igual a 2.25 REM */
+        --fonte-tam-secundaria: 1.5rem;
+            /* {Aula 04} Conversão de Pixel para REM: 24px = 1.5 rem */
+}
+
+*{
+    /* RESET BÁSICO - Seletor "*" refere-se a TODOS os elementos dentro do arquivo. */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* height: 100vh; Tiramos neste momento, pois como há novos elementos sendo acrescentados não há a necessidade do Body ter 100% da viewport pois está sendo gerado scrolling.*/
+        /* vh significa "viewpoert height". Viewport é o que foi abordado anteriormente em uma de nossas meta-informações, ou seja, viewport é a tela onde estamos acessando nosso projeto. 100vh estamos dizendo que a altura de nossa tela (do body) ocupará 100% a altura de nossa viewport.  */
+        /* Ou seja, conseguimos inspecionar no navegador que, antes o código ocupava o espaço de até onde seus elementos são demonstrados, agora ao inspecionar o body é selecionada TODA a área de visualização. */
+    box-sizing: border-box; 
+        /* Box-sizing: border-box serve para manter o conteúdo do elemento-filho, assim como sua borda, dentro do elemento-pai. Ou seja, Box-sizing é para indicar como as dimensões do box (conjunto do elemento que trata-se de seu conteúdo, preenchimento, borda e margem) se comportarão. box-sizing: content-box terá como base o conteudo do box (manterá o conteúdo dentro do elemento pai, mas comumente pode sair). Já o border-box terá como base a borda do elemento filho (muito mais comum de manter o conteúdo do elemento filho dentro do elemento pai) */
+        /* Documentação ilustrada do box-sizing: https://cursos.alura.com.br/course/html-css-classes-posicionamento-flexbox/task/118640. */
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+.cabecalho{
+    padding: 2% /* top */
+    0 /* right */
+    0 /* bottom */
+    15% /* left - Aqui usamos o mesmo padding do mains para ficar alinhado */; 
+        /* Recomendou-se porcentagem pois garante mais controle nos espaçamentos de multiplos dispositivos do que pixel. Porcentagem se comportará de forma similar em dispositivos diferentes, pixel se comportará diferente, entretanto*/
+}
+
+.cabecalho__menu{
+    display: flex;
+    gap: 80px; /* Para espaçar os os elementos ancora filhos */
+}
+
+.cabecalho__menu__link{
+    font-family: var(--fonte-secundaria);
+    font-size: var(--fonte-tam-secundaria);
+         /* {Aula 04} Conversão de Pixel para REM: 24px = 1.5 rem */
+    font-weight:600;
+    color: var(--cor-terciaria);
+    text-decoration: none; /* Tirar a decoraçãozinha de sublinhado e etc de link*/
+}
+
+.cabecalho__menu__link:hover{
+    color: #007bff;
+}
+
+.apresentacao {
+    padding: 5% /* vertical */
+    15% /* horizontal */;
+    display: flex;
+        /* Conteúdo novo, atualizou o curso, pois, agora, trata-se do tema de responsividade */
+    align-items: center;
+    gap: 82px 50px;
+    justify-content: space-between;
+        /* Aqui eu que mudei, pois tava bugando com o display column no body. Assim, ficou proximo do desejado */
+}
+
+.apresentacao__conteudo {
+    /* width: 615px; */
+    width: 50%; /* Alterou-se a largura para 50% para o conteúdo redimensionar com relação a metade do tamanho do elemento pai (que acredito que por padrão está 100vw pois não o definimos) */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.titulo-destaque {
+    color: #FC3A85;
+}
+
+.titulo-destaque:hover{
+    color: var(--cor-terciaria);
+}
+
+span {
+    color: var(--cor-terciaria);
+}
+
+span:hover{
+    color: #FC3A85;
+    border: 5px dotted var(--cor-terciaria);
+}
+
+.apresentacao__conteudo__titulo {
+    font-size: var(--fonte-tam-primaria);
+        /* {Aula 04} Conversão de Pixel para REM: 36 pixels, o qual nós definimos, é igual a 2.25 REM */
+    font-family: var(--fonte-primaria);
+}
+
+.apresentacao__conteudo__texto{
+    font-size: var(--fonte-tam-secundaria);
+        /* {Aula 04} Conversão de Pixel para REM: 24px = 1.5 rem */
+    font-family: var(--fonte-secundaria);
+}
+
+.apresentacao__conteudo__link{
+    display: flex;
+    flex-direction: column;
+        /* Importantissimo: Flex-direction muda a direção do efeito das demais estilizações flex que considerama  direção. Por exemplo: 
+
+        Antes, com "flex-direction: row", "align-items: center" centraliza o conteúdo no eixo horizontal. Já, com "flex-direction: column", "align-items: center" centraliza o conteúdo no eixo vertical. */
+    justify-content: space-between;
+    align-items: center;
+        /* com "flex-direction: column", "align-items: center" centraliza o conteúdo no eixo vertical. */
+    gap: 32px;
+}
+
+.apresentacao_conteudo_link_subt{
+    font-family: var(--fonte-primaria);
+    font-size: var(--fonte-tam-secundaria);
+        /* {Aula 04} Conversão de Pixel para REM: 24px = 1.5rem */
+    font-weight: 400;
+}
+
+.apresentacao__conteudo__link__linkUnit{
+    /* background-color: var(--cor-terciaria); 
+        comentamos pois retiramos o background para fazer só a borda */
+    border: 2px solid var(--cor-terciaria);
+    border-radius: 8px;
+    /* width: 380px; */
+    width: 50%; /* Mesma lógica da aplicação no apresentacao__conteudo */
+        /* height: 79px; Utilizamos Padding com o 21.5px (pego do elemento figma) e não o height, pois, se usarmos o height, o texto não fica centralizado verticalmente. Neste casso, queremos preencher o espaço entre o elemento e a borda e não definir a altura do elemento. Para este preenchimento, usamos padding */
+    padding: 21.5px 0;
+        /* Usado apenas no top/bottom pois as laterais já estavam com uma distancia legal. Acima, nessa sintaxe fica padding: tamanho_top/bottom tamanho_laterais */
+    text-align: center;
+    font-size: var(--fonte-tam-secundaria);
+    font-weight: 600;
+    text-decoration: none;
+        /* Para retirarmos qualquer decoração prévia ou padrão do texto, no caso, limpamos a decoração padrão de 'link' para aplicarmos a nossa decoração */
+    color: var(--cor-secundaria);
+    font-family: var(--fonte-secundaria);
+    display: flex;
+    align-items: center;
+        /* Alinha o conteúdo usando o mesmo eixo que a direção do flex-direction. */
+    justify-content: center;
+        /* Alinha o conteúdo com referência no eixo que distinto da direção do flex-direction (se o flexdirection for vertical [column], esse alinhamento é horizontal. Vice e versa) */
+    gap: 16px;
+}
+
+.apresentacao__conteudo__link__linkUnit:hover{
+    cursor: pointer;
+    background-color: var(--cor-hover);
+    padding: 3%;
+}
+
+.apresentacao__image{
+    width: 50%; /* Pela dimensão da imagem automaticamente ter proporção travada, mudar a largura da imagem respeita a proporção da altura (se não definirmos altura) */
+    /* Foi feita essa adição para a imagem sempre acompanhar a proporção da tela, pois, ele respeitará o elemento pai (que é o main) que, quando não definido tamanho, respeita-se 100vw (creio eu) */
+}
+
+.rodape {
+    color: var(--cor-primaria);
+    background-color: var(--cor-terciaria);
+    text-align: center;
+    font-family: var(--fonte-secundaria);
+    padding: 24px;
+    font-size: var(--fonte-tam-secundaria);
+}
+
+@media (max-width: 1200px) {
+    /* Ver explicação no index.html */
+    /* Se a largura do display for de até 1200px, aplica-se as instruções abaixo */
+    
+    .cabecalho {
+        padding: 10%; /* Só para afastar mais de cima e embaixo, apesar que a aplicação está em todas as direções */
+    }
+
+    .cabecalho__menu {
+        justify-content: center;
+    }
+
+    .apresentacao {
+        flex-direction: column-reverse; /* reverse, pois a imagem estava ficando embaixo */
+        padding: 5%; /* Alterou-se o padding pois estava muito grande em telas menores. O padding quando tela grande estava 15% 5% (horizontal | vertical), deixando apenas valor 5% nos setamos a configuração para todas as direções. */
+
+        /* Perceba que a ordem de realização das instruções é em cascata, ou seja, carregou-se todas instruções anteriores e, carregará essa em específico, apenas quando Verdadeira a condição do media
+        
+        Não há a necessidade de reescrever todo o comportamento da classe, pois, o media trabalha com adição (e quando já existente, sobrescrição). Ou seja, se inserirmos novos argumentos, quando condição verdadeira, a classe se comportará como descrito fora do @media + o que está no media. Quando dado parametros já existentes, então, o, quando condição verdadeira, a classe se comportará sobrescrevendo os parametros existentes e preservando os demais parametros não descritos no media, ou seja, @media + fora_do_media (sobrescreve existente)*/
+    }
+
+    .apresentacao__conteudo {
+        width: auto; /* Valora 'auto' significa valor automático, ou seja, ocupar todo o espaço reservado pela tag pai. Ajustando-se automaticamente. */
+
+        /* Diferença de 100% e valor auto:
+
+        width:100% will cause a p element to full the parent’s content space. In this case, it will match the CSS-specified width of 400px for the parent div.
+
+        width:auto works a little bit differently, and has a couple different possible behaviors, influenced by the current display style. p tags start as display:block so they do the same thing as width:100% - filling their parents.
+
+        However, if you set a display:inline-block element to width:auto, it will only expand to fit its children. This is useful if you want adjustable-width containers that are sized based on what’s inside them.
+
+        In this case they look the same because the second p tag is not set to display:inline-block or display:inline, but retains its default display:block style.
+        
+        fonte: https://www.quora.com/What-is-the-difference-between-auto-and-100-value-in-CSS#:~:text=In%20summary%2C%20%22auto%22%20allows,of%20the%20containing%20element's%20size.&text=The%20width%3A100%25%20just%20means,of%20its%20child%20elements'%20width. */
+    }
+}
