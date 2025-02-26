@@ -1,8 +1,7 @@
 # <span style="color: #87BBA2">===   AULA   ===</span> <!-- omit in toc -->
 
 # <span style="color: #87BBA2">INDICE</span> <!-- omit in toc -->
-- [Aula XX: TituloAula](#aula-xx-tituloaula)
-  - [Capitulo](#capitulo)
+<!-- Run: Create Table of Contents -->
 
 # <span style="color: #87BBA2">Aula XX: TituloAula</span>
 

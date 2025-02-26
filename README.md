@@ -8,9 +8,11 @@ Olá!
 Esta é a Sala de Estudo. Aqui estão reunidos os meus repositórios de estudo: nomeados como Seção de Aprendizagem e carategorizados com `learning__` em seu prefixo.
 
 ## Ideia da Sala de Estudos
-Este repositório é a representação de uma "biblioteca" pessoal, onde cada diretório é um repositório (submodulo), uma representação dos "livros" dessa biblioteca.
+Este repositório é a representação de uma "biblioteca" pessoal, onde cada diretório é uma uma representação dos "livros" dessa biblioteca.
+
+A "biblioteca" tem sua visão geral através da branch main, e cada "livro" tem a sua versão mais atualizada em sua branch especifica.
 
 ## Motivo da criação
-Inicialmente, este repositório era, de fato, a união de diretórios controlados apenas por este repositório. Para facilitar na publicização e na organização do aprendizado de uma linguagem específica, ramificar esse repositório em diversos módulos pareceu uma boa ideia.
+Inicialmente, este repositório era, de fato, a união de diretórios controlados apenas por esta branch. Para melhorar a organização e adicionar versionamento ao aprendizado de uma tecnologia específica, criou-se uma branch para cada tecnologia, mergeando para a branch central quando algum curso ou porção de estudo estiver completa.
 
-Logo, quando necessário demonstrar o andamento no aprendizado de uma linguagem específica, não será mais necessaário percorrer por toda a biblioteca, podendo versionar e publicizar diretamente o repositório da linguagem sem prejudicar a visão geral que a biblioteca proporciona, logo, poderei compartilhar de forma mais organizada tanto o cenário completo de estudos (StudyRoom), quando da linguagem específica (learning__).
+Logo, quando necessário demonstrar o andamento no aprendizado de uma tecnologia específica, não será mais necessaário percorrer por toda a biblioteca, podendo versionar e publicizar diretamente na branch da tecnologia sem prejudicar a visão geral que a biblioteca proporciona, logo, poderei compartilhar de forma mais organizada tanto o cenário completo de estudos (branch main), quando da linguagem específica (branch da tecnologia).
