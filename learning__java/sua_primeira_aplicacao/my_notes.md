@@ -1,10 +1,108 @@
 # <span style="color: #87BBA2">===   JAVA: CRIANDO A SUA PRIMEIRA APLICAÇÃO   ===</span> <!-- omit in toc -->
 
 # <span style="color: #87BBA2">INDICE</span> <!-- omit in toc -->
-- [Aula XX: TituloAula](#aula-xx-tituloaula)
-  - [Capitulo](#capitulo)
+- [PRIMEIRO PROGRAMA EM JAVA](#primeiro-programa-em-java)
+  - [TABELA DE ATALHOS INTELLIJ](#tabela-de-atalhos-intellij)
+  - [PREPARANDO AMBIENTE](#preparando-ambiente)
+    - [Onde encontrar?](#onde-encontrar)
+    - [JRE ou JDK?](#jre-ou-jdk)
+    - [Escolha do JDK](#escolha-do-jdk)
+    - [Qual IDE utilizar?](#qual-ide-utilizar)
+  - [O PRIMEIRO PROGRAMA](#o-primeiro-programa)
+    - [Informações interessantes](#informações-interessantes)
+  - [ATALHOS, TEMPLATES, NAVEGAÇÃO (ATÉ O MOMENTO)](#atalhos-templates-navegação-até-o-momento)
+    - [Atalhos](#atalhos)
+    - [Templates](#templates)
+    - [Navegação](#navegação)
+    - [Shortcut para criar uma classe](#shortcut-para-criar-uma-classe)
+    - [Code Generate](#code-generate)
+      - [Gerando construtores](#gerando-construtores)
+      - [Gerando o override de toString](#gerando-o-override-de-tostring)
+    - [Muito e muito mais dicas de IntelliJ](#muito-e-muito-mais-dicas-de-intellij)
+- [CONSTRUINDO CATALOGO DE FILMES](#construindo-catalogo-de-filmes)
+  - [ATRIBUINDO VALORES AO FILME](#atribuindo-valores-ao-filme)
+    - [Convenções de código](#convenções-de-código)
+    - [O que aprendemos até agora](#o-que-aprendemos-até-agora)
+  - [FORTALECENDO A BASE: OPERADORES](#fortalecendo-a-base-operadores)
+    - [Operadores de atribuição:](#operadores-de-atribuição)
+    - [Operadores aritméticos:](#operadores-aritméticos)
+    - [Operadores relacionais:](#operadores-relacionais)
+    - [Operadores lógicos:](#operadores-lógicos)
+    - [Operadores de incremento:](#operadores-de-incremento)
+  - [MAIS SOBRE CONVENÇÔES](#mais-sobre-convençôes)
+  - [PRIMITIVOS NO JAVA](#primitivos-no-java)
+  - [TRABALHANDO COM TEXTOS](#trabalhando-com-textos)
+    - [Text Blocks](#text-blocks)
+    - [Comparação de Strings](#comparação-de-strings)
+    - [String.format e formatted](#stringformat-e-formatted)
+  - [CONVERTENDO VALORES (Casting)](#convertendo-valores-casting)
+    - [Tabela de Casting](#tabela-de-casting)
+    - [Casting](#casting)
+      - [Casting implícito](#casting-implícito)
+      - [Casting explícito](#casting-explícito)
+- [CONTROLANDO O FLUXO DA APLICAÇÃO](#controlando-o-fluxo-da-aplicação)
+  - [TOMANDO DECISÕES](#tomando-decisões)
+    - [Classe Condicional](#classe-condicional)
+      - [If/else com operadores relacionais](#ifelse-com-operadores-relacionais)
+      - [If/else com operadores lógicos](#ifelse-com-operadores-lógicos)
+    - [Avisos do IntelliJ](#avisos-do-intellij)
+    - [Atalhos usados neste capitulo](#atalhos-usados-neste-capitulo)
+  - [SWITCH / CASE](#switch--case)
+    - [Sintexe](#sintexe)
+    - [Exemplo](#exemplo)
+  - [LEITURA DE DADOS](#leitura-de-dados)
+  - [AVALIANDO O FILME](#avaliando-o-filme)
+    - [Ponto de observação](#ponto-de-observação)
+  - [OUTRAS FORMAS DE ITERAR DADOS](#outras-formas-de-iterar-dados)
+    - [Quando usar for e quando usar while](#quando-usar-for-e-quando-usar-while)
+    - [Sintaxe do while](#sintaxe-do-while)
+    - [Exemplo de aplicação](#exemplo-de-aplicação)
+  - [DESAFIO](#desafio)
+    - [Controle bancário](#controle-bancário)
+    - [O que vamos fazer?](#o-que-vamos-fazer)
+
 
 # <span style="color: #87BBA2">PRIMEIRO PROGRAMA EM JAVA</span>
+
+## TABELA DE ATALHOS INTELLIJ
+| **Atalho** | **Funcionalidade** |
+|-----------|------------------|
+| **Alt + 1** | Ocultar e mostrar a view |
+| **Ctrl + Shift + F12** | Ocultar todas as telas de uma view |
+| **Alt + Insert** | Permite criar algum arquivo |
+| **“psvm” + Tab** | Escreve o método main automaticamente |
+| **Alt + Shift + F10 / Ctrl + Shift + F10** | Executar a classe atual |
+| **Alt + Enter** | Possibilidades de ação por meio da feature Show Intention Action - por meio de suas sugestões. |
+| **Alt + Shift + Insert / CMD + Shift + 8** | Modificar o modo de seleção para coluna |
+| **Ctrl + N / CMD + O** | Busca de classe |
+| **Alt + Shift + setas para cima ou baixo** | Mover linhas de código |
+| **Ctrl + Y / CMD + Delete/Backspace** | Apagar linhas de código |
+| **Ctrl + Shift + A / CMD + Shift + A** | Find action: permite buscar qualquer funcionalidade do IntelliJ |
+| **Ctrl + B / CMD + B** | Navegação por declaração |
+| **Alt + setas (direita ou esquerda) / CMD + Shift + { ou }** | Navegação por tabs |
+| **Ctrl + F4 / CMD + W** | Fecha a tab atual |
+| **Alt + Shift + X** | Fecha todas as tabs |
+| **F5** | Copia uma classe |
+| **Ctrl + Alt + L / Alt + CMD + L** | Formata o código automaticamente, ajustando a indentação |
+| **Shift + F6** | Renomeando variáveis (Rename) |
+| **Ctrl + Alt + M / CMD + Alt + M** | Extração de método |
+| **Shift + Shift** | Search everywhere: permite buscar qualquer coisa dentro do projeto |
+| **Ctrl + E / CMD + E** | Visualizar todos os arquivos recentes |
+| **Ctrl + Shift + Alt + N / CMD + Alt + O** | Busca de símbolos |
+| **Ctrl + Shift + F / CMD + Shift + F** | Buscando trechos |
+| **Ctrl + H** | Visualização de hierarquia |
+| **Alt + F7** | Find Usages |
+| **Alt + Home / CMD + seta para cima** | Navegação por barra |
+| **Ctrl + D / CMD + D** | Copiando linhas |
+| **Ctrl + Shift + A / CMD + Shift + A** | Find Action |
+| **F7** | Step Into |
+| **F8** | Step Over |
+| **Shift + F8** | Step Out |
+| **Ctrl + barra(/) / CMD + barra(/)** | Comentários |
+| **Ctrl + Alt + V / CMD + Alt + V** | Variável Local |
+| **Ctrl + Alt + F / CMD + Alt + F** | Atributo |
+| **Ctrl + Alt + C / CMD + Alt + C** | Constante |
+
 
 ## PREPARANDO AMBIENTE
 Para iniciarmos o desenvolvimento em Java, é necessária a instalação do Kit de desenvolvimento, o JDK (Java Development Kit).
@@ -454,3 +552,253 @@ double x = 10.5;
 int y = (int) x; // casting explícito
 ```
 No exemplo anterior, o valor da variável x é convertido em um valor inteiro utilizando o casting explícito. É importante notar que, neste caso, a parte decimal será descartada e o valor atribuído à variável y será 10.
+
+# <span style="color: #87BBA2">CONTROLANDO O FLUXO DA APLICAÇÃO</span>
+
+## TOMANDO DECISÕES
+Criaremos uma nova classe Java para realizar as operações, a chamaremos de `Condicional` e criaremos utilizando o atalho de criação de classe (Alt + insert na aba de projetos).
+
+### Classe Condicional
+Agora, iniciaremos a estrutura com o main
+- digite `main + TAB` para criar a estrutura do main
+- `psvm` para criar a estrutura do main
+
+#### If/else com operadores relacionais
+Para a condicional, estamos vendo a estrutura basica de `if` e `if/else` utilizando operadores relacionais.
+```java
+if (anoDeLancamento > 2022) {
+    System.out.println("Lançamento que os clientes estão curtindo");
+}
+
+if (anoDeLancamento >= 2022) {
+    System.out.println("Lançamento que os clientes estão curtindo, incluindo 2022");
+}
+```
+
+#### If/else com operadores lógicos
+Foi demonstrado também a utilização de operadores lógicos nas condicionais
+```java
+// Ao menos uma das condições necessita ser verdadeira
+if (incluidoNoPlano || tipoPlano.equals("plus")) {
+    System.out.println("Filme liberado");
+}
+
+// As duas condições necessitam ser verdadeiras
+if (incluidoNoPlano && tipoPlano.equals("plus")) {
+    System.out.println("Filme liberado");
+}
+```
+- Lembrando a necessidade de utilizar o método `.equals()` para avaliar Strings.
+
+### Avisos do IntelliJ
+Podemos consultar, no canto superio direito, os avisos do IntelliJ representados por um simbolos:
+- Exclamação vermelha: erros e, as vezes, sugestões;
+- Simbolo de exclamação amarela: avisos;
+- Ticks verdes: Sugestões, ou avisos que causam nenhum problema na operação da aplicação, como sugestões de correção de erros de escrita de uma palavra (como "Typos").
+
+Alguns erros, o **IntelliJ** possuem **quick fixes** acessados pela **lampada**, ou **alt + enter**.
+
+### Atalhos usados neste capitulo
+- **Alt + insert (na aba do projeto):** Insere novos arquivos, possibilitando uso de templates
+- **digite main + TAB**: Cria estrutura main
+- **digite psvm**: Cria estrutura main
+- **alt + enter**: Acessa lampada (dicas e quick fixes)
+
+## SWITCH / CASE
+
+### Sintexe
+```java
+switch (expressão) {
+   case valor1:
+      // código a ser executado se a expressão for igual a valor1
+      break;
+   case valor2:
+      // código a ser executado se a expressão for igual a valor2
+      break;
+   case valor3:
+      // código a ser executado se a expressão for igual a valor3
+      break;
+   ...
+   default:
+      // código a ser executado se a expressão não for igual a nenhum valor
+      break;
+}
+```
+
+### Exemplo
+```java
+int dia = 3;
+String nomeDia;
+
+switch (dia) {
+   case 1:
+      nomeDia = "domingo";
+      break;
+   case 2:
+      nomeDia = "segunda-feira";
+      break;
+   case 3:
+      nomeDia = "terça-feira";
+      break;
+   case 4:
+      nomeDia = "quarta-feira";
+      break;
+   case 5:
+      nomeDia = "quinta-feira";
+      break;
+   case 6:
+      nomeDia = "sexta-feira";
+      break;
+   case 7:
+      nomeDia = "sábado";
+      break;
+   default:
+      nomeDia = "Dia inválido";
+      break;
+}
+
+System.out.println("O dia " + dia + " é " + nomeDia);
+```
+
+## LEITURA DE DADOS
+Neste capitulo, veremos como coletar entradas pelo console.
+
+```java
+package br.com.primeiroprojeto;
+
+import java.util.Scanner;
+
+public class Leitura {
+    public static void main(String[] args) {
+        Scanner leitura = new Scanner(System.in);
+
+        // Coletando String
+        System.out.println("Digite seu filme favorito");
+        String filme = leitura.nextLine();
+        System.out.println(filme);
+
+        // Coletando int
+        System.out.println("Qual o ano de lançamento? ");
+        int anoDeLancamento = leitura.nextInt();
+        System.out.println(anoDeLancamento);
+
+        
+        // Coletando double
+        System.out.println("Diga sua avaliação para o filme: ");
+        double avaliacao = leitura.nextDouble(); // No momento da coleta, separador por "." ou "," dependerá da região do programa
+        System.out.println(avaliacao);
+    }
+}
+```
+- Instanciamos Scanner passando como parametro a propriedade `in` da classe `System`. Com isso, conseguiremos interagir com as entradas no terminal.
+- Isso evita variáveis **hard coded** ("escritas em pedra"). Com isso, as variáveis serão inputadas pelas entradas de quem (ou o que) manipulará este sistema.
+
+**Dica**: Para ver se a aplicação está rodando, como quando está esperando uma entrada, veja o simbolo de pause no console.
+
+**Atenção ao double**
+- O Java, em seu ambiente de desenvolvimento, sempre esperará que o separador do decimal seja um `.`, como em `9.9`, mas, na entrada do dado no terminal, isso já é algo que varia da região ao qual está configurada o Java. Por exemplo, se o Java estiver configurado na região brasileira, o dado inputado no console deverá ser com `,`, pois o Java já entende que a região brasileira possui como padrão a separação com `,` e automaticamente fará essa conversão.
+- Então, o dado inserido em um terminal definido como região brasileira seria `9,9` e será automaticamente convertido no sistema para `9.9`.
+- **formatMismatchException**: Receberemos essa exceção, por exemplo, se tentarmos atribuir o formato `9.9` em um terminal na região brasileira, o qual espera `9,9` como um valor `double`. Ou seja, essa exceção está dizendo que estamos tentando atribuir um formato que o sistema (ou o `Scanner`, talvez) esteja esperando.
+
+## AVALIANDO O FILME
+Para criar média dinamica conforme entradas feitas no terminal, utilizaremos o `for`, como exemplo:
+
+```java
+public static void main(String[] args) {
+    Scanner leitura = new Scanner(System.in);
+    double somaAvaliacao = 0;
+    double nota = 0;
+    int numeroDeNotas = 3;
+//        double mediaAvaliacao = somaAvaliacao / numeroDeNotas;
+
+    for (int i = 0; i < numeroDeNotas; i++) {
+        System.out.println("Diga sua avaliação para o filme");
+        nota = leitura.nextDouble();
+        somaAvaliacao += nota;
+    }
+
+    double mediaAvaliacao = somaAvaliacao / numeroDeNotas;
+
+    System.out.printf("Media de avaliações: %.2f.%n", mediaAvaliacao);
+}
+```
+
+### Ponto de observação
+Porque estamos criando a variável `mediaAvaliacao` depois do loop
+- Pois, se fizermos antes do loop, o valor de `somaAvaliacao` ainda é 0, logo, `0 dividido por 3 será 0`.
+
+Não utilizamos `System.out.println(String.format())`, mas escrevemos como se fosse, pois, utilizamos `System.out.printf()`.
+- O próprio **IntelliJ** informa que `println(String.format())` é redundante e, como quick fix, realiza o `System.out.printf()`
+- `System.out.printF()`: A convenience method to write a formatted string to this output stream using the specified format string and arguments.
+
+## OUTRAS FORMAS DE ITERAR DADOS
+Todo `for` pode ser escrito com `while` e todo `while` pode ser escrito com `for`, mas, tem momentos que um será mais legível que outro.
+
+### Quando usar for e quando usar while
+- Quando tem um número fixo de iterações (ou definido por variável), não necessariamente sendo booleano, e que desejamos incrementar a iteração, o mais adequado é o **for** (apesar de dar para escrever com o **while**)
+
+### Sintaxe do while
+```java
+while(condicaoBooleana) {
+  // faça algo
+}
+```
+A estrutura de `while()` executará o loop caso a condição inserida em seus parenteses seja verdadeira. Ou seja, **caso a condição for verdadeira, execute essa ação**.
+
+### Exemplo de aplicação
+```java
+Scanner leitura = new Scanner(System.in);
+double somaAvaliacao = 0;
+double nota = 0;
+int totalDeNotas = 0;
+
+while (nota != -1) {
+    System.out.println("Diga sua avaliação para filme ou -1 para encerrar: ");
+    nota = leitura.nextDouble();
+
+    // Condição para não atribuir -1 à variável e ser considera na média por engano
+    if (nota != -1) {
+        somaAvaliacao += nota;
+        totalDeNotas++; // Pós incremento
+    }
+}
+
+double mediaAvaliacao = somaAvaliacao / totalDeNotas; // 0 dividido por 0 terá retorno de NaN, ou seja, Not A Number
+
+System.out.printf("Media de avaliações: %.2f.%n", mediaAvaliacao);
+```
+**Notas importantes**
+- Note a condição para não atribuir por engano o valor de -1;
+- Note que quando ocorrer divisão de 0 por 0, teremos NaN.
+
+## DESAFIO
+### Controle bancário
+
+**Dados iniciais do cliente**
+- Deve ter asteriscos inicias e finais
+- Texto Dados iniciais do cliente
+- Nome do cliente
+- Tipó da conta
+- Saldo inicial
+- Separação com espaços pre determinados entre valor e titulo
+
+**Menu**
+- Consultar saldos
+  - Printa o saldo
+- Receber valor
+  - Pergunta valor
+  - Ao colocar o valor, printa-se o saldo atualizado
+- Transferir valor
+  - Mesma operação acima, mas subtrai
+  - Se tentar retirar mais que o necessário, barrar a operação
+- Sair
+  - Ao digitar, sai do sistema
+- Ao digitar numero invalido, dizer que digitou-se numero invalido e loopar
+
+### O que vamos fazer?
+**Método checklist**
+- Primeiro: Inicializar dados do cliente
+- Depois: Menu de opções
+- Depois: Visualização do saldo
+- Depois: Envia valor
+- Depois: Recebe valor
