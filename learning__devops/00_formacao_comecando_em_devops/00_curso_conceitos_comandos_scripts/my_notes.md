@@ -21,9 +21,30 @@
   - [ACESSO VIA SSH](#acesso-via-ssh)
     - [Porque Linux?](#porque-linux)
     - [O que é Sistema Operacional?](#o-que-é-sistema-operacional)
-    - [Acesso remoto](#acesso-remoto)
+    - [Acesso remoto, CONFORME ALURA](#acesso-remoto-conforme-alura)
     - [Passo a passo](#passo-a-passo-2)
     - [Acessando VM](#acessando-vm)
+    - [Acesso Remoto com Port Forwarding e Conexão NAT (não bridge)](#acesso-remoto-com-port-forwarding-e-conexão-nat-não-bridge)
+    - [**📌 Melhor não usar modo Bridge?**](#-melhor-não-usar-modo-bridge)
+    - [**📌 Como conectar via SSH usando NAT (mais seguro)**](#-como-conectar-via-ssh-usando-nat-mais-seguro)
+    - [**1️⃣ Configure o Port Forwarding no VirtualBox**](#1️⃣-configure-o-port-forwarding-no-virtualbox)
+    - [**2️⃣ Descubra o IP da VM**](#2️⃣-descubra-o-ip-da-vm)
+    - [**3️⃣ Conectar via SSH do Windows (CMD ou PowerShell)**](#3️⃣-conectar-via-ssh-do-windows-cmd-ou-powershell)
+    - [**4️⃣ Insira a senha da VM**](#4️⃣-insira-a-senha-da-vm)
+    - [**📌 Conclusão: NAT + Port Forwarding é mais seguro!**](#-conclusão-nat--port-forwarding-é-mais-seguro)
+  - [MAIS SOBRE NAT E BRIDGE](#mais-sobre-nat-e-bridge)
+    - [**📌 O que é NAT e Bridge no VirtualBox?**](#-o-que-é-nat-e-bridge-no-virtualbox)
+    - [**1️⃣ NAT (Network Address Translation) - Modo padrão do VirtualBox**](#1️⃣-nat-network-address-translation---modo-padrão-do-virtualbox)
+    - [**2️⃣ Bridge (Placa em modo Bridge - Ponte)**](#2️⃣-bridge-placa-em-modo-bridge---ponte)
+    - [**📌 Por que a VM consegue acessar a internet no modo NAT?**](#-por-que-a-vm-consegue-acessar-a-internet-no-modo-nat)
+    - [**📌 Qual escolher?**](#-qual-escolher)
+    - [**📌 Conclusão**](#-conclusão)
+    - [**📌 Como o NAT funciona para conexão na internet?**](#-como-o-nat-funciona-para-conexão-na-internet)
+    - [**🛠 Como o NAT funciona no VirtualBox?**](#-como-o-nat-funciona-no-virtualbox)
+    - [**📌 "Mas o NAT não abre brecha de segurança como o Bridge?"**](#-mas-o-nat-não-abre-brecha-de-segurança-como-o-bridge)
+    - [**🔒 NÃO! Ele é seguro porque:**](#-não-ele-é-seguro-porque)
+    - [**📌 Como funciona o NAT no meu PC quando estou no Wi-Fi de casa?**](#-como-funciona-o-nat-no-meu-pc-quando-estou-no-wi-fi-de-casa)
+    - [**📌 Conclusão**](#-conclusão-1)
   - [COMANDOS PARA PRATICAR](#comandos-para-praticar)
 - [EXPLORANDO O LINUX SERVER](#explorando-o-linux-server)
   - [NAVEGANDO NO LINUX SERVER](#navegando-no-linux-server)
@@ -210,7 +231,7 @@ Quase toda a infraestrutura da internet é construida sobre o kernel do Linux.
 ### O que é Sistema Operacional?
 Não trata-se de uma caixinha, mas sim, módulos que são integrados para oferecer uma série de funcionalidades ao usuário final. O Kernel é a parte principal, o núcleo, mas de acordo com a aplicação ou o dispositivo onde esse sistema será instalado pode-se adicionar outros módulos, como drivers e etc.
 
-### Acesso remoto
+### Acesso remoto, CONFORME ALURA
 Utilizaremos o protocolo SSH, que permite a conexão com uma máquina de forma remota.
 
 ### Passo a passo
@@ -218,6 +239,7 @@ Precisaremos:
 1. IP da VM
 
 Mas antes, precisamos fazer:
+**ATENÇÃO, VEJA O MÉTODO PORT FORWARDING ABAIXO, É MAIS SEGURO**
 1. Na VM aberta (olhando no terminal), vamos no menu Dispositivos
    1. Rede
    2. Configurações de rede
@@ -242,6 +264,198 @@ Mas antes, precisamos fazer:
 4. Após isso, teremos em nosso prompt algo como `username@username: $`
    1. Isso indica que estamos dentro de nossa VM e os comandos que inserimos rodará nela.
 5. Agora, rodemos o comando `ls`, que é o comando de listar no Linux, e veremos que nada será retornado. Isso é um sucesso, pois, quer dizer que o comando foi reconhecido e nada foi retornado pois de fato há nada no diretorio.
+
+### Acesso Remoto com Port Forwarding e Conexão NAT (não bridge)
+### **📌 Melhor não usar modo Bridge?**  
+Sim, **para um ambiente de estudos e testes, o modo NAT é mais seguro e suficiente para conexões SSH**. O modo Bridge pode **expor sua VM na rede local**, o que pode trazer riscos caso você esteja em uma rede compartilhada ou sem firewall adequado.  
+
+Mas **não se preocupe!** Você **ainda pode se conectar via SSH no NAT**, apenas precisa configurar o **Port Forwarding** (Redirecionamento de Portas).  
+
+---
+
+### **📌 Como conectar via SSH usando NAT (mais seguro)**  
+
+### **1️⃣ Configure o Port Forwarding no VirtualBox**  
+1️⃣ **Com a VM desligada**, vá até o **VirtualBox** e selecione sua VM.  
+2️⃣ Clique em **Configurações → Rede**.  
+3️⃣ Certifique-se de que o **Adaptador 1 está no modo NAT**.  
+4️⃣ Clique em **Avançado → Redirecionamento de Portas**.  
+5️⃣ Adicione uma nova regra com os seguintes valores:  
+   - **Nome**: SSH  
+   - **Protocolo**: TCP  
+   - **Porta do host**: `2222` *(pode ser outra, mas lembre-se dela)*  
+   - **IP do convidado**: `10.0.2.15` *(IP padrão do NAT no VirtualBox)*  
+   - **Porta do convidado**: `22` *(porta padrão do SSH no Linux)*  
+6️⃣ **Clique em OK e inicie a VM**.  
+
+---
+
+### **2️⃣ Descubra o IP da VM**  
+Dentro da VM, abra o terminal e rode:  
+
+```bash
+ip address
+```
+📌 No modo NAT, o IP padrão geralmente será **`10.0.2.15`**.  
+
+Se quiser confirmar, rode:  
+
+```bash
+hostname -I
+```
+
+---
+
+### **3️⃣ Conectar via SSH do Windows (CMD ou PowerShell)**  
+Agora, no seu **Prompt de Comando (CMD)** do Windows, use:  
+
+```bash
+ssh -p 2222 username@localhost
+```
+📌 **Substitua "username" pelo usuário da sua VM** (exemplo: `ssh -p 2222 ronan@localhost`).  
+
+---
+
+### **4️⃣ Insira a senha da VM**  
+Se tudo estiver certo, ele pedirá sua senha. **Digite-a** e pronto! 🚀 Agora você está conectado à VM **sem precisar do modo Bridge**.  
+
+---
+
+### **📌 Conclusão: NAT + Port Forwarding é mais seguro!**  
+✅ **Modo NAT protege sua VM de acessos externos.**  
+✅ **Port Forwarding permite acessar via SSH sem expor a VM na rede.**  
+✅ **Mais seguro para estudo e testes.**  
+
+Se precisar de mais alguma ajuda na configuração, só chamar! 🔥
+
+Ótima pergunta! Vamos esclarecer isso de forma simples e prática.  
+
+---
+
+## MAIS SOBRE NAT E BRIDGE
+
+### **📌 O que é NAT e Bridge no VirtualBox?**  
+
+Essas são **configurações de rede** que definem **como sua VM se conecta à rede e à internet**.  
+
+---
+
+### **1️⃣ NAT (Network Address Translation) - Modo padrão do VirtualBox**  
+
+🔹 **Como funciona?**  
+- O VirtualBox **cria uma rede privada interna** para a VM.  
+- Sua VM **não está diretamente visível** na rede local, apenas o seu **PC hospedeiro** (Windows).  
+- Quando a VM quer acessar a internet, **o VirtualBox faz a tradução de endereço** e envia o tráfego pela conexão do seu PC.  
+
+🔹 **Resumo:**  
+✅ A VM **tem acesso à internet** automaticamente.  
+✅ É **segura**, pois **não fica visível na rede local**.  
+❌ **Outros dispositivos da rede não conseguem acessar a VM facilmente** (precisa de Port Forwarding para isso).  
+
+💡 **Exemplo de uso:**  
+✔ Quando você **só precisa acessar a internet a partir da VM**.  
+✔ Quando quer **evitar exposição desnecessária da VM na rede**.  
+
+---
+
+### **2️⃣ Bridge (Placa em modo Bridge - Ponte)**  
+
+🔹 **Como funciona?**  
+- A VM **se conecta diretamente à rede local**, como se fosse um outro computador físico na mesma rede.  
+- Ela recebe um **IP diretamente do roteador**, assim como seu PC hospedeiro.  
+
+🔹 **Resumo:**  
+✅ A VM **fica visível na rede local**, podendo ser acessada por outros dispositivos.  
+✅ A VM pode **se comunicar facilmente com outros computadores** na rede.  
+❌ **Pode ser inseguro**, pois expõe a VM como se fosse um PC normal na rede.  
+
+💡 **Exemplo de uso:**  
+✔ Se você quer rodar um **servidor que deve ser acessado por outros dispositivos na rede**.  
+✔ Se você precisa **simular um ambiente real de rede**.  
+
+---
+
+### **📌 Por que a VM consegue acessar a internet no modo NAT?**  
+Mesmo estando isolada, a VM pode acessar a internet porque o **VirtualBox age como um "roteador virtual"**. Ele recebe as solicitações da VM e as repassa para a internet, como se fosse um intermediário.  
+
+É o mesmo princípio que acontece com seu Wi-Fi em casa:  
+1️⃣ Seu computador tem um IP privado, mas acessa a internet porque o **roteador traduz os endereços**.  
+2️⃣ No NAT do VirtualBox, a VM tem um IP privado, mas acessa a internet através do seu PC hospedeiro.  
+
+---
+
+### **📌 Qual escolher?**  
+✅ **Para estudo e segurança** → Use **NAT** (e adicione Port Forwarding se precisar de acesso externo).  
+✅ **Para testes de rede ou simulação de servidores** → Use **Bridge** (mas cuidado com a segurança).  
+
+Se precisar acessar a VM externamente, mas quiser manter NAT, pode usar **Port Forwarding**, como expliquei antes.  
+
+---
+
+### **📌 Conclusão**  
+✔ **NAT** → Seguro, fácil, já conecta à internet, mas sem acesso direto da rede.  
+✔ **Bridge** → Mais liberdade na rede local, mas expõe a VM.  
+✔ **Sua VM acessa a internet no NAT porque o VirtualBox faz a tradução de endereços**.  
+
+Se precisar de mais alguma explicação, só chamar! 🚀🔥
+
+Ótima pergunta, parceiro! Vamos entender isso de forma clara e conectada ao mundo real.  
+
+---
+
+### **📌 Como o NAT funciona para conexão na internet?**  
+
+O **NAT (Network Address Translation - Tradução de Endereços de Rede)** é um método que permite que sua VM **use a conexão de internet do PC Host sem estar diretamente exposta à rede**.  
+
+### **🛠 Como o NAT funciona no VirtualBox?**  
+1️⃣ **Sua VM recebe um IP privado (exemplo: `10.0.2.15`)**.  
+2️⃣ **Quando a VM quer acessar a internet**, ela envia a solicitação para o VirtualBox.  
+3️⃣ **O VirtualBox age como um "roteador" e troca o IP da VM pelo IP do Host**.  
+4️⃣ O tráfego vai para a internet como se fosse o Host acessando.  
+5️⃣ Quando a resposta chega, o VirtualBox traduz de volta para a VM.  
+
+🔹 **Isso é igual ao que acontece no seu Wi-Fi em casa!** (Explico isso já já 👇).  
+
+🔹 **A VM nunca aparece diretamente na rede local**, apenas o **Host** faz essa mediação.  
+
+---
+
+### **📌 "Mas o NAT não abre brecha de segurança como o Bridge?"**  
+
+### **🔒 NÃO! Ele é seguro porque:**  
+✅ **A VM não está visível na rede local** (ela não tem um IP público na rede).  
+✅ **Outros dispositivos na rede não podem acessá-la diretamente**.  
+✅ **Somente o VirtualBox sabe que a VM existe e controla o tráfego**.  
+✅ Mesmo que sua VM tenha um serviço rodando (exemplo: um servidor web), **ninguém da rede local consegue acessá-la diretamente** sem configurações extras (como Port Forwarding).  
+
+📌 **Já no modo Bridge, a VM recebe um IP da rede local e fica exposta, podendo ser acessada por qualquer máquina da rede.**  
+
+---
+
+### **📌 Como funciona o NAT no meu PC quando estou no Wi-Fi de casa?**  
+
+🔹 Seu **roteador Wi-Fi em casa faz NAT o tempo todo** para que seus dispositivos (PC, celular, TV) possam acessar a internet.  
+
+💡 **Exemplo prático:**  
+1️⃣ Você conecta seu PC e seu celular ao Wi-Fi de casa.  
+2️⃣ O roteador dá a cada dispositivo um **IP privado** (exemplo: `192.168.1.100`, `192.168.1.101`).  
+3️⃣ Quando você acessa um site (`google.com`), seu PC manda o pedido para o roteador.  
+4️⃣ O roteador **troca o IP privado pelo IP público da sua internet** e envia o pedido.  
+5️⃣ O site responde para o IP público, e o roteador traduz de volta para seu PC.  
+
+🔹 **Por isso, todos os seus dispositivos compartilham o mesmo IP público, mas cada um tem um IP privado dentro da rede interna.**  
+
+🔹 **O NAT do VirtualBox funciona igual!** A diferença é que, em vez de um roteador de Wi-Fi, é o próprio VirtualBox que faz esse papel.  
+
+---
+
+### **📌 Conclusão**  
+✔ **NAT no VirtualBox** = Mesma ideia do seu roteador Wi-Fi.  
+✔ **Seguro**, pois a VM **não fica visível na rede local**.  
+✔ **A VM acessa a internet através do Host, mas sem exposição direta**.  
+✔ **O Bridge expõe a VM diretamente na rede, podendo ser menos seguro**.  
+
+Se precisar de mais explicações, só chamar, parceiro! 🚀🔥
 
 ## COMANDOS PARA PRATICAR
 - `ls`: **list** - Lista os arquivos e diretórios existentes dentro de um diretório
