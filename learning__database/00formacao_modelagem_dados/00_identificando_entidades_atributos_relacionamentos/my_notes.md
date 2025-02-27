@@ -77,6 +77,15 @@
       - [**4️⃣ Conclusão: Quando usar entidades fracas ou não?**](#4️⃣-conclusão-quando-usar-entidades-fracas-ou-não)
       - [**🔹 Sobre seu questionamento final: "UUID não bagunça a chave composta?"**](#-sobre-seu-questionamento-final-uuid-não-bagunça-a-chave-composta)
       - [**🔥 Resumo Final**](#-resumo-final)
+- [IDENTIFICANDO ATRIBUTOS](#identificando-atributos)
+  - [CRIANDO ATRIBUTOS](#criando-atributos)
+    - [O que são atributos](#o-que-são-atributos)
+      - [Importância dos Atributos](#importância-dos-atributos)
+    - [Como representar](#como-representar)
+  - [TIPOS DE ATRIBUTOS](#tipos-de-atributos)
+    - [Atributos simples](#atributos-simples)
+    - [Atributos Multivalorados](#atributos-multivalorados)
+    - [Atributos Composto](#atributos-composto)
 
 
 # <span style="color: #87BBA2">Conhecendo o projeto</span>
@@ -731,3 +740,47 @@ PRIMARY KEY (id_dependente, id_cliente) -- Exemplo com UUID
 - Para **sistemas com UUIDs, pode ser mais fácil tornar tudo forte** e usar apenas relações (`FOREIGN KEY NOT NULL`).  
 - **Entidades fracas ainda são úteis** quando o ID pode ser pequeno (exemplo: `01, 02, 03` dentro de um Cliente).  
 
+# <span style="color: #87BBA2">IDENTIFICANDO ATRIBUTOS</span>
+
+## CRIANDO ATRIBUTOS
+Consultando o documento de requisitos identificaremos também as caracteristicas de nossas entidades.
+
+As caracteristicas das entidades identificamos como **atributos**.
+
+### O que são atributos
+Em modelagem de dados, um atributo é uma propriedade ou característica de uma entidade que armazena dados. Atributos representam aspectos quantitativos ou qualitativos das entidades e são fundamentais para definir a estrutura de informações de um sistema de banco de dados. Cada atributo em uma tabela geralmente corresponde a uma coluna na tabela de um banco de dados.
+
+#### Importância dos Atributos
+**Descrição**: Atributos fornecem detalhes necessários que descrevem cada instância de uma entidade, permitindo que o banco de dados armazene informações mais completas e úteis.
+
+**Funcionalidade**: Atributos também são fundamentais para as operações do banco de dados, tais como pesquisas, filtros, e análises, pois são os pontos de dados que essas operações utilizam.
+
+**Relacionamentos**: Atributos podem também definir ou influenciar os relacionamentos entre entidades.
+
+**Por exemplo:**
+- No local onde identificamos a entidade Clientes, foi informado da existencia dos dados como: CPF, telefones, endereço, data de nascimento e email. Esses dados especificos são so atributos, uma vez que dão caracteristica à entidade.
+
+### Como representar
+Representa-se com a forma **elipse**, o mesmo indicado pelo **Draw.io**.
+
+## TIPOS DE ATRIBUTOS
+
+### Atributos simples
+Representada como uma elipse simples.
+
+O atributo simples é:
+- Indivisivel
+- único
+- Não possui mais de um valor em seu campo
+
+### Atributos Multivalorados
+Representado como uma elipse dupla.
+
+Quando um mesmo campo pede mais de um valor, como:
+- Atributo "telefones" em Cliente, dizendo que é obrigatória a existencia de pelo menos 2 telefones.
+
+### Atributos Composto
+Representado por elipses conectadas a uma elipse central, demonstrando que um atributo é a composição de varios atributos.
+
+Existencia de pedaços de atributos distintos em um mesmo atributo.
+- Isso ocorre no atributo "endereço" de Clientes, onde, na realidade, preencheremos "Rua", "Bairro", "Cidade", etc, tudo em um mesmo campo.
