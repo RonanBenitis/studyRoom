@@ -85,7 +85,15 @@
   - [TIPOS DE ATRIBUTOS](#tipos-de-atributos)
     - [Atributos simples](#atributos-simples)
     - [Atributos Multivalorados](#atributos-multivalorados)
+    - [Atributos Derivados](#atributos-derivados)
     - [Atributos Composto](#atributos-composto)
+    - [Atributos descritivos](#atributos-descritivos)
+    - [Atributos Chaves](#atributos-chaves)
+      - [Atributos Chaves em Entidades Fortes e Fracas](#atributos-chaves-em-entidades-fortes-e-fracas)
+      - [Quando existe entidade associativa](#quando-existe-entidade-associativa)
+- [CONHECENDO AS FERRAMENTAS](#conhecendo-as-ferramentas)
+  - [DIAGRAMA DE ENTIDADE E RELACIONAMENTO CONCLUIDO](#diagrama-de-entidade-e-relacionamento-concluido)
+  - [SGBDs](#sgbds)
 
 
 # <span style="color: #87BBA2">Conhecendo o projeto</span>
@@ -768,19 +776,88 @@ Representa-se com a forma **elipse**, o mesmo indicado pelo **Draw.io**.
 ### Atributos simples
 Representada como uma elipse simples.
 
-O atributo simples é:
-- Indivisivel
-- único
-- Não possui mais de um valor em seu campo
+Atributos simples são aqueles que não podem ser divididos em subpartes que têm significado independente no contexto do modelo de banco de dados.
+
+**Exemplo:**
+- Idade de uma pessoa.
+- Preço de um produto.
 
 ### Atributos Multivalorados
 Representado como uma elipse dupla.
 
+Atributos multivalorados podem conter dois ou mais valores para uma única instância de uma entidade. Este tipo de atributo é útil quando uma entidade pode possuir várias ocorrências de uma propriedade.
+
 Quando um mesmo campo pede mais de um valor, como:
 - Atributo "telefones" em Cliente, dizendo que é obrigatória a existencia de pelo menos 2 telefones.
+
+**Exemplo:**
+- Telefone: Uma pessoa pode ter vários números de telefone, incluindo telefone residencial, celular e trabalho.
+- Habilidades: Um funcionário pode possuir várias habilidades técnicas.
+
+### Atributos Derivados
+Atributos derivados são aqueles cujos valores são calculados ou derivados de outros atributos.
+
+**Exemplo:**
+- Idade pode ser derivada a partir da Data de Nascimento de uma pessoa.
+- Salário Anual pode ser calculado a partir do salário mensal multiplicado por 12.
 
 ### Atributos Composto
 Representado por elipses conectadas a uma elipse central, demonstrando que um atributo é a composição de varios atributos.
 
 Existencia de pedaços de atributos distintos em um mesmo atributo.
 - Isso ocorre no atributo "endereço" de Clientes, onde, na realidade, preencheremos "Rua", "Bairro", "Cidade", etc, tudo em um mesmo campo.
+
+> Atributos compostos podem ser divididos em partes menores, cada uma com um significado próprio e que, juntas, compõem o atributo completo.
+
+**Exemplo:**
+- Nome de uma pessoa pode ser dividido em Primeiro Nome, Nome do Meio e Sobrenome.
+- Endereço, que pode ser dividido em Rua, Número, Cidade, Estado e CEP.
+
+### Atributos descritivos
+Atributos descritivos são aqueles que fornecem mais informações sobre uma instância de entidade e ajudam a qualificar, classificar ou esclarecer a entidade.
+
+**Exemplo:**
+- Cor de um carro.
+- Descrição de um produto.
+
+### Atributos Chaves
+Regra para um projeto de banco de dados.
+
+Atributos-chave são usados para identificar de forma única cada instância de uma entidade em um banco de dados.
+
+**Exemplo:**
+- CPF de uma pessoa.
+- Registro Acadêmico de um estudante em uma universidade.
+
+Utilizado para identificar de forma unica todos os registros (dados) que serão inseridos em uma entidade.
+
+Representação: Elipse (como atributo simples) mas com seu texto sublinhado
+- Atributo chave de Cliente: IDCliente
+
+#### Atributos Chaves em Entidades Fortes e Fracas
+Os atributos chaves sempre estarão presentes em Entidades Fortes, mas, em Entidades Fracas o comportamento é um pouco diferente
+
+Como para uma entidade fraca existir ela depende da existencia de outra entidade, como, por exemplo, para uma entidade `Dependente` existir, precisará da existencia da entidade `Colaborador` para a dizermos que essa seria uma entidade representando Filhos de Colaboradores, ou `Pedido` dependendo da entidade `Cliente` para representarmos os pedidos de um cliente, seu atributo chave será o seu atributo chave unido ao atributo chave da entidade ao qual ela depende.
+
+Representaremos, então, com uma Elipse de texto sublinhado em seu atributo chave e em todos os atributos chaves que ele dependa.
+
+No caso do diagrama de exemplo, `Score de Crédito` terá os atributos `IDCliente` e `IDscoreCredito` como atributos chave.
+
+#### Quando existe entidade associativa
+No caso da entidade `Conta` (entidade fraca), ela possui uma entidade associativa com `Clientes` (entidade forte), ou seja, não existe mais uma relação direta entre `Conta` e `Clientes`, elas, agora, possuem uma relação com a entidade associativa `ClienteConta`.
+
+No caso, então, `Conta` terá somente um atributo chave, o `IDConta` e a entidade associativa `ClienteConta` terá os atributos chaves de `Clientes` e `Conta`, sendo, respectivamente `IDclientes` e `IDConta`.
+
+# <span style="color: #87BBA2">CONHECENDO AS FERRAMENTAS</span>
+
+## DIAGRAMA DE ENTIDADE E RELACIONAMENTO CONCLUIDO
+![Diagrama de Entidade e Relacionamento Concluído](./assets/der_concluido.png)
+![Diagrama de Entidade e Relacionamento Replicado Concluído](./assets/der_replicado.png)
+
+## SGBDs
+SGBDs são softwares (ferramentas) de gerenciamendo de base de dados. No caso, utilizaremos SGBDs relacionais, destinados a gerenciar banco de dados relacional.
+- São nesses gerenciadores que vamos consultar, inserir, editar e excluir informações em uma base de dados, basicamente, são os ambientes que rodaremos nossos códigos de consultas (querys, instruções para banco de dados)
+
+Também existem os Banco de Dados não relacionais, onde as informações não são tão estruturadas. Não precisaremos definir, por exemplo, o que será armazenado em cada entidade.
+
+A Modelagem de Dados é mais direcionada para Banco de Dados relacional, mas nada impede de utilizar seus conceitos para organizar dados em outros tipos de base.
