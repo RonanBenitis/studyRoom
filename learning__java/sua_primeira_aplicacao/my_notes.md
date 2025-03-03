@@ -60,6 +60,10 @@
   - [DESAFIO](#desafio)
     - [Controle bancário](#controle-bancário)
     - [O que vamos fazer?](#o-que-vamos-fazer)
+  - [RESOLVENDO O DESAFIO](#resolvendo-o-desafio)
+  - [INICIALIZANDO OS VALORES DA CONTA](#inicializando-os-valores-da-conta)
+  - [MONTANDO O MENU DA OPÇÕES](#montando-o-menu-da-opções)
+  - [IMPLEMENTANDO OS CALCULOS](#implementando-os-calculos)
 
 
 # <span style="color: #87BBA2">PRIMEIRO PROGRAMA EM JAVA</span>
@@ -802,3 +806,100 @@ System.out.printf("Media de avaliações: %.2f.%n", mediaAvaliacao);
 - Depois: Visualização do saldo
 - Depois: Envia valor
 - Depois: Recebe valor
+
+## RESOLVENDO O DESAFIO
+Já resolvemos o desafio e agora, abaixo, veremos a forma indicada da Alura para a resolução.
+
+## INICIALIZANDO OS VALORES DA CONTA
+- Iniciou-se um novo projeto desafio
+- Não optou pelo código de exemplo e dentro da pasta `src`, criou-se a classe `Desafio`
+
+```java
+public class Desafio {
+  public static void main(String[] args) {
+    String nome = "Clark Kent";
+    String tipoConta = "Corrente";
+    double saldo = 1599.99;
+
+    System.out.println("***********************");
+    System.out.println("\nNome do cliente: " + nome);
+    System.out.println("Tipo conta: " + tipoConta);
+    System.out.println("Saldo atual: " + saldo);
+    System.out.println("\n***********************");
+  }
+}
+```
+
+## MONTANDO O MENU DA OPÇÕES
+```java
+public class Desafio {
+  public static void main(String[] args) {
+    String nome = "Clark Kent";
+    String tipoConta = "Corrente";
+    double saldo = 1599.99;
+    int opcao = 0;
+
+    System.out.println("***********************");
+    System.out.println("\nNome do cliente: " + nome);
+    System.out.println("Tipo conta: " + tipoConta);
+    System.out.println("Saldo atual: " + saldo);
+    System.out.println("\n***********************");
+  }
+
+  String menu = """
+          ** Digite sua opção **
+          1 - Consultar saldo
+          2 - Transferir valor
+          3 - Receber valor 
+          4 - Sair
+
+          """;
+
+    Scanner leitura = new Scanner(System.in);
+    while (opcao != 4) {
+      System.out.println(menu);
+      opcao = leitura.nextInt();
+    }
+
+}
+```
+- System.in = Configuração para realizar a leitura do teclado.
+
+## IMPLEMENTANDO OS CALCULOS
+```java
+import java.util.Scanner;
+
+public class Desafio {
+    public static void main(String[] args) {
+
+//código omitido
+
+        Scanner leitura = new Scanner(System.in);
+
+        while (opcao != 4) {
+            System.out.println(menu);
+            opcao = leitura.nextInt();
+
+            if (opcao == 1){
+                System.out.println("O saldo atualizado é " + saldo);
+            } else if (opcao == 2) {
+                System.out.println("Qual o valor que deseja transferir?");
+                double valor = leitura.nextDouble();
+                if (valor > saldo) {
+                    System.out.println("Não há saldo para realizar a transferência.");
+                } else {
+                    saldo -= valor;
+                    System.out.println("Novo saldo: " + saldo);
+                }
+            } else if (opcao == 3) {
+                System.out.println("Valor recebido: ");
+                double valor = leitura.nextDouble();
+                saldo += valor;
+                System.out.println("Novo saldo: " + saldo);
+            } else if (opcao != 4) {
+                System.out.println("Opção inválida!");
+            }
+        }
+    }
+}
+```
