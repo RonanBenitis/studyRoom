@@ -77,6 +77,72 @@
   - [CONSTRUINDO SCRIPTS NO SHELL](#construindo-scripts-no-shell)
     - [Caso prático](#caso-prático)
     - [Criando Shell Script](#criando-shell-script)
+  - [PARA SABER MAIS: TESTANDO DIFERENTES CONDIÇÕES](#para-saber-mais-testando-diferentes-condições)
+    - [Igualdade entre duas strings](#igualdade-entre-duas-strings)
+    - [Desigualdade entre duas strings](#desigualdade-entre-duas-strings)
+    - [Igualdade entre dois números](#igualdade-entre-dois-números)
+    - [Desigualdade entre dois números](#desigualdade-entre-dois-números)
+    - [Testando se um número é maior que outro](#testando-se-um-número-é-maior-que-outro)
+    - [Testando se um número é menor que outro](#testando-se-um-número-é-menor-que-outro)
+    - [Testando se um número é maior ou igual a outro](#testando-se-um-número-é-maior-ou-igual-a-outro)
+    - [Verificando a existência de um arquivo ou diretório](#verificando-a-existência-de-um-arquivo-ou-diretório)
+  - [PASSAGEM DE PARAMETROS](#passagem-de-parametros)
+    - [Scripts com parametros](#scripts-com-parametros)
+      - [Validando se parametros foram passados](#validando-se-parametros-foram-passados)
+      - [Pegando os parametros](#pegando-os-parametros)
+      - [Compactando](#compactando)
+      - [Script completo](#script-completo)
+      - [Executando script](#executando-script)
+  - [PARA SABER MAIS: PASSANDO PARAMETROS EM SCRIPTS](#para-saber-mais-passando-parametros-em-scripts)
+  - [**📌 Diferença entre `$VARIAVEL` e `${VARIAVEL}`**](#-diferença-entre-variavel-e-variavel)
+    - [**🎯 Exemplo prático: Quando `${}` é necessário**](#-exemplo-prático-quando--é-necessário)
+    - [**📌 Segurança e legibilidade**](#-segurança-e-legibilidade)
+    - [**🔥 Resumo final**](#-resumo-final)
+  - [EXEMPLOS DE SCRIPT](#exemplos-de-script)
+    - [Verificando existencia de arquivos na pasta](#verificando-existencia-de-arquivos-na-pasta)
+    - [Verifique a validade do caminho informado](#verifique-a-validade-do-caminho-informado)
+    - [Exiba uma mensagem de boas-vindas quando executado](#exiba-uma-mensagem-de-boas-vindas-quando-executado)
+    - [Criar uma cópia de segurança de um diretório específico](#criar-uma-cópia-de-segurança-de-um-diretório-específico)
+    - [Solicite ao usuário o nome de um diretório e, em seguida, o crie](#solicite-ao-usuário-o-nome-de-um-diretório-e-em-seguida-o-crie)
+    - [Aceite um nome de arquivo como argumento e verifique se o arquivo existe](#aceite-um-nome-de-arquivo-como-argumento-e-verifique-se-o-arquivo-existe)
+    - [Utilize um loop para contar de 1 a 5](#utilize-um-loop-para-contar-de-1-a-5)
+- [AUTOMATIZAÇÃO DE TAREFAS](#automatização-de-tarefas)
+  - [EXECUTANDO MULTIPLAS TAREFAS](#executando-multiplas-tarefas)
+    - [Notas](#notas)
+      - [Sintaxe case](#sintaxe-case)
+      - [Descompactando](#descompactando)
+  - [SHELL SCRIPTING COM APENAS OS DOCUMENTOS](#shell-scripting-com-apenas-os-documentos)
+    - [Compactando apenas arquivos](#compactando-apenas-arquivos)
+    - [Compactando caminho, descompactando apenas os arquivos](#compactando-caminho-descompactando-apenas-os-arquivos)
+  - [FUNÇÕES DIRETAS NO CLI](#funções-diretas-no-cli)
+    - [**🔥 Criando uma função direto no CLI**](#-criando-uma-função-direto-no-cli)
+    - [**📌 Passando parâmetros para a função**](#-passando-parâmetros-para-a-função)
+    - [**📌 Funções mais complexas**](#-funções-mais-complexas)
+    - [**📌 Mas e se eu fechar o terminal?**](#-mas-e-se-eu-fechar-o-terminal)
+    - [**🚀 Resumo**](#-resumo)
+  - [QUANDO USAR E QUANDO NÃO USAR ASPAS](#quando-usar-e-quando-não-usar-aspas)
+    - [**1️⃣ Por que `"$arquivo_saida"` e `"$caminho"` têm aspas?**](#1️⃣-por-que-arquivo_saida-e-caminho-têm-aspas)
+    - [**2️⃣ Por que `$arquivos` está sem aspas?**](#2️⃣-por-que-arquivos-está-sem-aspas)
+    - [**📌 Regra Geral**](#-regra-geral)
+    - [**Resumo**](#resumo)
+  - [INSTALANDO UM SERVIDOR WEB](#instalando-um-servidor-web)
+    - [O que é um servidor web](#o-que-é-um-servidor-web)
+    - [Insalando Nginx em nosso servidor](#insalando-nginx-em-nosso-servidor)
+      - [Verificando servidor web](#verificando-servidor-web)
+  - [CONVERSÃO DE ARQUIVOS](#conversão-de-arquivos)
+    - [Script](#script)
+  - [EXEMPLO DE SCRIPTS](#exemplo-de-scripts)
+    - [automatiza a atualização de pacotes do sistema operacional.](#automatiza-a-atualização-de-pacotes-do-sistema-operacional)
+    - [renomeie todos os arquivos em um diretório, adicionando um prefixo ou sufixo especificado](#renomeie-todos-os-arquivos-em-um-diretório-adicionando-um-prefixo-ou-sufixo-especificado)
+    - [automatiza a criação de usuários no sistema, solicitando ao usuário que forneça o nome e outros detalhes necessários](#automatiza-a-criação-de-usuários-no-sistema-solicitando-ao-usuário-que-forneça-o-nome-e-outros-detalhes-necessários)
+    - [monitorar o espaço em disco usando o comando df na coleta de informações](#monitorar-o-espaço-em-disco-usando-o-comando-df-na-coleta-de-informações)
+    - [**📌 O que acontece em `espaco`?**](#-o-que-acontece-em-espaco)
+      - [**1️⃣ `df -h` → Verifica o espaço em disco**](#1️⃣-df--h--verifica-o-espaço-em-disco)
+      - [**2️⃣ `awk 'NR==2 {print $5}'` → Filtra a linha e coluna certas**](#2️⃣-awk-nr2-print-5--filtra-a-linha-e-coluna-certas)
+      - [**3️⃣ `sed 's/%//'` → Remove o símbolo `%`**](#3️⃣-sed-s--remove-o-símbolo-)
+    - [**📌 Recapitulando o que acontece**](#-recapitulando-o-que-acontece)
+    - [**📌 Exemplo prático**](#-exemplo-prático)
+    - [automatizar o backup de um diretório específico para um local de destino, utilizando a compressão gzip](#automatizar-o-backup-de-um-diretório-específico-para-um-local-de-destino-utilizando-a-compressão-gzip)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -504,7 +570,8 @@ Aqui estão algumas siglas de comandos comuns no Linux:
 - **`rm`** → **Remove** (remove arquivos/diretórios).  
 - **`mv`** → **Move** (move ou renomeia arquivos).  
 - **`cp`** → **Copy** (copia arquivos).  
-- **`chmod`** → **Change Mode** (muda permissões de arquivos).  
+- **`chmod`** → **Change Mode** (muda permissões de arquivos).
+  - Usar o comando chmod com a opção +x concede permissão de execução a um script em Bash. Por exemplo, você pode executar o comando chmod +x meu_script.sh para tornar o script "meu_script.sh" executável no Ubuntu.
 - **`chown`** → **Change Owner** (muda o dono de um arquivo).  
 
 Para mais retirar mais duvidas sobre os comandos disponiveis, podemos rodar o comando `help`.
@@ -686,7 +753,7 @@ tar -czf compactado.tar.gz arquivo_2.txt notas.txt
 ```
 Explicação do comando:
 - **tar:** Comando tar é o de compactação
-- **-czf:** c (cria um arquivo compactado) | z (gera um arquivo zip) | f (vou especificar o nome do arquivo)
+- **-czf:** c (cria um arquivo compactado, c para Compact) | z (será um arquivo zip, z para Zip) | f (trata-se de um arquivo, f para File)
 - **compactado.tar.gz:** nome_do_arquivo_compactado.extensao (que é o .tar.gz)
 - **arquivo_2.txt notas.txt**: arquivos que quero **compactar**
 - **IMPORTANTE:** cria-se um arquivo compactado com os arquivos desejados mas preserva-os, não os deleta
@@ -822,16 +889,849 @@ Para criarmos os nossos scripts, utilizaremos o editor de texto **Nano**, já vi
   - Colocamos o nome como "backup.sh" e ele foi salvo no "working directory".
 
 **Executando Shell Script**
-- Primeiro, alteramos o shell script
+- Primeiro, alteramos o shell script para um executável
   - `chmod +x backup.sh`
 - Depois, executamos
   - `bash backup.sh`
 
 **Retornos da execução**
-```bash
-
-```
+tar: Removing leading `/' from member names
+Backup concluido em backup_20231122_175022.tar.gz
 
 Sobre o $():
-- Instrumento de execução de comando, que no caso, usamos o date
-- 
+- Instrumento para informar que dentro dos parenteses será executado um comando
+- Comando utilizado: `$(date +%Y%m%d_%H%M%S)`
+  - Aqui estamos passando o comando date com a adição (+) de:
+    - %Y: Year
+    - %d: day
+    - %m: month
+    - _: separador entre a data e a hora
+    - %H: Hour
+    - %M: Minutes
+    - %S: Seconds
+
+## PARA SABER MAIS: TESTANDO DIFERENTES CONDIÇÕES
+De maneira bastante similar ao que aprendemos em lógica de programação, quando implementamos um script no shell também podemos testar uma condição para direcionar a execução de diferentes blocos de instruções.
+
+Usamos o comando condicional ifpara avaliar uma condição e direcionar o próximo passo na execução do código. O trecho de código a seguir apresenta a sintaxe adotada no Bash para execução do comando.
+
+```bash
+if [ condição ]; then
+  # Comandos a serem executados se a condição testada for verdadeira.
+elif [ outra condição ]; then
+  # Comandos a serem executados se a primeira condição testada for falsa e a segunda condição testada for verdadeira.
+else
+  # Comandos a serem executados se nenhuma das condições testadas for verdadeira.
+fi
+```
+
+Repare que a sintaxe do comando possibilita o teste de várias condições, permitindo a execução de diferentes blocos de comandos com base nesses testes.
+
+Na criação dos testes adotamos operadores relacionais e lógicos de diferentes maneiras, como vemos nos exemplos a seguir:
+
+### Igualdade entre duas strings
+
+```bash
+if [ "$string1" = "$string2" ]; then
+  # Comandos a serem executados se as strings forem iguais.
+fi
+```
+
+### Desigualdade entre duas strings
+```bash
+if [ "$string1" != "$string2" ]; then
+  # Comandos a serem executados se as strings forem distintas.
+fi
+```
+
+### Igualdade entre dois números
+```bash
+if [ "$numero1" -eq "$numero2" ]; then
+  # Comandos a serem executados se os números forem iguais.
+fi
+```
+
+### Desigualdade entre dois números
+```bash
+if [ "$numero1" -ne "$numero2" ]; then
+  # Comandos a serem executados se os números forem distintos.
+fi
+```
+
+### Testando se um número é maior que outro
+```bash
+if [ "$numero1" -gt "$numero2" ]; then
+  # Comandos a serem executados se o primeiro número for maior que o segundo.
+fi
+```
+
+### Testando se um número é menor que outro
+```bash
+if [ "$numero1" -lt "$numero2" ]; then
+  # Comandos a serem executados se o primeiro número for menor que o segundo.
+fi
+```
+
+### Testando se um número é maior ou igual a outro
+```bash
+if [ "$numero1" -ge "$numero2" ]; then
+  # Comandos a serem executados se o primeiro número for maior ou igual ao segundo.
+fi
+```
+
+### Verificando a existência de um arquivo ou diretório
+```bash
+if [  -e "/caminho/do/arquivo" ]; then
+  # Comandos a serem executados caso seja constatada a existência do diretório ou arquivo.
+fi
+```
+
+Note que as expressões condicionais devem estar entre [ ] e os espaços em branco são importantes na sintaxe. Os valores de strings devem ser colocados entre aspas para evitar problemas com espaços e caracteres especiais.
+
+## PASSAGEM DE PARAMETROS
+Vimos o comando `tar` e sua aplicação (cmpactação), o qual é muito util para:
+- Movimentar arquivos entre diretórios e servidores
+- Mudar de infraestrutura ou plataforma
+- Fazer backups 
+
+E a função primordial do scripting é na realização de automações, não necessitando mais precisar ficar escrevendo comando por comando no terminal.
+
+No script que escrevemos, nós indicamos dentro dele o diretório que desejamos fazer backup. Como poderiamos deixar esse script mais abstraido para ele funcionar com mais diretórios, solicitando para o usuário indicar o diretório desejado para backup e o script realizar a função?
+
+### Scripts com parametros
+Primeira coisa, sempre informar o interpretador do script (que no caso, é o `#! /bin/bash`)
+
+O que desejamos que o usuário faça:
+- Informe o nome do arquivo final
+- Informe os arquivos que serão compactados
+- Então, teremos, pelo menos, 2 parametros
+
+#### Validando se parametros foram passados
+```bash
+if [ "$#" -lt 2 ]; then # Se os parametros passados forem menores do que 2 (-lt: less then), então (then)
+        echo "O programa $0 requer nome do arquivo e arquivos a serem compactados".
+        exit 1 # Sai do programa
+fi # Encerra bloco if. fi = if ao contrário
+```
+
+#### Pegando os parametros
+```bash
+arquivo_saida="$1" # Pegue o primeiro parametro informado
+arquivos=("${@:2}") 
+# () = Declarando uma array
+# "${@:2}" = O @ significa (pegue todos os parametros). O ":" é para iniciar um indicador de posição, ou seja, "@:2" significa "Pegue todos os parametros depois do primeiro", já que o primeiro parametro será usado para o nome do arquivo de saida
+# Com isso, "arquivos" serão todos os demais parametros informados após o primeiro.
+# A sintaxe é dentro de aspas e chaves, ainda não sei direito o motivo. Das aspas, imagino que é porque sempre precisaremos utilizar quando é algo que não seja reservado ao sistema, pelo que entendi.
+```
+
+#### Compactando
+```bash
+tar -czf "$arquivo_saida" "${arquivos[@]}"
+# ${arquivos[@]} representa todos os elementos do array arquivos.
+```
+
+🛠 Diferença entre ${arquivos[@]} e ${arquivos[*]}
+
+📌 ${arquivos[@]}
+- Expande cada elemento do array separadamente.
+- É a utilização do `{}` que realiza a expansão da variável
+- Se tivermos arquivos com espaço no nome ("meu arquivo.txt"), ele será tratado corretamente.
+
+📌 ${arquivos[*]}
+- Expande todos os elementos como uma única string, separada por espaços.
+- Pode causar problemas com arquivos que contêm espaços no nome.
+✅ Por isso, a melhor prática é usar ${arquivos[@]} para evitar problemas com nomes de arquivos que contenham espaços.
+
+#### Script completo
+```bash
+#! /bin/bash
+
+if [ "$#" -lt 2 ]; then
+        echo "O programa $0 requer nome do arquivo e arquivos a serem compactados".
+        exit 1
+fi
+arquivo_saida="$1"
+arquivos=("${@:2}")
+tar -czf "$arquivo_saida" "${arquivos[@]}"
+echo "Compactado com sucesso em $arquivo_saida"
+```
+
+#### Executando script
+```bash
+chmod +x compactador # Mudando permissão de execução
+./compactador # Executa o código
+
+# Retorno: rquer nome do arquivo e arquivos a serem compactados
+```
+
+```bash
+./compactador saida.tar.gz /home/lucasrm/texto2.txt /home/lucasrm/texto3.txt
+# retorno: mensagens de compactação e mensagem de sucesso
+
+tar -tf saida.tar.gz # Comando para descompactação para conferir se deu tudo certo
+```
+
+## PARA SABER MAIS: PASSANDO PARAMETROS EM SCRIPTS
+A passagem de parâmetros em scripts em Bash no Ubuntu é uma forma de fornecer informações ou argumentos para o script durante sua execução. Isso torna os scripts mais flexíveis e reutilizáveis, pois seu comportamento é ajustado de acordo com os argumentos fornecidos.
+
+Essa passagem de parâmetros é realizada por meio de variáveis especiais, conhecidas como variáveis de posição. Elas são numeradas de 1 a 9, com $1 representando o primeiro argumento, $2 representando o segundo, e assim por diante. Além disso, todos os argumentos posicionais podem ser acessados através do $@.
+
+A seguir, temos um exemplo de script que verifica se foram fornecidos exatamente dois argumentos na linha de comando. Se não, ele exibe uma mensagem de erro. Caso contrário, ele atribui os valores dos argumentos às variáveis arg1 e arg2 e os imprime.
+
+```bash
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Erro! Nao foram fornecidos dois argumentos"
+  exit 1
+fi
+
+arg1=$1
+arg2=$2
+
+echo "O primeiro argumento é: $arg1"
+echo "O segundo argumento é: $arg2"
+```
+
+Ótima pergunta, Ronan! Vamos esclarecer essa diferença de uma vez por todas. 💡🚀  
+
+---
+
+## **📌 Diferença entre `$VARIAVEL` e `${VARIAVEL}`**
+
+Ambas as formas são usadas para referenciar o valor de uma variável no Bash, **mas `${}` é mais seguro e flexível**.
+
+| Forma  | Explicação |
+|--------|------------|
+| `$VARIAVEL` | Forma simples. Funciona na maioria dos casos. |
+| `${VARIAVEL}` | Forma mais segura. Útil quando precisamos concatenar ou evitar ambiguidades. |
+
+---
+
+### **🎯 Exemplo prático: Quando `${}` é necessário**
+Vamos supor que temos esta variável:
+```bash
+nome="Ronan"
+```
+
+Agora, tentamos imprimir **"RonanDev"** concatenando `"Dev"` no final:
+
+```bash
+echo "$nomeDev"    # ERRO! Bash procura por uma variável chamada "nomeDev"
+echo "${nome}Dev"  # CORRETO! Expande "Ronan" e concatena "Dev"
+```
+📌 **Explicação**:
+- `$nomeDev` → O Bash **procura uma variável chamada `nomeDev`**, que não existe.  
+- `${nome}Dev` → O Bash **expande `nome` corretamente** e depois adiciona `"Dev"`.
+
+---
+
+### **📌 Segurança e legibilidade**
+Outra vantagem de `${}` é evitar ambiguidades. Exemplo:
+```bash
+ARQUIVO="backup"
+echo "O arquivo é $ARQUIVO2024"  # ERRO! Procura variável $ARQUIVO2024 (que não existe)
+echo "O arquivo é ${ARQUIVO}2024"  # CORRETO! Retorna "O arquivo é backup2024"
+```
+
+📌 **Conclusão**: Sempre que for concatenar algo ou evitar ambiguidades, **use `${}`**.  
+
+---
+
+### **🔥 Resumo final**
+| Uso  | Quando usar? |
+|------|-------------|
+| `$VARIAVEL`  | Para referências simples. |
+| `${VARIAVEL}`  | Para evitar ambiguidades, concatenar valores ou melhorar legibilidade. |
+
+Agora você manja como um verdadeiro mestre do Bash! 🚀🔥
+
+## EXEMPLOS DE SCRIPT
+
+### Verificando existencia de arquivos na pasta
+```bash
+arquivos=("$@") # Pega todos os parametros
+for arquivo in "${arquivos[@]}"; do # Loop for
+  if [ ! -e "$arquivo" ]; then # Se não tiver arquivo
+    echo "Arquivo não encontrado: $arquivo"
+    exit 1 # Sai do script
+  fi
+done # Indicador de finalização do bloco For
+```
+
+### Verifique a validade do caminho informado
+```bash
+#!/bin/bash
+
+# Solicitamos ao usuário o caminho do diretório
+read -p "Digite o caminho do diretório: " caminho
+
+# Verificamos se o caminho do diretório é válido
+if [ -d "$caminho" ]; then
+    echo "O caminho é um diretório válido."
+else
+    echo "O caminho não é um diretório válido ou ele não existe."
+fi
+```
+-  operador `-d` verifica se o caminho fornecido $caminho é um diretório válido
+
+### Exiba uma mensagem de boas-vindas quando executado
+```bash
+#!/bin/bash
+echo "Bem-vindo ao meu script!"
+```
+
+### Criar uma cópia de segurança de um diretório específico
+```bash
+#!/bin/bash
+tar -czf backup.tar.gz /caminho/do/diretorio
+```
+
+### Solicite ao usuário o nome de um diretório e, em seguida, o crie
+```bash
+#!/bin/bash
+echo "Digite o nome do diretório:"
+read nome_diretorio
+mkdir $nome_diretorio
+```
+
+### Aceite um nome de arquivo como argumento e verifique se o arquivo existe
+```bash
+#!/bin/bash
+echo "Digite o nome do arquivo:"
+read nome_arquivo
+if [ -e $nome_arquivo ]; then
+  echo "O arquivo existe."
+else
+  echo "O arquivo não existe."
+fi
+```
+
+### Utilize um loop para contar de 1 a 5
+```bash
+#!/bin/bash
+for i in {1..5}
+do
+  echo $i
+done
+```
+
+# <span style="color: #87BBA2">AUTOMATIZAÇÃO DE TAREFAS</span>
+
+## EXECUTANDO MULTIPLAS TAREFAS
+```bash
+#! /bin/bash
+read -p "Entre com a operacao desejada: 'compactar' ou 'descompactar'" operacao
+case "$operacao" in
+        "compactar")
+                read -p "Nome do arquivo final (.tar.gz)" arquivo_saida
+                read -p "Lista de arquivos separados por espaço:" arquivos
+                tar -czf "$arquivo_saida" $arquivos
+                echo "Compactados com sucesso em $arquivo_saida"
+        ;;
+        "descompactar")
+                read -p "Qual é o nome do arquivo a ser a descompactar (.tar.gz)" arquivo
+                read -p "Diretorio de destino" diretorio
+                tar -xzf "$arquivo" -C "$diretorio"
+                echo "Descompactado com sucesso em $diretorio"
+        ;;
+        *)
+        echo "Operacao invalida!"
+        echo "Selecione descompactar ou compactar"
+        exit 1
+        ;;
+esac
+```
+
+### Notas
+- `read -p`: Armazena a opção digitada pelo usuário em uma variável
+  - Sua sintaxe: `read -p <mensagem_que_aparecerá_para_o_usuário> <nome_da_variavel>`
+  - Exemplo: `read -p "O que você digitar, irá para a variável ao lado" variavel_ao_lado`
+
+#### Sintaxe case
+```bash
+# SINTAXE
+case "<variavel_a_ser_lida>" in
+        "<valor_esperado_1>")
+                # bloco de execução
+        ;; # indicador de fim do bloco
+        "<valor_esperado_2>")
+                # bloco de execução
+        ;; # Indicador de fim do bloco
+        # demais valores + blocos que quiser
+        # A opção abaixo é para valores default, ou seja, tudo que não seja as opções acima
+        *)
+                # Valores Default
+                # bloco de execução
+        ;; # indicador de fim do bloco
+esac # Indicador de fim do bloco case
+
+# EXEMPLO
+case "$operacao" in
+        "compactar")
+                read -p "Nome do arquivo final (.tar.gz)" arquivo_saida
+                read -p "Lista de arquivos separados por espaço:" arquivos
+                tar -czf "$arquivo_saida" $arquivos
+                echo "Compactados com sucesso em $arquivo_saida"
+        ;;
+        "descompactar")
+                read -p "Qual é o nome do arquivo a ser a descompactar (.tar.gz)" arquivo
+                read -p "Diretorio de destino" diretorio
+                tar -xzf "$arquivo" -C "$diretorio"
+                echo "Descompactado com sucesso em $diretorio"
+        ;;
+        *)
+                echo "Operacao invalida!"
+                echo "Selecione descompactar ou compactar"
+                exit 1
+        ;;
+esac
+```
+
+#### Descompactando
+Comando: `tar -xzf "$arquivo" -C "$diretorio"`
+- **-xzf:** x (extraia um arquivo compactado, x para Xtract) | z (o arquivo é zip, z para Zip) | f (trata-se de um arquivo, f para File)
+
+## SHELL SCRIPTING COM APENAS OS DOCUMENTOS
+
+### Compactando apenas arquivos
+```bash
+#! /bin/bash
+read -p "Entre com a operacao desejada: 'compactar' ou 'descompactar'" operacao
+case "$operacao" in
+	"compactar")
+		read -p "Nome do arquivo final (.tar.gz): " arquivo_saida
+		read -p "Caminho dos arquivos a compactar: " caminho
+		read -p "Lista de arquivos separados por espaço: " arquivos
+
+		tar -czf "$arquivo_saida" -C "$caminho" $arquivos
+
+		echo "Compactados com sucesso em $arquivo_saida"
+	;;
+	"descompactar")
+		read -p "Qual é o nome do arquivo a ser a descompactar (.tar.gz)" arquivo
+		read -p "Diretorio de destino" diretorio
+
+		tar -xzf "$arquivo" -C "$diretorio"
+
+		echo "Descompactado com sucesso em $diretorio"
+	;;
+	*)
+		echo "Operacao invalida!"
+		echo "Selecione descompactar ou compactar"
+		exit 1
+	;;
+esac
+```
+- Pedimos caminho base ao usuário
+- Flag `-c "$caminho"` entra no diretório antes da compactação
+- O resultado será um `.tar.gz` sem os caminhos completos, apenas com os arquivos desejados.
+
+### Compactando caminho, descompactando apenas os arquivos
+```bash
+#! /bin/bash
+read -p "Entre com a operacao desejada: 'compactar' ou 'descompactar'" operacao
+case "$operacao" in
+	"compactar")
+		read -p "Nome do arquivo final (.tar.gz)" arquivo_saida
+		read -p "Lista de arquivos separados por espaço:" arquivos
+    
+		tar -czf "$arquivo_saida" $arquivos
+    
+		echo "Compactados com sucesso em $arquivo_saida"
+	;;
+	"descompactar")
+		read -p "Qual é o nome do arquivo a ser a descompactar (.tar.gz)" arquivo
+		read -p "Diretorio de destino" diretorio
+
+		tar --strip-components=1 -xzf "$arquivo" -C "$diretorio"
+
+		echo "Descompactado com sucesso em $diretorio"
+	;;
+	*)
+		echo "Operacao invalida!"
+		echo "Selecione descompactar ou compactar"
+		exit 1
+	;;
+esac
+```
+- Isso faz com que o primeiro nível de diretórios seja ignorado na extração.
+
+## FUNÇÕES DIRETAS NO CLI  
+Não é obrigatório escrever um script separado. Você pode declarar e chamar funções diretamente no terminal.  
+
+### **🔥 Criando uma função direto no CLI**
+```bash
+minha_funcao() {
+  echo "Olá, Ronan! Essa função foi criada no terminal. 🚀"
+}
+```
+Agora, basta chamá-la:
+```bash
+minha_funcao
+```
+Saída:
+```
+Olá, Ronan! Essa função foi criada no terminal. 🚀
+```
+
+---
+
+### **📌 Passando parâmetros para a função**
+```bash
+saudacao() {
+  echo "Olá, $1! Seja bem-vindo ao mundo do Bash. 🔥"
+}
+```
+Chamando com um argumento:
+```bash
+saudacao Ronan
+```
+Saída:
+```
+Olá, Ronan! Seja bem-vindo ao mundo do Bash. 🔥
+```
+
+---
+
+### **📌 Funções mais complexas**
+Quer renomear todos os arquivos da pasta `arquivos/`, adicionando `.txt`? Faz assim:  
+```bash
+renomear_arquivos() {
+  for file in arquivos/*; do
+    [[ "$file" == *.txt ]] || mv "$file" "${file}.txt"
+  done
+  echo "Arquivos renomeados com sucesso! ✅"
+}
+```
+Depois, chama direto no CLI:
+```bash
+renomear_arquivos
+```
+
+---
+
+### **📌 Mas e se eu fechar o terminal?**
+Se você definir a função no CLI, ela **some ao fechar o terminal**.  
+
+💡 **Solução:** Para salvar a função permanentemente, adicione ao `~/.bashrc` ou `~/.bash_profile`:
+```bash
+echo 'saudacao() { echo "Olá, $1! Seja bem-vindo ao Bash. 🔥"; }' >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+### **🚀 Resumo**
+✔ **Sim, você pode criar funções direto no terminal.**  
+✔ Para persistência, adicione no `~/.bashrc` ou `~/.bash_profile`.  
+✔ Pode chamar funções no CLI como qualquer comando normal.  
+
+Agora você tá pronto para automatizar tudo no Bash! 🔥💻
+
+## QUANDO USAR E QUANDO NÃO USAR ASPAS
+Ótima pergunta! O uso (ou não) das aspas no shell script pode afetar o comportamento dos comandos. Vamos analisar a diferença no seu snippet:
+
+```bash
+tar -czf "$arquivo_saida" -C "$caminho" $arquivos
+```
+
+---
+
+### **1️⃣ Por que `"$arquivo_saida"` e `"$caminho"` têm aspas?**
+✅ **Protege valores que podem conter espaços**  
+
+Se as variáveis **podem conter espaços ou caracteres especiais**, devemos **usar aspas** para garantir que o valor seja tratado como um único argumento.  
+
+**Exemplo sem aspas:**
+```bash
+arquivo_saida="meu backup.tar.gz"
+tar -czf $arquivo_saida -C /home/user Documents
+```
+Expande para:
+```bash
+tar -czf meu backup.tar.gz -C /home/user Documents
+```
+🚨 **ERRO!** O `tar` agora interpreta **"meu"** como o nome do arquivo e **"backup.tar.gz"** como outro argumento.
+
+**Exemplo com aspas (correto):**
+```bash
+arquivo_saida="meu backup.tar.gz"
+tar -czf "$arquivo_saida" -C /home/user Documents
+```
+Agora, `tar` vê `"meu backup.tar.gz"` como um único argumento. ✅
+
+**Por isso `"$arquivo_saida"` e `"$caminho"` têm aspas**:  
+- `"$arquivo_saida"` → O nome do arquivo pode conter espaços.  
+- `"$caminho"` → O caminho pode ter espaços, como `/home/ronan/Meus Documentos/`.
+
+---
+
+### **2️⃣ Por que `$arquivos` está sem aspas?**
+🚨 **Porque queremos que o shell expanda corretamente vários argumentos.**  
+
+Se `arquivos="arquivo1.txt arquivo2.txt arquivo3.txt"`, e usarmos **aspas**, o comportamento muda:
+
+```bash
+tar -czf "$arquivo_saida" -C "$caminho" "$arquivos"
+```
+Isso **passaria tudo como um único argumento**:
+```bash
+tar -czf "meu backup.tar.gz" -C "/home/user" "arquivo1.txt arquivo2.txt arquivo3.txt"
+```
+❌ **ERRO:** `tar` tentaria compactar um **único arquivo** chamado `"arquivo1.txt arquivo2.txt arquivo3.txt"`.
+
+Sem aspas, cada arquivo é tratado individualmente:
+```bash
+tar -czf "$arquivo_saida" -C "$caminho" $arquivos
+```
+Expande para:
+```bash
+tar -czf "meu backup.tar.gz" -C "/home/user" arquivo1.txt arquivo2.txt arquivo3.txt
+```
+✅ **CORRETO:** `tar` recebe cada arquivo separadamente.
+
+---
+
+### **📌 Regra Geral**
+| Tipo de variável  | Deve usar aspas? | Exemplo correto |
+|------------------|----------------|----------------|
+| **Variável única (caminho, nome de arquivo, string)** | ✅ Sim  | `"$arquivo_saida"`, `"$caminho"` |
+| **Lista de argumentos separados por espaço** (`$@`, `$arquivos`) | 🚫 Não  | `$arquivos`, `$@` |
+| **Lista de argumentos separados por espaço dentro de um array** | ✅ Sim (com `"${array[@]}"`)  | `"${arquivos[@]}"` |
+
+---
+
+### **Resumo**
+✅ **Aspas** em **caminhos ou nomes de arquivos** previnem erros com espaços.  
+🚫 **Sem aspas** em **listas de argumentos** permite que cada item seja tratado corretamente.  
+
+Se o `$arquivos` fosse um **array**, aí sim usaríamos `"${arquivos[@]}"`. 
+
+## INSTALANDO UM SERVIDOR WEB
+
+### O que é um servidor web
+Falamos muito sobre **servidores** até o momento, principalmente porque estamos lidando diretamente com um. Mas por que falamos tanto sobre servidor?
+
+Quando acessamos uma página web, como a página da Alura, para realizar este ou outros cursos, esta página não está hospedada no seu celular ou no seu computador, mas em um **servidor**.
+
+Normalmente, desejamos ter um acesso rápido, ágil, não queremos esperar alguns segundos para o vídeo carregar. Isso afeta muito a nossa experiência como pessoas usuárias de um site ou mesmo de um serviço, como, por exemplo, um serviço de streaming.
+
+Para que isso ocorra de forma ágil e com qualidade, precisamos de um software rodando no nosso servidor, especificamente para atender a essas solicitações encaminhadas pelos nossos dispositivos para ele. **Este software é chamado de servidor web**.
+
+A finalidade deste servidor é atender às solicitações que chamamos de **HTTP**, protocolo de comunicação usado para interagir com recursos e acessar páginas web localizadas em servidores.
+
+Mas como preparamos um servidor web? É possível instalarmos um servidor web neste servidor Ubuntu no qual temos trabalhado? Sim, é possível!
+
+Opções open-source de servidores web:
+- Apache
+  - Funciona bem para atendimento a grandes demandas e utilização de modulos diversos.
+- Nginx
+  - Costuma sendo muito usados em consideração a performance e conteudos estáticos.
+  - O Nginx é conhecido por sua alta eficiência e performance quando lidando com conteúdo estático e alto volume de tráfego.
+
+### Insalando Nginx em nosso servidor
+Primeiro, iremos realizar uma atualização dos pacotes de nosso servidor
+```bash
+sudo apt update # Verifica os pacotes a serem instalados
+sudo apt-get update # Instala de fato os pacotes
+```
+- Será solicitado sua senha, pois é um comando `sudo`, ou seja, estamos escalando privilégios
+
+Agora, iremos instalar o **Nginx**
+```bash
+sudo apt install nginx
+```
+1. Responderemos que sim, para confirmar a instalação
+
+#### Verificando servidor web
+Para verificar se o servidor web está de fato rodando em nosso servidor, utilizaremos uma ferramenta que auxilia a monitorar o desempenho de unidades e serviços dentro do servidor:
+```bash
+sudo systemctl status nginx
+```
+
+Mas, e se rodassemos o `systemctl status` sem informar `nginx`?
+```bash
+sudo systemctl status
+```
+- Será retornado o status de todas as unidades do nosso servidor ubuntu.
+- Ferramenta muito util para monitorarmos, diagnosticarmos erros, monitorar como esta o desempenho das diferentes unidades e serviços de instalados em nosso servidor.
+
+## CONVERSÃO DE ARQUIVOS
+Imagine que você tenha vários arquivos na extensão .jpg em um diretório do seu repositório local de armazenamento e deseja mudar sua extensão para .png. Seria possível criar um script que operasse essa conversão de forma prática e automatizada, ou seja, sem a necessidade de converter arquivo por arquivo?
+
+Temos uma ferramenta muito útil nesse processo: o comando convert. Esse comando nos permite converter, editar e exibir imagens em diversos formatos.
+
+A sintaxe do comando é bem prática:
+```bash
+convert [opções] arquivo_entrada arquivo_saída
+```
+Para converter uma imagem de .jpg para .png, podemos escrever a seguinte instrução:
+```bash
+convert imagem.jpg imagem.png
+```
+E se quiséssemos redimensionar um conjunto de imagens .jpg para uma resolução padrão 800x600?
+```bash
+convert imagem.jpg -resize 800x600 imagem_redimensionada.jpg
+```
+
+### Script
+```bash
+# Indicamos o interpretador
+#!/bin/bash
+
+# Solicitamos a indicação do caminho do diretório
+read -p "Digite o caminho do diretório com as imagens JPG: " diretorio
+
+# Verificamos se o diretório indicado existe
+if [ ! -d "$diretorio" ]; then
+    echo "Diretório não encontrado: $diretorio"
+    exit 1
+fi
+
+# Convertemos todas as imagens JPG para PNG no diretório
+for imagem_jpg in "$diretorio"/*.jpg; do
+    convert "$imagem_jpg" "${imagem_jpg%.jpg}.png" && echo "Imagem convertida: ${imagem_jpg%.jpg}.png" || echo "Falha na conversão: $imagem_jpg"
+done
+
+echo "Conversão concluída!"
+```
+
+O trecho `${imagem_jpg%.jpg}` é um exemplo de **substituição de padrões (parameter expansion)** no Bash. Ele **remove a menor correspondência** do sufixo especificado (.jpg) da variável imagem_jpg.
+
+Exemplo:
+```bash
+arquivo="foto.jpg.backup.jpg"
+echo "${arquivo%.jpg}.png"
+
+# retorno: foto.jpg.backup.png
+```
+
+Mas se quisermos **remover todas as ocorrências** de .jpg, usamos %% (duplo %):
+```bash
+arquivo="foto.jpg.backup.jpg"
+echo "${arquivo%%.jpg}.png"
+
+# retorno: foto.png
+```
+
+## EXEMPLO DE SCRIPTS
+### automatiza a atualização de pacotes do sistema operacional.
+```bash
+#!/bin/bash
+sudo apt update -y
+sydo apt upgrade -y
+```
+O script utiliza os comandos apt update e apt upgrade para automatizar a atualização de pacotes no sistema operacional Debian/Ubuntu. O parâmetro -y é usado para confirmar automaticamente todas as perguntas de confirmação.
+
+### renomeie todos os arquivos em um diretório, adicionando um prefixo ou sufixo especificado
+```bash
+#!/bin/bash
+prefixo="Novo_"
+for arquivo in *; do
+        mv "$arquivo" "$prefixo$arquivo"
+done
+```
+
+### automatiza a criação de usuários no sistema, solicitando ao usuário que forneça o nome e outros detalhes necessários
+```bash
+#!/bin/bash
+read -p "Digite o nome do novo usuário: " nome_usuario
+sudo useradd -m $nome_usuario
+sudo passwd $nome_usuario
+```
+O script solicita ao usuário o nome do novo usuário, cria um diretório pessoal para o usuário (useradd -m), e define uma senha (passwd).
+- Existe também o adduser, que já configura bastante coisa automaticamente. useradd é um comando Debian/Ubuntu de baixo nível
+
+### monitorar o espaço em disco usando o comando df na coleta de informações
+```bash
+#!/bin/bash
+limite=90
+espaco=$(df -h | awk 'NR==2 {print $5}' | sed 's/%//')
+
+if [ $espaco -gt $limite ]; then
+      echo "Alerta: Espaço em disco excedeu $limite%."
+else
+      echo "Espaço em disco está abaixo do limite"
+fi
+```
+O script coleta a porcentagem de espaço em disco usando o comando df, compara com um limite predefinido (90% neste exemplo) e emite um alerta se exceder.
+
+Fala, Parceirão! Sem problema nenhum, tamo junto! Vou destrinchar o que acontece na variável `espaco` linha por linha.  
+
+### **📌 O que acontece em `espaco`?**
+```bash
+espaco=$(df -h | awk 'NR==2 {print $5}' | sed 's/%//')
+```
+👉 **Ela pega a porcentagem de uso do disco e remove o símbolo `%`.**  
+Agora, vamos **quebrar** cada parte para entender direitinho:
+
+---
+
+#### **1️⃣ `df -h` → Verifica o espaço em disco**
+```bash
+df -h
+```
+🔹 `df` (**Disk Free**) → Exibe o uso do disco.  
+🔹 `-h` (**human-readable**) → Mostra os valores de forma legível (`G`, `M`, `%`).  
+
+Exemplo de saída:
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1      100G   85G   15G  85%  /
+tmpfs           16G     0   16G   0%  /dev/shm
+```
+✔️ O número que **importa** para o script é o da **coluna "Use%"**, que indica quanto do disco está ocupado.
+
+---
+
+#### **2️⃣ `awk 'NR==2 {print $5}'` → Filtra a linha e coluna certas**
+```bash
+awk 'NR==2 {print $5}'
+```
+🔹 **`awk`** é uma linguagem de manipulação de texto.  
+🔹 **`NR==2`** → Seleciona **a segunda linha** da saída do `df -h` (onde estão os dados do disco principal).  
+🔹 **`{print $5}`** → Exibe a **quinta coluna**, que é o valor da porcentagem de uso (`85%` no exemplo).  
+
+---
+
+#### **3️⃣ `sed 's/%//'` → Remove o símbolo `%`**
+```bash
+sed 's/%//'
+```
+🔹 `sed` (**stream editor**) edita o texto.  
+🔹 `s/%//` → Substitui (`s/`) o símbolo `%` **por nada**, removendo-o.  
+✔️ Agora, `espaco` contém apenas o número (`85`), facilitando a comparação.
+
+---
+
+### **📌 Recapitulando o que acontece**
+```bash
+espaco=$(df -h | awk 'NR==2 {print $5}' | sed 's/%//')
+```
+1️⃣ **`df -h`** → Mostra o espaço em disco.  
+2️⃣ **`awk 'NR==2 {print $5}'`** → Pega **a porcentagem de uso** (`85%`).  
+3️⃣ **`sed 's/%//'`** → Remove `%`, deixando só o número (`85`).  
+
+---
+
+### **📌 Exemplo prático**
+Se rodarmos o comando direto no terminal:
+```bash
+$ df -h | awk 'NR==2 {print $5}' | sed 's/%//'
+85
+```
+O valor `85` será salvo na variável `espaco`, permitindo a comparação no `if`:
+```bash
+if [ $espaco -gt $limite ]; then
+```
+
+### automatizar o backup de um diretório específico para um local de destino, utilizando a compressão gzip
+```bash
+#!/bin/bash
+origem="/caminho/do/diretorio"
+destino="/caminho/do/backup"
+data=$(date +"%Y%m%d")
+tar -czf $destino/backup_$data.tar.gz $origem
+```
+O script utiliza o comando `tar` para criar um arquivo compactado e tarball, adicionando a data ao nome do arquivo para distinguir backups diários. O gzip (`-z`) é usado para compressão.
