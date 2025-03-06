@@ -1,8 +1,100 @@
 # <span style="color: #87BBA2">===   Modelagem de dados: identificando entidades, atributos, relacionamentos   ===</span> <!-- omit in toc -->
 
 # <span style="color: #87BBA2">INDICE</span> <!-- omit in toc -->
-- [Aula XX: TituloAula](#aula-xx-tituloaula)
-  - [Capitulo](#capitulo)
+- [Conhecendo o projeto](#conhecendo-o-projeto)
+  - [PROJETO A SER DESENVOLVIDO](#projeto-a-ser-desenvolvido)
+  - [ALINHAMENTO DO TIME](#alinhamento-do-time)
+    - [Problemas identificados no material de consumo](#problemas-identificados-no-material-de-consumo)
+    - [O que podemos fazer](#o-que-podemos-fazer)
+  - [IMPOTANCIA DO ALINHAMENTO ENTRE TIMES](#impotancia-do-alinhamento-entre-times)
+  - [MODELO CONCEITUAL](#modelo-conceitual)
+    - [Conceito do Minimundo](#conceito-do-minimundo)
+    - [Levantamento de requisitos](#levantamento-de-requisitos)
+    - [Modelo conceitual (Diagrama de Chen ou DER - Modelo de Entidade e Relacionamento)](#modelo-conceitual-diagrama-de-chen-ou-der---modelo-de-entidade-e-relacionamento)
+  - [MINIMUNDO, LEVANTAMENTO DE REQUISITOS E MODELO CONCEITUAL NO CONTEXTO DE UMA BIBLIOTECA](#minimundo-levantamento-de-requisitos-e-modelo-conceitual-no-contexto-de-uma-biblioteca)
+    - [Minimundo](#minimundo)
+    - [Levantamento de Requisitos](#levantamento-de-requisitos-1)
+    - [Modelo Conceitual (Diagrama de Chen ou DER - Modelo de Entidade e Relacionamento)](#modelo-conceitual-diagrama-de-chen-ou-der---modelo-de-entidade-e-relacionamento-1)
+    - [Conclusão](#conclusão)
+- [Criando entidades](#criando-entidades)
+  - [LEVANTAMENTO DE REQUISITOS](#levantamento-de-requisitos-2)
+    - [Abstração](#abstração)
+  - [SOBRE MER E DER](#sobre-mer-e-der)
+  - [ENTIDADES](#entidades)
+    - [Como identificar Entidade](#como-identificar-entidade)
+    - [Entidades identificadas (Esboço do MER)](#entidades-identificadas-esboço-do-mer)
+    - [Construindo o DER](#construindo-o-der)
+  - [ENTIDADE FORTES](#entidade-fortes)
+  - [ENTIDADE FRACAS](#entidade-fracas)
+- [RELACIONAMENTO](#relacionamento)
+  - [REPRESENTANDO RELACIONAMENTOS](#representando-relacionamentos)
+    - [Refletindo sobre entidades Fortes e Fracas no momento](#refletindo-sobre-entidades-fortes-e-fracas-no-momento)
+    - [**Interpretação**](#interpretação)
+  - [SOBRE GRAU DE RELACIONAMENTO](#sobre-grau-de-relacionamento)
+  - [ENTENDENDO SOBRE CARDINALIDADE](#entendendo-sobre-cardinalidade)
+    - [Cardinalidade mínima](#cardinalidade-mínima)
+    - [Cardinalidade máxima](#cardinalidade-máxima)
+    - [Sentido de leitura](#sentido-de-leitura)
+    - [Ordem de leitura do relacionamento](#ordem-de-leitura-do-relacionamento)
+  - [MAIS SOBRE CARDINALIDADE](#mais-sobre-cardinalidade)
+    - [Tipos de Cardinalidade](#tipos-de-cardinalidade)
+      - [Um-para-Um (1:1):](#um-para-um-11)
+      - [Um-para-Muitos (1:N):](#um-para-muitos-1n)
+      - [Muitos-para-Muitos (N:M):](#muitos-para-muitos-nm)
+    - [Representação da Cardinalidade](#representação-da-cardinalidade)
+    - [Importância da Cardinalidade](#importância-da-cardinalidade)
+  - [CARDINALIDADE](#cardinalidade)
+    - [Regras de negócio da FlexEmpresta](#regras-de-negócio-da-flexempresta)
+  - [SOBRE REGRAS DE NEGÓCIO](#sobre-regras-de-negócio)
+    - [O que são Regras de Negócio?](#o-que-são-regras-de-negócio)
+    - [Por que são importantes?](#por-que-são-importantes)
+    - [Influência no Modelo Conceitual](#influência-no-modelo-conceitual)
+    - [Implementação no Modelo Conceitual](#implementação-no-modelo-conceitual)
+    - [Exemplo Prático](#exemplo-prático)
+    - [Conclusão](#conclusão-1)
+  - [ENTIDADE ASSOCIATIVA](#entidade-associativa)
+    - [Como o banco se comportaria sem entidade associativa](#como-o-banco-se-comportaria-sem-entidade-associativa)
+      - [Sem associação](#sem-associação)
+      - [Representação do banco sem associação](#representação-do-banco-sem-associação)
+      - [Com associação](#com-associação)
+  - [MAIS SOBRE ENTIDADE ASSOCIATIVA](#mais-sobre-entidade-associativa)
+    - [Definição de Entidade Associativa](#definição-de-entidade-associativa)
+    - [Funcionalidade da Entidade Associativa](#funcionalidade-da-entidade-associativa)
+      - [Exemplo de Entidade Associativa](#exemplo-de-entidade-associativa)
+    - [Benefícios da Entidade Associativa](#benefícios-da-entidade-associativa)
+  - [ESCLARECENDO ENTIDADES FORTES E FRACAS](#esclarecendo-entidades-fortes-e-fracas)
+    - [Exemplo](#exemplo)
+      - [**🟢 Exemplo de Strong Entity (Entidade Forte)**](#-exemplo-de-strong-entity-entidade-forte)
+      - [**🔴 Exemplo de Weak Entity (Entidade Fraca)**](#-exemplo-de-weak-entity-entidade-fraca)
+      - [**🤔 E quanto à relação "mínimo 1"?**](#-e-quanto-à-relação-mínimo-1)
+    - [Quando usar relação entidade forte e fraca](#quando-usar-relação-entidade-forte-e-fraca)
+      - [**1️⃣ Se a relação já garante a dependência, por que não deixar tudo forte?**](#1️⃣-se-a-relação-já-garante-a-dependência-por-que-não-deixar-tudo-forte)
+      - [**2️⃣ Quando vale a pena usar entidades fracas?**](#2️⃣-quando-vale-a-pena-usar-entidades-fracas)
+        - [**📌 1. Quando a entidade fraca só faz sentido dentro do contexto da entidade forte**](#-1-quando-a-entidade-fraca-só-faz-sentido-dentro-do-contexto-da-entidade-forte)
+        - [**📌 2. Quando a identificação precisa ser significativa dentro do escopo da entidade forte**](#-2-quando-a-identificação-precisa-ser-significativa-dentro-do-escopo-da-entidade-forte)
+        - [**📌 3. Quando não queremos um ID aleatório longo para a entidade fraca**](#-3-quando-não-queremos-um-id-aleatório-longo-para-a-entidade-fraca)
+      - [**3️⃣ Como o UUID afeta a chave primária da entidade fraca?**](#3️⃣-como-o-uuid-afeta-a-chave-primária-da-entidade-fraca)
+      - [**4️⃣ Conclusão: Quando usar entidades fracas ou não?**](#4️⃣-conclusão-quando-usar-entidades-fracas-ou-não)
+      - [**🔹 Sobre seu questionamento final: "UUID não bagunça a chave composta?"**](#-sobre-seu-questionamento-final-uuid-não-bagunça-a-chave-composta)
+      - [**🔥 Resumo Final**](#-resumo-final)
+- [IDENTIFICANDO ATRIBUTOS](#identificando-atributos)
+  - [CRIANDO ATRIBUTOS](#criando-atributos)
+    - [O que são atributos](#o-que-são-atributos)
+      - [Importância dos Atributos](#importância-dos-atributos)
+    - [Como representar](#como-representar)
+  - [TIPOS DE ATRIBUTOS](#tipos-de-atributos)
+    - [Atributos simples](#atributos-simples)
+    - [Atributos Multivalorados](#atributos-multivalorados)
+    - [Atributos Derivados](#atributos-derivados)
+    - [Atributos Composto](#atributos-composto)
+    - [Atributos descritivos](#atributos-descritivos)
+    - [Atributos Chaves](#atributos-chaves)
+      - [Atributos Chaves em Entidades Fortes e Fracas](#atributos-chaves-em-entidades-fortes-e-fracas)
+      - [Quando existe entidade associativa](#quando-existe-entidade-associativa)
+- [CONHECENDO AS FERRAMENTAS](#conhecendo-as-ferramentas)
+  - [DIAGRAMA DE ENTIDADE E RELACIONAMENTO CONCLUIDO](#diagrama-de-entidade-e-relacionamento-concluido)
+  - [SGBDs](#sgbds)
+
 
 # <span style="color: #87BBA2">Conhecendo o projeto</span>
 
@@ -416,3 +508,356 @@ Flexibilidade para Armazenar Dados Complexos: Permite o armazenamento de dados d
 
 Em resumo, a entidade associativa é uma ferramenta valiosa no arsenal de modelagem de dados, essencial para lidar com complexidades específicas de relacionamentos muitos-para-muitos e para enriquecer o banco de dados com informações detalhadas sobre as interações entre entidades.
 
+## ESCLARECENDO ENTIDADES FORTES E FRACAS
+
+A diferença fundamental está na forma como a entidade é identificada:
+
+- **Entidade (Strong Entity):**  
+  - Possui um identificador único (chave primária) que a define independentemente.  
+  - Pode existir por conta própria, mesmo que esteja relacionada a outras entidades.
+
+- **Weak Entity (Entidade Fraca):**  
+  - Não possui um identificador único próprio.  
+  - Sua identificação depende da existência de uma entidade forte (através de uma relação de identificação).  
+  - Geralmente, sua chave primária é composta pela chave primária da entidade forte associada e por um atributo parcial (discriminador) próprio.
+
+Quanto à relação de "mínimo 1":  
+Nem toda entidade que possui uma relação obrigatória com outra é automaticamente uma weak entity. Uma relação obrigatória (mínimo 1) pode ser apenas uma restrição de integridade sem que a entidade perca sua identidade própria. Para ser considerada uma weak entity, ela precisa depender **exclusivamente** da entidade forte para sua identificação – ou seja, não ter um identificador independente.
+
+Portanto, só definimos uma entidade como weak quando ela **não consegue ser identificada de forma única sem o apoio da entidade forte**. Se a entidade tem um identificador próprio, mesmo com uma relação obrigatória, ela continua sendo considerada uma entidade forte.
+
+### Exemplo
+
+#### **🟢 Exemplo de Strong Entity (Entidade Forte)**  
+Suponha que temos duas tabelas: **Cliente** e **Pedido**.  
+
+```sql
+CREATE TABLE Cliente (
+    id_cliente INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Pedido (
+    id_pedido INT PRIMARY KEY,
+    data_pedido DATE,
+    id_cliente INT,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+```
+
+📌 **Por que são entidades fortes?**  
+- **Cliente** tem um **ID próprio** e pode existir sozinho.  
+- **Pedido** também tem um **ID próprio** e pode existir sem depender da chave primária de outra tabela (ele apenas faz referência a um cliente).  
+- A relação entre elas não influencia na identificação da entidade.  
+
+---
+
+#### **🔴 Exemplo de Weak Entity (Entidade Fraca)**  
+Agora, imagine que um **Dependente** só pode existir se estiver vinculado a um **Cliente**.  
+
+```sql
+CREATE TABLE Cliente (
+    id_cliente INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Dependente (
+    id_dependente INT,
+    id_cliente INT,
+    nome VARCHAR(100),
+    PRIMARY KEY (id_dependente, id_cliente),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+```
+
+📌 **Por que Dependente é uma Weak Entity?**  
+- **Não tem um identificador próprio único**: a chave primária é **composta** (`id_dependente, id_cliente`).  
+- Para identificar um dependente, **precisamos saber a qual Cliente ele pertence**.  
+- Ele **não faz sentido sem um Cliente** – não pode existir sozinho.  
+
+---
+
+#### **🤔 E quanto à relação "mínimo 1"?**  
+- Se **Pedido** exige que todo pedido pertença a um cliente (`NOT NULL` na FK), isso **não o torna uma weak entity**, pois ele ainda pode ser identificado de forma única com `id_pedido`.  
+- Mas **Dependente**, sem um `id_cliente`, não pode ser identificado sozinho, então ele **é uma weak entity**.  
+
+🔹 **Resumo:**  
+✅ Se a entidade tem um identificador único próprio, é uma **strong entity**.  
+❌ Se precisa da chave de outra entidade para ser identificada, é uma **weak entity**.  
+
+### Quando usar relação entidade forte e fraca
+
+#### **1️⃣ Se a relação já garante a dependência, por que não deixar tudo forte?**  
+
+Sim, a relação entre tabelas já pode garantir que um Dependente só exista se houver um Cliente (`FOREIGN KEY NOT NULL`). **Mas isso não é suficiente para tornar Dependente uma entidade fraca!**  
+
+A verdadeira diferença entre **entidades fortes e fracas** está na **forma como elas são identificadas** e não apenas na dependência da FK.  
+
+**Comparação de Modelagens:**  
+
+✅ **Usando Dependente como Entidade Forte**  
+```sql
+CREATE TABLE Cliente (
+    id_cliente UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Dependente (
+    id_dependente UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id_cliente UUID NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
+);
+```
+📌 **Características:**  
+- `Dependente` tem **UUID próprio** e não depende da chave primária de `Cliente` para ser identificado.  
+- Relação é garantida pela `FOREIGN KEY (id_cliente)`.  
+
+❌ **Usando Dependente como Entidade Fraca**  
+```sql
+CREATE TABLE Cliente (
+    id_cliente UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Dependente (
+    id_dependente SMALLINT,
+    id_cliente UUID NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id_dependente, id_cliente),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
+);
+```
+📌 **Características:**  
+- `Dependente` **não tem um identificador único próprio**.  
+- A **chave primária é composta** (`id_dependente, id_cliente`).  
+- O `id_dependente` **é apenas um número incremental dentro de cada Cliente**.  
+
+Agora, a questão principal: **por que usar a segunda abordagem se a primeira já funciona?**  
+
+---
+
+#### **2️⃣ Quando vale a pena usar entidades fracas?**  
+
+Aqui estão **três cenários onde a modelagem com entidade fraca pode ser melhor**:  
+
+##### **📌 1. Quando a entidade fraca só faz sentido dentro do contexto da entidade forte**  
+- Um **Dependente** pode ter o ID `11`, mas **sem o Cliente, esse ID não tem sentido**.  
+- Isso acontece em casos como:
+  - **Assentos de um voo** (não existem fora do voo).  
+  - **Itens de um pedido** (só existem dentro do pedido).  
+
+📌 **Se Dependente for uma entidade forte, ele pode existir isoladamente, o que não faz sentido.**  
+
+---
+
+##### **📌 2. Quando a identificação precisa ser significativa dentro do escopo da entidade forte**  
+Imagine que cada Cliente tenha até **99 Dependentes**. Se usarmos uma **entidade fraca**, podemos numerar os dependentes de `01` a `99` dentro de cada Cliente:  
+
+```
+Cliente: João (ID: a123)
+Dependente 01 - Maria
+Dependente 02 - José
+
+Cliente: Ana (ID: b456)
+Dependente 01 - Pedro
+Dependente 02 - Laura
+```
+📌 **Com uma entidade fraca, sabemos que:**  
+- `01` e `02` pertencem ao Cliente `a123`.  
+- `01` e `02` pertencem ao Cliente `b456`.  
+- Os números **são reaproveitados para cada Cliente**, deixando a identificação mais intuitiva.  
+
+🔹 **Se Dependente fosse uma entidade forte, os IDs seriam UUIDs aleatórios**, dificultando a leitura direta.  
+
+---
+
+##### **📌 3. Quando não queremos um ID aleatório longo para a entidade fraca**  
+Se Dependente tiver um UUID próprio, teremos algo assim:  
+
+```
+Dependente:
+ID: 550e8400-e29b-41d4-a716-446655440000
+ID_Cliente: a123
+Nome: Maria
+
+ID: 550e8400-e29b-41d4-a716-446655440001
+ID_Cliente: a123
+Nome: José
+```
+📌 **Com UUIDs, os IDs são irreconhecíveis sem consulta ao banco**.  
+
+Mas, se Dependente for uma **entidade fraca**, ficaria assim:  
+
+```
+Dependente:
+ID: 01
+ID_Cliente: a123
+Nome: Maria
+
+ID: 02
+ID_Cliente: a123
+Nome: José
+```
+📌 **Agora o ID é menor e mais significativo dentro do contexto do Cliente**.  
+
+---
+
+#### **3️⃣ Como o UUID afeta a chave primária da entidade fraca?**  
+
+Se usarmos **UUIDs**, **perdemos o benefício da chave composta ser legível**, pois ela ficaria assim:  
+
+```
+PRIMARY KEY (id_dependente, id_cliente) -- Exemplo com UUID
+```
+🔹 Se o **id_dependente** for um número pequeno (`01, 02, 03`), faz sentido.  
+🔹 Mas se o **id_dependente** for um UUID, a chave primária seria algo como:  
+
+```
+(550e8400-e29b-41d4-a716-446655440000, a123)
+(550e8400-e29b-41d4-a716-446655440001, a123)
+```
+📌 **Nesse caso, perde-se um dos principais benefícios da entidade fraca: a simplicidade na chave primária.**  
+
+---
+
+#### **4️⃣ Conclusão: Quando usar entidades fracas ou não?**  
+
+✅ **Use entidades fracas quando:**  
+- A entidade **só faz sentido dentro do contexto da entidade forte** (exemplo: Dependentes, Itens de Pedido, Assentos de Voo).  
+- A chave primária precisa ser **composta e significativa** dentro do escopo da entidade forte.  
+- Você deseja um **ID mais curto e legível** dentro do contexto da entidade forte.  
+
+❌ **Use entidades fortes quando:**  
+- A entidade **pode existir isoladamente**.  
+- Cada entidade precisa ter **um UUID único** independente.  
+- Você quer evitar chaves compostas e **facilitar joins**.  
+
+---
+
+#### **🔹 Sobre seu questionamento final: "UUID não bagunça a chave composta?"**  
+
+✅ **Sim, se a chave composta tiver um UUID como ID secundário, a leitura fica mais difícil**.  
+✅ **Por isso, quando usamos UUID, muitas vezes evitamos entidades fracas e deixamos tudo forte.**  
+✅ **Mas se quisermos manter a ideia de entidade fraca, podemos usar um número pequeno para o `id_dependente` ao invés de um UUID.**  
+
+---
+
+#### **🔥 Resumo Final**  
+- Se **UUID está sendo usado**, a **vantagem das entidades fracas diminui**, pois a chave primária fica longa e ilegível.  
+- Para **sistemas com UUIDs, pode ser mais fácil tornar tudo forte** e usar apenas relações (`FOREIGN KEY NOT NULL`).  
+- **Entidades fracas ainda são úteis** quando o ID pode ser pequeno (exemplo: `01, 02, 03` dentro de um Cliente).  
+
+# <span style="color: #87BBA2">IDENTIFICANDO ATRIBUTOS</span>
+
+## CRIANDO ATRIBUTOS
+Consultando o documento de requisitos identificaremos também as caracteristicas de nossas entidades.
+
+As caracteristicas das entidades identificamos como **atributos**.
+
+### O que são atributos
+Em modelagem de dados, um atributo é uma propriedade ou característica de uma entidade que armazena dados. Atributos representam aspectos quantitativos ou qualitativos das entidades e são fundamentais para definir a estrutura de informações de um sistema de banco de dados. Cada atributo em uma tabela geralmente corresponde a uma coluna na tabela de um banco de dados.
+
+#### Importância dos Atributos
+**Descrição**: Atributos fornecem detalhes necessários que descrevem cada instância de uma entidade, permitindo que o banco de dados armazene informações mais completas e úteis.
+
+**Funcionalidade**: Atributos também são fundamentais para as operações do banco de dados, tais como pesquisas, filtros, e análises, pois são os pontos de dados que essas operações utilizam.
+
+**Relacionamentos**: Atributos podem também definir ou influenciar os relacionamentos entre entidades.
+
+**Por exemplo:**
+- No local onde identificamos a entidade Clientes, foi informado da existencia dos dados como: CPF, telefones, endereço, data de nascimento e email. Esses dados especificos são so atributos, uma vez que dão caracteristica à entidade.
+
+### Como representar
+Representa-se com a forma **elipse**, o mesmo indicado pelo **Draw.io**.
+
+## TIPOS DE ATRIBUTOS
+
+### Atributos simples
+Representada como uma elipse simples.
+
+Atributos simples são aqueles que não podem ser divididos em subpartes que têm significado independente no contexto do modelo de banco de dados.
+
+**Exemplo:**
+- Idade de uma pessoa.
+- Preço de um produto.
+
+### Atributos Multivalorados
+Representado como uma elipse dupla.
+
+Atributos multivalorados podem conter dois ou mais valores para uma única instância de uma entidade. Este tipo de atributo é útil quando uma entidade pode possuir várias ocorrências de uma propriedade.
+
+Quando um mesmo campo pede mais de um valor, como:
+- Atributo "telefones" em Cliente, dizendo que é obrigatória a existencia de pelo menos 2 telefones.
+
+**Exemplo:**
+- Telefone: Uma pessoa pode ter vários números de telefone, incluindo telefone residencial, celular e trabalho.
+- Habilidades: Um funcionário pode possuir várias habilidades técnicas.
+
+### Atributos Derivados
+Atributos derivados são aqueles cujos valores são calculados ou derivados de outros atributos.
+
+**Exemplo:**
+- Idade pode ser derivada a partir da Data de Nascimento de uma pessoa.
+- Salário Anual pode ser calculado a partir do salário mensal multiplicado por 12.
+
+### Atributos Composto
+Representado por elipses conectadas a uma elipse central, demonstrando que um atributo é a composição de varios atributos.
+
+Existencia de pedaços de atributos distintos em um mesmo atributo.
+- Isso ocorre no atributo "endereço" de Clientes, onde, na realidade, preencheremos "Rua", "Bairro", "Cidade", etc, tudo em um mesmo campo.
+
+> Atributos compostos podem ser divididos em partes menores, cada uma com um significado próprio e que, juntas, compõem o atributo completo.
+
+**Exemplo:**
+- Nome de uma pessoa pode ser dividido em Primeiro Nome, Nome do Meio e Sobrenome.
+- Endereço, que pode ser dividido em Rua, Número, Cidade, Estado e CEP.
+
+### Atributos descritivos
+Atributos descritivos são aqueles que fornecem mais informações sobre uma instância de entidade e ajudam a qualificar, classificar ou esclarecer a entidade.
+
+**Exemplo:**
+- Cor de um carro.
+- Descrição de um produto.
+
+### Atributos Chaves
+Regra para um projeto de banco de dados.
+
+Atributos-chave são usados para identificar de forma única cada instância de uma entidade em um banco de dados.
+
+**Exemplo:**
+- CPF de uma pessoa.
+- Registro Acadêmico de um estudante em uma universidade.
+
+Utilizado para identificar de forma unica todos os registros (dados) que serão inseridos em uma entidade.
+
+Representação: Elipse (como atributo simples) mas com seu texto sublinhado
+- Atributo chave de Cliente: IDCliente
+
+#### Atributos Chaves em Entidades Fortes e Fracas
+Os atributos chaves sempre estarão presentes em Entidades Fortes, mas, em Entidades Fracas o comportamento é um pouco diferente
+
+Como para uma entidade fraca existir ela depende da existencia de outra entidade, como, por exemplo, para uma entidade `Dependente` existir, precisará da existencia da entidade `Colaborador` para a dizermos que essa seria uma entidade representando Filhos de Colaboradores, ou `Pedido` dependendo da entidade `Cliente` para representarmos os pedidos de um cliente, seu atributo chave será o seu atributo chave unido ao atributo chave da entidade ao qual ela depende.
+
+Representaremos, então, com uma Elipse de texto sublinhado em seu atributo chave e em todos os atributos chaves que ele dependa.
+
+No caso do diagrama de exemplo, `Score de Crédito` terá os atributos `IDCliente` e `IDscoreCredito` como atributos chave.
+
+#### Quando existe entidade associativa
+No caso da entidade `Conta` (entidade fraca), ela possui uma entidade associativa com `Clientes` (entidade forte), ou seja, não existe mais uma relação direta entre `Conta` e `Clientes`, elas, agora, possuem uma relação com a entidade associativa `ClienteConta`.
+
+No caso, então, `Conta` terá somente um atributo chave, o `IDConta` e a entidade associativa `ClienteConta` terá os atributos chaves de `Clientes` e `Conta`, sendo, respectivamente `IDclientes` e `IDConta`.
+
+# <span style="color: #87BBA2">CONHECENDO AS FERRAMENTAS</span>
+
+## DIAGRAMA DE ENTIDADE E RELACIONAMENTO CONCLUIDO
+![Diagrama de Entidade e Relacionamento Concluído](./assets/der_concluido.png)
+![Diagrama de Entidade e Relacionamento Replicado Concluído](./assets/der_replicado.png)
+
+## SGBDs
+SGBDs são softwares (ferramentas) de gerenciamendo de base de dados. No caso, utilizaremos SGBDs relacionais, destinados a gerenciar banco de dados relacional.
+- São nesses gerenciadores que vamos consultar, inserir, editar e excluir informações em uma base de dados, basicamente, são os ambientes que rodaremos nossos códigos de consultas (querys, instruções para banco de dados)
+
+Também existem os Banco de Dados não relacionais, onde as informações não são tão estruturadas. Não precisaremos definir, por exemplo, o que será armazenado em cada entidade.
+
+A Modelagem de Dados é mais direcionada para Banco de Dados relacional, mas nada impede de utilizar seus conceitos para organizar dados em outros tipos de base.
