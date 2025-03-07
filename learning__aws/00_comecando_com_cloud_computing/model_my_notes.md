@@ -76,6 +76,17 @@
     - [Protocolo HTTP (HyperText Transfer Protocol)](#protocolo-http-hypertext-transfer-protocol)
     - [Protocolo HTTPS (HyperText Transfer Protocol Secure)](#protocolo-https-hypertext-transfer-protocol-secure)
   - [EXPOSIÇÃO DE PORTAS E PROTOCOLOS](#exposição-de-portas-e-protocolos)
+  - [ACESSANDO A INSTANCIA VIA SSH](#acessando-a-instancia-via-ssh)
+    - [Configurando par de chaves de segurança](#configurando-par-de-chaves-de-segurança)
+      - [Aba Criar Par de Chaves](#aba-criar-par-de-chaves)
+    - [Acessando ambiente](#acessando-ambiente)
+    - [Caso queiramos apagar o fingerprint](#caso-queiramos-apagar-o-fingerprint)
+      - [1️⃣ **Remover pelo número da linha** (Recomendado)](#1️⃣-remover-pelo-número-da-linha-recomendado)
+      - [2️⃣ **Remover diretamente pelo SSH**](#2️⃣-remover-diretamente-pelo-ssh)
+    - [Permissão negada](#permissão-negada)
+      - [Acessando o EC2 Connect](#acessando-o-ec2-connect)
+    - [Cadastrando chave publica na Instancia](#cadastrando-chave-publica-na-instancia)
+  - [ATENÇÂO: Por algum motivo, não estava conseguindo acessar a instancia](#atençâo-por-algum-motivo-não-estava-conseguindo-acessar-a-instancia)
 
 
 # <span style="color: #87BBA2">NAVEGANDO NA NUVEM</span>
@@ -579,3 +590,121 @@ Quais configurações de regras de segurança para instância EC2 é a mais adeq
 
 E se permitirmos todo trafego de entrada na porta 22 (SSH) de qualquer endereço também e permitir todo o tráfego de saída?
 - Embora essa configuração permita acesso ao website e administração remota, permitir SSH de qualquer endereço e todo o tráfego de saída pode expor a instância a riscos de segurança desnecessários.
+
+## ACESSANDO A INSTANCIA VIA SSH
+Para acessarmos nossa instancia para instlaarmos o servidor web nela, podemos acessá-la através do protocolo SSH com uma par de chaves configurada. Com este par de chaves de segurança, estabeleceremos acesso entre o terminal do nosso dispositivo (no caso, o nosso PC/notebook) e a instancia que está rodando no data center da Amazon.
+
+### Configurando par de chaves de segurança
+No Dashboard EC2, menu lateral > seção Rede e Segurança > aba Pares de chaves, clicaremos neste ícone e criaremos um par de chaves.
+
+#### Aba Criar Par de Chaves
+- Nome: Colocamos `chave_instancia`
+- Tipo de par de chaves (Algoritmos de criptografia)
+  - Algoritmo RSA: Bem tradicional e alta compatibilidade com uma ampla variedade de sistemas
+  - ALgoritmo ED25519: Algoritmo mais moderno e performatico
+  - Selecionaremos o **ED25519**
+- Formato do arquivo de chave privada
+  - Utilizaremos o .pem, que é para uso do OpenSSH.
+  - Tem também o .ppk, que é para utilização com o PuTTY
+- Tags: Opcional, para identificação
+
+Ao clicar em Criar par de chaves, um arquivo de download é gerado
+- Foi gerado um par de chaves e este arquivo deve ser salvo em meu dispositivo e deverá ser utilizado toda vez que eu for realizar uma requisição de acesso SSH
+- Toda vez que esta chave tiver salva em nosso dispositivo, a AWS fará uma comparação se a nossa chave está cadastrada e é correta para acessá-la.
+- É um mecanismo de segurança para assegurar que não tenhamos acessos não autorizados à nossa instância.
+
+![Comparação SSH](assets/comparacao_ssh.png)
+
+### Acessando ambiente
+Agora que baixamos a chave SSH, a moveremos para uma pasta que desejamos e, no terminal (no caso, o instrutor está usando um ambiente WSL com Ubuntu), rodaremos o seguinte código:
+```bash
+ssh -1 /caminho/do/ssh.pem usuario-cloud@enderco_dns_ipv4_cloud
+```
+- Por default, o usuário ec2 é `ec2-user`
+- O endereço DNS IPv4 podemos observar nos detalhes de nossa instancia
+
+No nosso caso, realizamos da seguinte forma:
+```bash
+ssh -i /Downloads/chave_instancia.pem ec2-user@ec2-18-208-156-114.compute-1.amazonaws.com
+```
+
+Um aviso será retornado, como:
+- `The authenticity of host 'ec2-18-208-156-114.compute-1.amazonaws.com (18.208.156.114)' can't be established.`
+- Isso é normal ao conectar pela primeira vez a uma nova instancia EC2. A pergunta se refere se nós confiamos na identidade do servidor.
+- Ao clicar `yes`, o fingerprint do host será salvo no arquivo `~/.ssh/known_hosts` para futuras conexões.
+
+### Caso queiramos apagar o fingerprint
+#### 1️⃣ **Remover pelo número da linha** (Recomendado)
+- Liste os hosts salvos:
+  ```bash
+  nano ~/.ssh/known_hosts
+  ```
+  ou  
+  ```bash
+  cat -n ~/.ssh/known_hosts
+  ```
+- Encontre a linha que contém o IP ou domínio da sua instância (`ec2-18-208-156-114.compute-1.amazonaws.com`).  
+- Remova essa linha com:
+  ```bash
+  sed -i '<número_da_linha>d' ~/.ssh/known_hosts
+  ```
+  ou edite manualmente no `nano`.
+
+---
+
+#### 2️⃣ **Remover diretamente pelo SSH**
+Outra opção é remover pelo comando:
+```bash
+ssh-keygen -R ec2-18-208-156-114.compute-1.amazonaws.com
+```
+Isso apagará qualquer entrada relacionada a essa instância no `known_hosts`.
+
+Se precisar de algo mais, só chamar! 🚀🔥
+
+### Permissão negada
+Retorno ao tentarmos nos conectar:
+```bash
+ec2-user@ec2-18-208-156-114.compute-1.amazonaws.com: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+```
+
+Isso aconteceu pois criamos um par de chaves mas não a associamos a uma instancia. Nós criamos um par de chaves mas este par de chaves está associado a nenhum serviço. Ou seja, tirando como referencia aquela imagem da chave SSH, nós temos a chave de um lado, porém, a instancia que desejamos não possui esta chave.
+![Comparação SSH](assets/comparacao_ssh.png)
+
+Agora, precisamos associar esse par de chaves à instancia que desejamos acessar.
+
+No terminal Ubuntu:
+```bash
+# Mudar o modo de acesso do arquivo para evitar acesso não autorizado
+chmod 600 /Downloads/chave_instancia.pem
+
+# Obtendo chave publica
+ssh-keygen -y -f /Downloads/chave_instancia.pem
+```
+- Copiaremos essa chave publica e salvaremos na instancia através do `EC2 Connect`
+
+#### Acessando o EC2 Connect
+1. Entre no Console da AWS (AWS Console).
+2. Vá para o EC2:
+   - No menu de serviços, procure por "EC2" e clique.
+3. Encontre sua instância:
+  - No painel esquerdo, clique em "Instâncias".
+  - Localize a instância desejada.
+4. Acesse via EC2 Connect:
+  - Clique na instância para abrir os detalhes.
+  - Vá até o botão "Conectar".
+  - Escolha a opção "EC2 Instance Connect" e clique em "Conectar".
+
+Isso abrirá um terminal diretamente no navegador, permitindo acesso à instância sem precisar de SSH e chaves
+
+### Cadastrando chave publica na Instancia
+Ao conectar na instancia, executaremos o seguinte comando:
+```bash
+nano ~/.ssh/authorized_keys
+```
+- Damos um enter e abrirá um arquivo de texto
+- Dentro do arquivo de texto estarão salvas todas as chaves que vão permitir acesso à essa instancia utilizando o protocolo SSH
+- Agora, colaremos toda a linha que foi gerada a partir do comando `ssh-keygen`.
+- Feito isso, apertamos "Ctrl + X" para sair. Iremos salvar e manter o mesmo nome de arquivo apertando "Enter". Não podemos mudar o nome porque senão a chave não será encontrada.
+- Agora executaremos o mesmo comando `ssh -i` e os caminhos especificos e então conseguiremos acessar a nossa instancia a partir de nosso PC
+
+## ATENÇÂO: Por algum motivo, não estava conseguindo acessar a instancia
