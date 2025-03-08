@@ -143,6 +143,15 @@
     - [**📌 Recapitulando o que acontece**](#-recapitulando-o-que-acontece)
     - [**📌 Exemplo prático**](#-exemplo-prático)
     - [automatizar o backup de um diretório específico para um local de destino, utilizando a compressão gzip](#automatizar-o-backup-de-um-diretório-específico-para-um-local-de-destino-utilizando-a-compressão-gzip)
+  - [SOBRE COMANDOS: CAT](#sobre-comandos-cat)
+    - [📌 **Uso do `cat` no Bash**](#-uso-do-cat-no-bash)
+      - [🔹 1. **Exibir o conteúdo de um arquivo**](#-1-exibir-o-conteúdo-de-um-arquivo)
+      - [🔹 2. **Concatenar múltiplos arquivos**](#-2-concatenar-múltiplos-arquivos)
+      - [🔹 3. **Criar um arquivo e escrever nele**](#-3-criar-um-arquivo-e-escrever-nele)
+      - [🔹 4. **Adicionar conteúdo a um arquivo existente**](#-4-adicionar-conteúdo-a-um-arquivo-existente)
+      - [🔹 5. **Exibir o conteúdo de um arquivo com numeração de linhas**](#-5-exibir-o-conteúdo-de-um-arquivo-com-numeração-de-linhas)
+      - [🔹 6. **Usar com pipes (`|`) para redirecionamento**](#-6-usar-com-pipes--para-redirecionamento)
+    - [🎯 **Resumo**](#-resumo-1)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -1735,3 +1744,50 @@ data=$(date +"%Y%m%d")
 tar -czf $destino/backup_$data.tar.gz $origem
 ```
 O script utiliza o comando `tar` para criar um arquivo compactado e tarball, adicionando a data ao nome do arquivo para distinguir backups diários. O gzip (`-z`) é usado para compressão.
+
+## SOBRE COMANDOS: CAT
+O comando `cat` no Bash significa **"concatenate"** (concatenar) e é usado para exibir o conteúdo de arquivos, unir múltiplos arquivos e redirecionar saídas.  
+
+### 📌 **Uso do `cat` no Bash**
+#### 🔹 1. **Exibir o conteúdo de um arquivo**
+```sh
+cat arquivo.txt
+```
+👉 Exibe todo o conteúdo de `arquivo.txt` no terminal.
+
+#### 🔹 2. **Concatenar múltiplos arquivos**
+```sh
+cat arquivo1.txt arquivo2.txt > arquivos_concatenados.txt
+```
+👉 Une `arquivo1.txt` e `arquivo2.txt` e salva no `arquivos_concatenados.txt`.
+
+#### 🔹 3. **Criar um arquivo e escrever nele**
+```sh
+cat > novo_arquivo.txt
+```
+👉 O terminal ficará aguardando a entrada do usuário. Digite o texto e pressione `CTRL + D` para salvar e sair.
+
+#### 🔹 4. **Adicionar conteúdo a um arquivo existente**
+```sh
+cat >> arquivo_existente.txt
+```
+👉 Sem sobrescrever, adiciona novas linhas ao final de `arquivo_existente.txt`.
+
+#### 🔹 5. **Exibir o conteúdo de um arquivo com numeração de linhas**
+```sh
+cat -n arquivo.txt
+```
+👉 Mostra o conteúdo numerado.
+
+#### 🔹 6. **Usar com pipes (`|`) para redirecionamento**
+```sh
+cat arquivo.txt | grep "palavra"
+```
+👉 Filtra as linhas do `arquivo.txt` que contêm "palavra".
+
+### 🎯 **Resumo**
+- `cat` vem de **concatenate** e exibe arquivos no terminal.
+- Pode ser usado para unir arquivos, criar arquivos e redirecionar saídas.
+- Alternativas: `less` (para arquivos grandes) e `tac` (exibe o conteúdo de trás para frente).  
+
+Se precisar de mais detalhes, é só falar! 🚀
