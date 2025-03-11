@@ -152,6 +152,18 @@
       - [🔹 5. **Exibir o conteúdo de um arquivo com numeração de linhas**](#-5-exibir-o-conteúdo-de-um-arquivo-com-numeração-de-linhas)
       - [🔹 6. **Usar com pipes (`|`) para redirecionamento**](#-6-usar-com-pipes--para-redirecionamento)
     - [🎯 **Resumo**](#-resumo-1)
+- [MONITORAMENTO E AGENDAMENTO](#monitoramento-e-agendamento)
+  - [MONITORANDO RECURSOS](#monitorando-recursos)
+    - [Opções](#opções)
+    - [O que queremos monitorar](#o-que-queremos-monitorar)
+    - [Encadeamento de comandos (redirecionamento por pipe)](#encadeamento-de-comandos-redirecionamento-por-pipe)
+    - [Soluções nativas](#soluções-nativas)
+    - [Encaminhando resultados](#encaminhando-resultados)
+    - [Shell scripting para verificação de erro com Nginx](#shell-scripting-para-verificação-de-erro-com-nginx)
+      - [Testando funcionamento](#testando-funcionamento)
+    - [MONITORANDO MÉTRICAS ATRAVÉS DE URL](#monitorando-métricas-através-de-url)
+  - [SOBRE O GREP](#sobre-o-grep)
+    - [Testando comportamento](#testando-comportamento)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -1791,3 +1803,182 @@ cat arquivo.txt | grep "palavra"
 - Alternativas: `less` (para arquivos grandes) e `tac` (exibe o conteúdo de trás para frente).  
 
 Se precisar de mais detalhes, é só falar! 🚀
+
+# <span style="color: #87BBA2">MONITORAMENTO E AGENDAMENTO</span>
+
+## MONITORANDO RECURSOS
+Para verificarmos os processos em execução em nosso servidor, utilizaremos o comando `top`, o qual entregará uma lista de processos similar ao Gerenciador de Tarefa do Windows.
+
+**O que são as siglas**
+- PID = Process
+- USER = Effectiv
+- PR = Priority
+- NI - Nive Val
+- VIRT = Virtual
+- RES = Resident
+- SHR = Shared M
+- S = Process
+- %CPU = CPU Usage
+- %MEM = Memory Usage
+- TIME + = CPU Time
+- COMMAND = Command
+- PPID = Parent Process
+
+### Opções
+- Opção `u`: filtrar os processos em execução por usuário;
+- Opção `q`: sair do comando;
+- Opção `f`: serie de informações que podem ser listadas em nossa tabela
+
+### O que queremos monitorar
+Nossa intenção ao monitorar um servidor web é verificar:
+- Número de requisições por segundo que estão chegando em nosso servidor Ngix
+- Número de conexões ativas
+- Número de usuários que estão tentando acessar uma página ou serviço que está hospedado nesse servidor web que acabamos de instalar
+
+Na prática, se verificassemos esses parametros, nós veriamos que teria nada, pois, não instalamos nada, não hospedamos nenhuma pagina web, mas podemos verificar o status desse servidor e verificando se ele está em execução e se ocorreu alguém erro com ele.
+
+### Encadeamento de comandos (redirecionamento por pipe)
+- Comando `ps`: demonstra uma lista bem resumida de processos gerais
+  - `ps aux`: Demonstra uma lista grande e detalhada dos processos
+
+Agora, para filtramos os processos que estão sendo executados no Ngix teremos que utilizar o encademaneto de comandos, que é executado através do pipe.
+- A utilização do pipe direciona a saida de um comando como entrada do proximo comando
+- O sentido de leitura de comandos é da esquerda para a direita
+```bash
+ps aux | grep ngix
+```
+- `grep`: ferramenta de pesquisa
+  - **Detalhe**: A ultima informação que aparece na listagem é o texto do próprio comando dado
+
+**Realizando grep invertido e grep para filtragem**
+```bash
+ps aux | grep -v grep | grep nginx
+```
+- `grep -v`: Inverte a ação do grep, ou seja, ao invés de indicarmos qual termos filtrar, indicaremos qual termo deverá ser retirado.
+
+### Soluções nativas
+Existe algo similar de forma nativa ao que fizemos com o encadeamento que retorna apenas os IDs dos processos (PID):
+```bash
+pgrep nginx
+```
+- Este comando retorna os IDs dos processos já filtrando sem o comando grep
+
+### Encaminhando resultados
+Para encaminharmos os resultados para outro lugar, como para dentro de um arquivo, utilizamos o simbolo de `>`.
+```bash
+pgrep nginx >  /dev/null
+```
+- Direcionando a saida desse comando para o descarte (lixeira)
+
+Caso rodarmos um comando errado, teremos o retorno do erro:
+```bash
+pgrip nginx > /dev/null
+# bash: pgrip: command not found
+```
+- Observe que escrevemos o comando errado **PGRIP ao invés de PGREP**, e tivemos um retorno de erro, **sem encaminhá-lo para o local destinado**.
+- Ou seja, encerrou-se o comando com o erro.
+
+**Encaminhando resultado e o erro ao destino**
+```bash
+pgrip nginx &> /dev/null
+```
+- Dessa forma, encaminharemos tanto o resultado quanto o erro para o destino informado.
+
+### Shell scripting para verificação de erro com Nginx
+Através do **nano**:
+```bash
+#! /bin/bash
+
+if pgrep nginx &> /dev/null # Só como clausula de teste, por isso descartaremos o retorno valido ou o erro.
+then
+        echo "Nginx esta operando $( date +"%Y-%m-%d%H:%M:%S")"
+else
+        echo "Nginx fora de  operacao $( date +"%Y-%m-%d%H:%M:%S")"
+fi
+```
+
+Após criado
+- `chmod + monitoramento.sh`
+
+#### Testando funcionamento
+```bash
+./monitoramento.sh # Verificando retorno
+# RETORNO: Nginx esta operando 2025-03-1108:47:57
+
+sudo service nginx stop # Forçando para do nginx pra testar retorno
+./monitoramento.sh
+# RETORNO: Nginx fora de operacao 2025-03-1108:49:31
+
+sudo service nginx start # Retornando nginx para operação
+./monitoramento.sh
+# RETORNO: Nginx esta operando 2025-03-1108:50:16
+```
+
+### MONITORANDO MÉTRICAS ATRAVÉS DE URL
+O comando `curl` serve para realizar requisições HTTP e coletar informações de URLs.
+
+```bash
+#!/bin/bash
+
+get_nginx() {
+  local metrics=$(curl -s "http://localhost/nginx_status")
+  if [[ -n "$metrics" ]]; then
+    local active_connections=$(awk 'NR==1 {print $3}' <<< "$metrics")
+    local requests_per_second=$(awk 'NR==3 {print $2}' <<< "$metrics")
+    echo "Active connections: $active_connections"
+    echo "Requests per second: $requests_per_second"
+  else
+    echo "Failure in collecting Nginx metrics."
+  fi
+}
+
+get_nginx
+```
+- Este script está coletando corretamente as métricas. O uso do curl -s obtém o status do Nginx silenciosamente, que é armazenado na variável local 'metrics'. A seguir, são usados comandos 'awk' para extrair o número de conexões ativas e requisições por segundo, que são então impressos.
+
+## SOBRE O GREP
+Quando criamos um código que precisa coletar dados para verificar condições e direcionar os próximos passos da execução, não lidaremos apenas com números que serão comparados com valores de referência. Muitas vezes, dados importantes para a execução do nosso código devem ser obtidos a partir de textos. Pode até parecer um desafio complexo de ser solucionado, mas o Bash tem alguns comandos e atalhos que nos ajudam a criar uma solução sem muita dificuldade.
+
+O comando grep é um importante aliado que atua na busca de dados em arquivos ou fluxos de entrada do código (dados digitados por um usuário no teclado, por exemplo). Esse comando nos permite especificar palavras ou padrões para a pesquisa.
+
+Para realizarmos a busca de um padrão em um arquivo utilizando o grep, utilizamos a seguinte sintaxe:
+```bash
+grep [opções] padrão [ARQUIVO]
+```
+
+As opções possibilitam o refinamento do processo de busca e a forma de exibição dos resultados. Caso queira, por exemplo, buscar uma palavra ignorando letras maiúsculas e minúsculas, basta inserir a opção -i na linha de comando. Já para contar quantas vezes uma palavra aparece em um determinado arquivo, você pode usar a opção -c. Para explorar melhor o comando e suas várias opções, utilize o grep - -help.
+
+Por outro lado, o processamento dos dados pode demandar o uso encadeado de vários comandos, direcionando a saída de uma pesquisa com o grep, por exemplo, para a entrada de outro comando (e vice-versa).
+
+Esse direcionamento de dados entre diferentes comandos é implementado usando um operador conhecido como pipe, representado por |. Ele atua no direcionamento da saída de um comando para entrada de outro, criando, dessa forma, um fluxo contínuo de dados.
+```bash
+cat novo.txt | grep "padrão"
+```
+Um caso prático de uso do operador pipe com o comando grep é ilustrado no comando acima que exibe o conteúdo do arquivo de título “novo.txt” no terminal e, na sequência, usa o greppara procurar e exibir todas as linhas que possuem o “padrão” especificado.
+
+Repare que essas ferramentas são bastante úteis no filtro e coleta de dados que desejamos a partir de arquivos e informações dispostas em um texto.
+
+### Testando comportamento
+```bash
+cat > teste.txt # Cria rapidamente um aquivo de texto com barra piscante para inserir dados
+# Maçã
+# Banana
+# Maçã e Banana
+# Banana e Maçã
+# Tomate
+# Cereja
+# Tomate cereja
+
+cat teste.txt | grep banana
+# Nenhum retorno
+
+cat teste.txt | grep Banana
+# Banana
+# Maçã e Banana
+# Banana e Maçã
+
+cat teste.txt | grep -i banana
+# Banana
+# Maçã e Banana
+# Banana e Maçã
+```
