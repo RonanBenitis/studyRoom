@@ -447,3 +447,111 @@ public class Principal {
 No código anterior, vai ocorrer erro de compilação na classe Principal, pois o atributo saldo e o método sacar foram declarados como private, não podendo com isso serem acessados de fora da própria classe Conta.
 
 Existe ainda um último modificador de acesso, que é o protected, mas falaremos dele mais adiante no curso, após ser apresentado o conceito de herança de classes.
+
+## ORGANIZANDO O CÓDIGO
+Explica-se sobre a alta presença de classes já nativamente na linguagem, por exemplo, `String`, que possui letra maiuscula não por coincidencia mas sim porque ela também é uma classe e não um primitivo.
+
+Para saber mais sobre a linguagem Java e sua versão especifica, podemos consultar a documentação no **Java Doc**, que é algo similar ao **MDN** para o JavaScript. É a documentação do Java.
+
+[Link para o Java Doc 19](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)
+
+### String no Java Doc
+Aqui podemos ver os métodos da classe `String` (como `concatString`, `contains`, `split`, `format`, `toUppderCase`, `toLowerCase` e afins) e seus atributos (em ingles é `fields`).
+
+### Dicas de desenvolvimento
+Quando sentir a necessidade de uma mentalidade, é sempre interessante verificar na documentação da linguagem para verificar se essa soliução já foi implementada, pois, é muito comum que eça já exista.
+
+Isso evita que nós **reinventemos a roda**.
+
+Por exemplo, o que precisarmos trabalhar e operar com palavras, 99% das soluções já existem na classe `String` e o que não tiver nós vamos pesquisar biblioteca para isso.
+
+### Notação por ponto
+Ao utilizarmos a notação por ponto, o IntelliJ trará os métodos que essa classe possui, ordenando das mais usadas para as menos usadas.
+
+### Organização
+Como teremos diversas classes, não deixaremos tudo solto no `src`. Vamos separá-los em pacotes.
+- **Pacote:** organiza código pela funcionalidade de suas classes
+
+### Package e import
+O **Import** é a forma que uma classe se referencia a outra quando estão em pacotes diferentes.
+- Para importar uma classe, podemos utilizar as sugestões da IDE, ela consegue identificar se essa classe é existente.
+
+Já a declaração de pacote (**Package**) indica a qual pacote a classe faz parte, sendo o endereço ao qual ele será importado.
+
+### Visibilidade
+Com a refatoração, a classe **Principal** passou a não enxergar os atributos de **Filme**. Isso se dá pelo fato de não termos declarado o **modificador de visibilidade**, onde, por padrão no Java é designado como **package-private**, ou seja, este atributo será visto por todas as classes do mesmo pacote. Ao mover **Filme** de pacote, os atributos passaram a não serem mais visiveis.
+
+Importante: Apesar da classe estar como **public**, isso não é em cascata. Os atributos e métodos também precisam ter definição de modificador de visibilidade ou serão considerados como default (package-private).
+
+### Sobre modificador de visibilidade em atributos
+O modificador de visibilidade em atributos de classes instanciáveis **não devem ser publicos**. Veremos a frente que utilizaremos métodos de controle de acesso aos atributos, mantendo o atributo em si como **private**. Isso se chama encapsulamento.
+
+Deixando um atributo publico, acrescentaremos uma vulnerabilidade e cairíamos no mesmo problema da avaliação, em que alguém poderia trocar o valor sem que desejássemos.
+
+### JavaDoc
+A documentação do Java, conhecida como JavaDoc, é uma referência completa para todas as classes, interfaces e métodos disponíveis na plataforma Java. Ela está disponível online e pode ser acessada neste [site da Oracle](https://docs.oracle.com/en/java/javase/17/docs/api/index.html).
+
+Recomendo fortemente pela clareza e organização que essa documentação possui.
+
+## PADRÃO DE NOMES DE PACOTES
+Em Java, pacotes são usados para agrupar classes que estão relacionadas a alguma funcionalidade. Eles ajudam a organizar o código, facilitando o seu gerenciamento e evitando que centenas de classes distintas fiquem todas misturadas num único diretório.
+
+A organização de classes dentro de um pacote também pode ser feita usando subpacotes ou colocando as classes diretamente dentro do pacote, dependendo da complexidade do projeto. Além disso, é importante seguir a convenção de nomeação de pacotes para garantir que os pacotes sejam facilmente identificados.
+
+Em relação à nomenclatura de pacotes, outro aspecto importante é o uso do nome de domínio reverso da empresa ou organização como parte do nome do pacote. Por exemplo, se o nome de domínio da empresa fosse "minhaempresa.com.br" e o projeto Java fosse chamado de "meuprojeto", o nome do pacote de domínio reverso seria br.com.minhaempresa.meuprojeto, sendo que dentro desse pacote principal podemos ter diversos subpacotes, para melhor organização do código do projeto.
+
+Isso ajuda a garantir que o nome do pacote seja exclusivo e evita conflitos de nome com outros pacotes em outros projetos. Além disso, o uso do nome de domínio reverso como parte do nome do pacote também ajuda a identificar facilmente o proprietário do projeto Java.
+
+## CRIANDO MÉTODOS QUE MODIFICAM VALORES
+Agora, deixamos todos os atributos com o modificador de visibilidade como `private`, que é o que comumente veremos em demais projetos.
+
+Apesar de termos feito isso, ainda temos problemas em nossa classe `Principal`, pois, este tentava acessar diretamente aos atributos. Apesar de não queremos que acesse diretamente os atributos, queremos que o acesse de alguma forma.
+
+### Getters e Setters
+Para isso, criaremos o que chamamos de **Getter e Setter**, sendo **Getter** a forma de buscarmos o valor dos atributos e **Setter** a forma de incluir um valor ao atributo.
+
+A IDE pode criar pra nós esse Getters e Setters através do **Generate (alt + insert)**.
+> A ordem entre atributos e métodos não importa, mas, por convenção, desenvolve-se os métodos abaixo dos atributos.
+
+#### Sintaxe do Setter
+```java
+public void setNome(String nome) {
+    this.nome = nome;
+}
+```
+
+Caso não queiramos utilizar o `this`, podemos fazer da seguinte forma:
+```java
+public void setNome(String n) {
+    nome = n;
+}
+```
+- Na IDE, o `nome` estará em roxo indicando que trata-se de um atributo de instancia.
+
+O mais utilizado é com o termo `this.`, que se aponta explicitamente para a variável de instancia.
+
+### O que é this
+`this.` é uma palavra mágica que se refere a **essa instancia**, ou seja, `this.` no contexto de **Filme** se refere a **esse filme**, mas, de forma abstrata. Ou seja, é uma indicação de que estamos nos referindo a **instancia**, e não a **classe**, onde este atributo/método utilizará informações do filme especifico que encontra-se instanciado.
+
+```java
+Filme filme1 = new Filme();
+```
+- `Filme.tabela` = Busca **o atributo de Classe**, ou **atributo estático**, o qual será comum para **todos os filmes**.
+- `filme1.nome` = Busca **o atributo da instancia**, o qual tem como retorno um `this.nome` (ou apenas nome, dependendo de como foi escrito). Ou seja, chamar métodos e atributos **não estáticos** na instancia de Filme chamada `filme1`, estaremos acessando **os dados DESSA INSTANCIA EM ESPECIFICO**, sendo **os dados de filme1, e não de Filme**, consequentemente, ao manipularmos essa instancia, os dados permanecerão nessa instancia.
+
+#### Construindo os setters
+Importante avaliarmos bem quais atributos queremos ter getter e quais atributos queremos ter setter. Não é uma boa pratica simplesmente criar getter e setter para todos os atributos sem refletir, e, haverá casos que criarmos getters mas não criaremos setters.
+
+#### Refletindo sobre o getter
+Apesar de paracer não muito claro o porque utiliza-se o getter, uma vez que neste caso só estamos buscando um valor no atributo e repassando-o, é muito comum termos validações também, e, apesar de não termos validações no nosso caso, estamos deixando a estrutura pronta para acrescentar caso seja necessário no futuro.
+
+A padronização é importante para as boas práticas, pois, assim, faz com que todos os códigos sejam escritos e se comportem de forma parecida em situações como essa.
+
+Sobre as validações, ao acessar um ano de lançamento, poderiamos, por exemplo, criar uma validação para só mostrar a informação caso o usuário esteja autenticado.
+
+#### Refletindo sobre o setter
+O mesmo pode ser aplicado ao setter, como, no nosso caso sendo uma plataforma de streaming, poderiamos validar e barrar datas de lançamento que são alem da data atual.
+> O método setAnoDeLancamento() poderia ter uma lógica diferente. Ao invés de somente guardar a data, poderíamos ter uma condicional if verificando se o valor recebido é menor que 1900. Nesse caso, poderíamos retornar que esse valor é inválido.
+
+Aí, se em um futuro o sistema passe a aceitar pré estreia, já se sabe onde atualizar o código.
+> O setter encapsula, esconde a lógica do nosso objeto, de forma que alterações futuras possam ser concentradas em um único lugar. Ou seja, pode parecer bobo no começo, mas está nos ajudando a se preparar para o futuro.
