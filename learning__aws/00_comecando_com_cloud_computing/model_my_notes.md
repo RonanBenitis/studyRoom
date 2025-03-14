@@ -87,6 +87,26 @@
       - [Acessando o EC2 Connect](#acessando-o-ec2-connect)
     - [Cadastrando chave publica na Instancia](#cadastrando-chave-publica-na-instancia)
   - [ATENÇÂO: Por algum motivo, não estava conseguindo acessar a instancia](#atençâo-por-algum-motivo-não-estava-conseguindo-acessar-a-instancia)
+- [CONSTRUINDO APLICAÇÂO DE TESTE](#construindo-aplicaçâo-de-teste)
+  - [PREPARANDO UM SERVIDOR WEB](#preparando-um-servidor-web)
+    - [Passo a passo para instalação do servidor](#passo-a-passo-para-instalação-do-servidor)
+      - [**O que significa o symlink criado?**](#o-que-significa-o-symlink-criado)
+    - [Continuação do passo a passo](#continuação-do-passo-a-passo)
+      - [Instalando SSL](#instalando-ssl)
+      - [Acessando endereço da instancia](#acessando-endereço-da-instancia)
+    - [Verificando alerta com curl](#verificando-alerta-com-curl)
+      - [Sobre curl](#sobre-curl)
+  - [MAIS SOBRE APACHE WEB SERVER](#mais-sobre-apache-web-server)
+  - [🌐 **O que é um Servidor Web?**](#-o-que-é-um-servidor-web)
+    - [📌 **Exemplos de servidores web populares:**](#-exemplos-de-servidores-web-populares)
+    - [📌 **Por que um Servidor Web é necessário?**](#-por-que-um-servidor-web-é-necessário)
+      - [1️⃣ **Entrega Páginas Web**](#1️⃣-entrega-páginas-web)
+      - [2️⃣ **Execução de Aplicações Web**](#2️⃣-execução-de-aplicações-web)
+      - [3️⃣ **Gerenciamento de Requisições**](#3️⃣-gerenciamento-de-requisições)
+      - [4️⃣ **Segurança e Controle**](#4️⃣-segurança-e-controle)
+      - [5️⃣ **Distribuição de Arquivos Estáticos**](#5️⃣-distribuição-de-arquivos-estáticos)
+    - [🏗️ **Como Funciona um Servidor Web?**](#️-como-funciona-um-servidor-web)
+    - [🚀 **Servidor Web em Cloud (AWS)**](#-servidor-web-em-cloud-aws)
 
 
 # <span style="color: #87BBA2">NAVEGANDO NA NUVEM</span>
@@ -708,3 +728,194 @@ nano ~/.ssh/authorized_keys
 - Agora executaremos o mesmo comando `ssh -i` e os caminhos especificos e então conseguiremos acessar a nossa instancia a partir de nosso PC
 
 ## ATENÇÂO: Por algum motivo, não estava conseguindo acessar a instancia
+
+# <span style="color: #87BBA2">CONSTRUINDO APLICAÇÂO DE TESTE</span>
+## PREPARANDO UM SERVIDOR WEB
+Agora que temos acesso à nossa instancia, vamos instalar um servidor web.
+
+Temos opções de servidores web, sendo os mais famosos e maiores:
+- Nginx
+- Apache
+
+Escolheremos o Apache neste momento.
+
+### Passo a passo para instalação do servidor
+Primeiro, **atualizamos todos os pacotes**
+1. `sudo yum update -y`
+  1. `sudo`: Super User DO - Escalando privilegio administrativo
+  2. `yum`: Yellowdog Updater, Modified - gerenciador de pacotes, muito utilizado em distribuições Linux baseadas no CentOS, como é o caso do Amazon Linux.
+  3. `update`: Atualizar (no caso, atualizar todos os pacotes)
+  4. `-y`: Yes - Opção para aceitar automaticamente todas as confirmações necessárias para a instalação, sem pedir interação do usuário
+```bash
+Amazon Linux 2023 Kernel Livepatch repository                                             138 kB/s |  14 kB     00:00    
+Dependencies resolved.
+Nothing to do.
+Complete!
+```
+- É normal aparecer um "Dependencia resolvida, não há o que fazer" pois, basicamente, instalamos há muito pouco tempo a nossa instancia. Então, acredita-se que está tudo ali, todos os pacotes, dependências e tudo novo para utilizarmos a instância da melhor forma possível.
+
+Agora, **instalaremos o servidor Apache**
+1. `sudo yum install httpd -y`
+   1. `httpd`: Instrui o `yum` a instalar o pacote httpd, que é o serviço **Apache HTTP Server** (servidor web)
+
+**Iniciando servidor web**
+1. `sudo systemctl start httpd`
+   1. `systemctl` - Comando usado para interagir com o `systemd`, que gerencia serviços no Linux
+   2. `start` - Diz ao `systemd` para iniciar o serviço
+   3. `httpd` - Nome do serviço do Apache
+      1. O servidor Apache (httpd) inicia e começa a escutar requisições HTTP na porta 80 (por padrão).
+
+**Verificando status do servidor web**
+1. `sudo systemctl status 'httpd'`
+   1. `systemctl status` - Mostra o estado atual de um serviço
+      1. Ativo (active) → O Apache está rodando corretamente.
+      2. Inativo (inactive) → O Apache não está rodando.
+      3. Falhou (failed) → Algo deu errado ao iniciar o Apache.
+
+**Habilitando o servidor**
+1. `sudo systemctl enable httpd`
+   1. `enable`: Configura o serviço para iniciar automaticamente sempre que o sistema for ligado ou reiniciado
+      1. Se você reiniciar sua instância AWS (ou qualquer servidor Linux), o Apache não rodaria automaticamente, a menos que tenha sido habilitado com enable.
+
+#### **O que significa o symlink criado?**  
+Quando você executa `enable`, verá uma mensagem como esta:  
+
+```bash
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service → /usr/lib/systemd/system/httpd.service.
+```
+
+📌 **O que isso significa?**  
+- **Symlink (link simbólico)** → É um "atalho" que aponta de um local para outro no sistema de arquivos.  
+- **`/etc/systemd/system/multi-user.target.wants/httpd.service`**  
+  - Essa pasta contém serviços que serão iniciados automaticamente no modo **multi-user** (modo padrão para servidores).  
+- **`/usr/lib/systemd/system/httpd.service`**  
+  - Esse é o arquivo de configuração original do serviço Apache.  
+
+📌 **Resumindo:**  
+O `enable` cria um **link simbólico** dentro da pasta de inicialização do `systemd`, garantindo que o serviço **Apache (`httpd`) inicie automaticamente** quando o sistema for ligado.
+
+### Continuação do passo a passo
+Agora, servidor web encontra-se instalado e operando, porém, ao tentarmos acessar o endereço publico da instancia ainda temos o a conexão recusada `ERR_CONNECTION_REFUSED`.
+
+Quando realizamos um `curl` em nosso terminal fora da instancia na nuvem, podemos verificar que a requisição foi feita para a **porta 443, que é a porta padrão do HTTPS**, porém, **O servidor Apache por padrão fica escutando a porta 80 (HTTP).** Agora, precisaremos atualizar nosso servidor para escutar, também, a porta 443.
+
+Para isso, instalaremos o modulo **SSL** que cuida de conexões seguras, no caso, HTTPS
+
+#### Instalando SSL
+**SSL (Secure Sockets Layer)** é um protocolo que protege a comunicação entre cliente e servidor web. Usa criptografia para garantir que os dados transmitidos não sejam interceptados ou modificados por terceiros.
+- `sudo yum install mod_ssl`
+  - Aceitamos a instalação e nosso modulo foi instalado
+
+**Verificando arquivo de configuração SSL no Apache**
+- `sudo nano /etc/httpd/conf.d/ssl.conf`
+  - Temos como retorno todo o conteúdo desse arquivo de configuração. Nele temos a especificação Listen `443 https`. O que precisamos verificar é se temos linhas nesse arquivo com os caminhos para `SSLCertificateFile` e `SSLCertificateKeyFile`, que são arquivos importantes para garantir que vamos ter essa camada segura para o servidor ouvir na porta 443 usando o protocolo HTTPS.
+
+**Reiniciando servidor para ver se escuta a porta 443**
+- `sudo systemctl restart httpd`
+
+**Listando todas as conexões TCP em modo de escuta na porta 443**
+- `sudo netstat -tulnp | grep 443`
+
+Nós usamos o pipe (|) para encadear comandos. Ou seja: o primeiro comando gera uma saída e essa saída é passada para o próximo comando.
+
+Com o grep, vamos ter uma saída mais limpa. Se usássemos só o sudo netstat, teríamos uma tabela grande com muitos resultados. Usando o grep, vamos ter uma saída refinada, observando apenas as conexões na porta 443, que é o que queremos.
+
+Ao executar esse comando, temos que a porta 443 está sendo ouvida, usando o protocolo TCP. Temos listado o ID do processo e o programa que está ouvindo, ou seja, o programa httpd, o nosso servidor web Apache.
+
+#### Acessando endereço da instancia
+Agora, acessando o endereço da instancia, nos deparamos com um aviso de "Sua conexão não é particular", o qual continuaremos a acessar da mesma forma.
+
+Com isso, receberemos uma mensagem de **It works!**. Essa é a mensagem padrão do servidor Apache quando ele está em execução dentro de uma instancia, então, nosso servidor web está em funcionamento.
+
+### Verificando alerta com curl
+Agora, novamente, utilizando o `curl` em um ambiente fora da instancia na nuvem, temos o seguinte retorno:
+
+```bash
+curl 'https://ec2-3-138-109-77.us-east-2.compute.amazonaws.com/'
+
+curl: (60) SSL certificate problem: self-signed certificate in certificate chain
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+```
+Na resposta, temos que esse SSL, o certificado de que fizemos a instalação, é auto-assinado e não pode ser verificado pela cadeia de certificação padrão. Por isso o navegador emitiu o alerta.
+
+Para evitar esse problema, teríamos que obter um certificado validado por alguma autoridade de validação. Mas o que fizemos nesta aula foi apenas para fins de teste.
+
+> Repare que recebemos uma mensagem inicial de "conexão não segura" no navegador, podemos prosseguir. Essa mensagem indica que o certificado SSL utilizado é autoassinado. Estamos em fase de teste, então é comum usar certificados autoassinados. Em produção, utilizamos um certificado SSL emitido por uma autoridade de certificação confiável e reconhecida, garantindo a autenticidade das identidades na internet e a segurança das comunicações.
+
+#### Sobre curl
+O `curl` (Client URL), é uma ferramenta de linha de comando que permite fazer requisições HTTP, HTTPS, FTP e outros protocolos diretamente pelo terminal.
+
+## MAIS SOBRE APACHE WEB SERVER
+Quando visitamos um site, o servidor atua entregando os arquivos solicitados atuando como se fosse um entregador de encomendas, só que virtual. O trabalho de um servidor web é servir sites na internet. Para isso, ele age como um mediador entre o servidor e as máquinas dos clientes, transmitindo conteúdo de um servidor em cada pedido e realizando essa entrega na internet.
+
+Assim, um servidor web é um componente de software que armazena, processa e entrega páginas web aos usuários. Ele utiliza protocolos de comunicação como HTTP ou HTTPS para atender às solicitações feitas por navegadores (clientes), permitindo que os conteúdos das páginas sejam exibidos corretamente nos dispositivos dos usuários.
+
+Apache HTTP Server (mais conhecido como Apache) é um servidor web open-source bastante utilizado no mundo devido à sua modularidade e participação ativa da comunidade na implementação de atualizações frequentes.
+
+O Apache suporta diversos módulos que permitem a integração com diferentes linguagens de programação (como PHP, Python e Perl), autenticação de usuários, redirecionamento de URLs, transferências de arquivos, entre outros recursos essenciais para websites.
+
+Além disso, esse servidor é conhecido por sua capacidade de lidar com grandes volumes de tráfego. É um servidor web que apresenta bastante flexibilidade para configuração e pode ser otimizado para melhorar o desempenho e a segurança dos sites hospedados.
+
+> Sabia que o Apache é uma muito usado em instituições acadêmicas e de pesquisa? Universidades com vastos repositórios digitais de recursos educacionais (documentos, vídeos, aplicativos web, dentre outros) podem usar o Apache para hospedar vários sites, integrar aplicativos dinâmicos, autenticar usuários, redirecionar URLs e gerenciar o tráfego de maneira eficiente. Essa versatilidade e robustez tornam essa ferramenta uma escolha ideal para ambientes complexos e com alta demanda.
+>
+> Já obtemos o acesso remoto à nossa instância EC2, assim conseguimos alterar suas configurações, realizar atualizações e até monitorar o que temos a partir do nosso próprio computador, usando o ambiente Linux.
+>
+> Para colocarmos o site em funcionamento na instância, precisamos de um intermediário entre a aplicação que vamos criar e a aplicação do cliente. O servidor web Apache vai cumprir esse papel em nossa instância!
+
+## 🌐 **O que é um Servidor Web?**  
+Um **servidor web** é um software ou hardware que processa e responde a requisições HTTP/HTTPS de clientes (como navegadores e APIs). Ele recebe pedidos, processa e envia **páginas web, arquivos estáticos ou dados** de volta ao cliente.  
+
+### 📌 **Exemplos de servidores web populares:**  
+🔹 **Apache HTTP Server** → Um dos mais usados, bastante configurável.  
+🔹 **NGINX** → Focado em alta performance, ótimo para servir muitos acessos simultâneos.  
+🔹 **Microsoft IIS** → Servidor web da Microsoft, roda em Windows Server.  
+🔹 **LiteSpeed** → Alternativa de alta performance para Apache.  
+
+---
+
+### 📌 **Por que um Servidor Web é necessário?**
+#### 1️⃣ **Entrega Páginas Web**  
+Se você acessa `https://meusite.com`, o navegador faz uma requisição ao servidor web, que responde com o **HTML, CSS, JavaScript e imagens** para renderizar a página.  
+
+#### 2️⃣ **Execução de Aplicações Web**  
+Muitos servidores web podem processar **código dinâmico**, como PHP, Python e Node.js, para gerar páginas personalizadas.  
+
+#### 3️⃣ **Gerenciamento de Requisições**  
+Ele distribui o tráfego entre os recursos do servidor, garantindo que múltiplos usuários possam acessar simultaneamente.  
+
+#### 4️⃣ **Segurança e Controle**  
+O servidor web pode:
+✅ **Restringir acessos** com autenticação.  
+✅ **Proteger contra ataques** (ex: bloquear IPs maliciosos).  
+✅ **Criptografar dados** com HTTPS (SSL/TLS).  
+
+#### 5️⃣ **Distribuição de Arquivos Estáticos**  
+Arquivos como **imagens, vídeos, PDFs e downloads** são servidos diretamente por ele.  
+
+---
+
+### 🏗️ **Como Funciona um Servidor Web?**
+1️⃣ O usuário digita `https://meusite.com` no navegador.  
+2️⃣ O navegador envia uma requisição **HTTP/HTTPS** para o servidor.  
+3️⃣ O servidor processa o pedido e responde com o conteúdo da página.  
+4️⃣ O navegador exibe a página para o usuário.  
+
+![Fluxo de um Servidor Web](https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Basic_web_connection.svg/500px-Basic_web_connection.svg.png)  
+
+---
+
+### 🚀 **Servidor Web em Cloud (AWS)**
+No seu caso, ao instalar o **Apache** na instância **EC2**, você transforma essa máquina em um **servidor web**. Isso permite que qualquer usuário na internet acesse páginas hospedadas nele via HTTP/HTTPS.  
+
+📌 **Se quiser testar seu servidor web agora:**  
+```bash
+curl http://localhost
+```
+Ou acessar via **IP público** da sua instância no navegador!  
+
+Se precisar de mais detalhes, manda aí, parceirão! 🚀🔥
+
