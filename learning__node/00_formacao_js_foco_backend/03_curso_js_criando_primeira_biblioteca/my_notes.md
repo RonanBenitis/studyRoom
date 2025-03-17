@@ -562,3 +562,167 @@ Aqui, flatMap está sendo usado para:
 - ✅ Achatar o resultado (flat(1) evita um array dentro de outro array).
 
 Essa abordagem evita a necessidade de chamar map seguido de flat, deixando o código mais limpo e performático.
+
+## UTILIZANDO REDUCE
+Durante a aula praticamos a manipulação de arrays e objetos usando duas abordagens:
+- filter e map
+- flatMap
+
+Porém, ainda há uma terceira abordagem para a resolução desse problema muito comum em programação: como suprimir objetos vazios de um array de objetos. Para isso, vamos usar o método de array reduce.
+
+### Resolvendo utilizando reduce
+O funcionamento básico do reduce é percorrer todos os índices de um array e “reduzir” seus valores a um único valor de retorno. Por exemplo:
+
+```js
+const numeros = [1, 2, 3, 4, 5];
+
+const result = numeros.reduce((acum, atual) => acum + atual, 0);
+
+console.log(result); //15
+```
+
+No exemplo acima, usamos reduce para reduzir um array de números até a soma de todos eles, começando a contagem em 0 e somando os parâmetros da função callback a cada iteração (valor acumulado + valor atual).
+
+Porém, o reduce também tem muitos usos mais complexos para arrays de objetos e pode nos ajudar a resolver o problema dos objetos vazios.
+
+Observe abaixo uma versão mais curta da solução feita com filter e map:
+```js
+const paragrafos = ["código", "js", "", "web", "", "array"];
+
+const result = paragrafos
+ .filter((paragrafo) => paragrafo)
+ .map((paragrafo) => {
+   if (paragrafo) return paragrafo;
+ });
+console.log(result);
+```
+
+Agora, vamos analisar uma abordagem utilizando reduce:
+```js
+const paragrafos = ["código", "js", "", "web", "", "array"];
+
+const result = paragrafos.reduce((acum, paragrafo) => {
+ if (paragrafo) {
+   return [...acum, paragrafo];
+ }
+ return acum;
+}, []);
+
+console.log(result);
+```
+
+Acompanhe os passos de desenvolvimento do código acima:
+1. Queremos “reduzir” o array atual a um outro array, então iniciamos reduce com um valor atual de [] (um array vazio).
+2. Os parâmetros da função callback são acum (em que são armazenados os valores já processados) e paragrafo, que se refere ao parágrafo sendo processado a cada iteração.
+3. A condicional if (paragrafo) avalia a string paragrafo em termos booleanos (lembrando de valores truthy e falsy) e apenas entra no if caso paragrafo não seja uma string vazia.
+4. Caso não seja uma string vazia, o código dentro do bloco if utiliza o spread operator (operador de espalhamento) para retornar um array composto dos valores anteriores (acum) “espalhados” em um novo array com o conteúdo do parágrafo atual.
+5. Caso seja uma string vazia, o código do bloco if não será executado, e o loop do reduce irá passar direto para o próximo elemento do array, ignorando a string vazia e a deixando de fora do array final.
+6. Após percorrer todos os elementos, o resultado final de acum será um array composto apenas de strings “não vazias” (avaliadas como truthy na condicional if).
+
+Qual método utilizar? Apesar de o método reduce construir um novo array a cada iteração, a não ser que se trate de textos e arrays muito grandes, não deve haver muita diferença de performance entre os métodos.
+
+É comum existir mais de uma forma de resolver problemas de lógica de programação! Faça os testes em seu projeto!
+
+# <span style="color: #87BBA2">Tratamento de erros</span>
+
+## IDENTIFICANDO TIPOS DE ERROS
+Agora vamos identificar alguns pontos de falha que podem ocorrer no nosso programa.
+
+Um ponto de falha que pode ocorrer, e talvez tenha ocorrido enquanto você estava praticando, é quando nos distraímos e, ao passar o endereço do arquivo que queremos converter ou processar, não passamos um pedaço do endereço e ocorre um erro genérico, um TypeError dizendo que não consegue ler propriedades de undefined. Esse é um exemplo de um erro que pode acontecer.
+```bash
+TypeError: Cannot read properties of undefined (reading 'toLowerCase')
+    at quebraEmParagrafos (/home/juliana/Documents/nodejs-lib/src/index.js:23:28)
+    at ReadFileContext.callback (/home/juliana/Documents/nodejs-lib/src/index.js:7:3)
+    at FSReqCallback.readFileAfterOpen [as oncomplete] (node:fs:306:13)
+```
+
+Normalmente, começamos a mapear pontos onde pode ocorrer algum tipo de erro e o capturaremos para tratá-los e, então, indicamos o que queremos fazer quando capturamos o erro: Se queremos enviar uma mensagem ou fazer qualquer outra coisa no lugar.
+
+### Refatorando
+Agora, criaremos uma função de ponto de entrada, chamado `contaPalavras` e ajustamos algumas responsabilidade de funções
+```js
+fs.readFile(link, 'utf-8', (erro, texto) => {
+    contaPalavras(texto);
+    if (erro) console.log(erro);
+});
+
+function contaPalavras(texto) {
+    // Passaremos todo o conteúdo de querbaParagrafo aqui, com execção da quebra de palavras
+    const paragrafos = extraiParagrafos(texto);
+    const contagem = paragrafos.flatMap(( paragrafo ) => {
+        if (!paragrafo) return [];
+        return verificaPalavrasDuplicadas(paragrafo);
+    })
+    console.log(contagem);
+}
+
+function extraiParagrafos(texto) {
+    return texto.toLowerCase().split(/\n|\r/);
+}
+```
+
+### Marcações de erro
+O primeiro ponto de erro que dá para identificar é justamente dentro do `readFile`, que, por sinal, o callback do `readFile` já vem por si com um parâmetro de função do callback `erro`, só esperando para ser chamado, porque justamente esse é um ponto crítico de falha.
+
+Ao darmos um `console.log` no parametro de erro e chamar o programa sem passar a extensão do arquivo (ou seja, forçando um erro), é printado na tela o erro que ocorre, sendo um `ENOENT`, que trata-se de um erro em função de não encontrar uma entidade.
+
+Agora, utilizaremos um `if` para verificar a existencia deste erro:
+```js
+fs.readFile(link, 'utf-8', (erro, texto) => {
+   if (erro) {
+    console.log('qual é o erro?', erro);
+    return
+   }
+   contaPalavras(texto);
+})
+```
+- A utilização do `return` dentro de uma função o encerra. `return` deste modo, talvez, podem ser chamados de `early return`.
+- Neste caso, estamos verificando a existência de erro e, caso encontrado, printamos e encerramos a função.
+- Isso é possivel pois o parametro callback **retorna um erro** ao invés de **lançar um erro**. Quando lançamos um erro, a execução é redirecionada para o primeiro catch.
+
+Os `erros` são objetos que podemos acessar suas propriedades, como, neste caso, o `erro.code`, onde podemos acessar diretamente o código deste erro e criar validações para tal, como, "se o erro for ENOENT, faça X".
+
+## ENTENDENDO A STACK TRACE
+Uma das primeiras coisas que percebemos ao começarmos a programar é que praticamente qualquer aviso de erro será acompanhado de uma longa sequência de texto difícil de compreender.
+
+Por exemplo, se tentarmos usar console.log() em alguma variável que não existe em nosso código:
+```bash
+node teste.js
+
+file:///home/juliana/Documents/nodejs-lib/teste.js:3
+console.log(nome);
+            ^
+
+ReferenceError: nome is not defined
+    at file:///home/juliana/Documents/nodejs-lib/teste.js:3:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+
+Node.js v20.11.0
+```
+
+Boa parte de todo esse texto é representado pela stack trace, ou seja, pelo “rastro” de comandos executados pelo interpretador ao enviarmos o comando node teste.js.
+
+No caso, para que o Node.js execute corretamente o código dentro de um arquivo .js de nosso projeto, ele utiliza por sua vez diversos códigos (funções) que estão dentro de seu próprio código-fonte. Cada parte do código necessário para que o Node.js interprete corretamente o nosso próprio código pode se encontrar em arquivos ou módulos diferentes, e cada comando executado “guarda” este caminho desde o ponto inicial até o último.
+
+Podemos analisar qualquer linha do erro acima e acompanhar este processo:
+```bash
+at file:///home/juliana/Documents/nodejs-lib/teste.js:3:13
+```
+
+O ponto inicial de chamada do código problemático: arquivo teste.js que está dentro da nossa pasta de projeto, na linha 3 e coluna 13.
+```bash
+at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+```
+
+Este erro se “propagou” para o método ModuleJob.run interno do Node.js. Podemos saber que já não estamos mais na pasta do nosso projeto pois a stack trace fornece exatamente o módulo, linha e coluna para onde o erro se propagou.
+
+Assim continua até o último ponto, a função interna do Node.js handleMainPromise.
+
+Quando um erro ocorre, todo esse caminho percorrido pelo comando é passado para dentro de um objeto Error para que possa ser acessado e consultado de alguma forma, por exemplo, exibido no terminal. Dessa forma, podemos usar esse “mapa” para entender o caminho que o processamento percorreu.
+
+Nem todos os avisos de erro são gerados da mesma forma: dependendo da origem, alguns erros são devolvidos pelo sistema operacional, outros pelo Node.js, outros podem ser gerados a partir de alguma biblioteca que estamos usando em nosso projeto. Porém, quase sempre eles seguem o mesmo padrão, apresentando o nome do erro, a descrição do erro e a stack trace.
+
+O Node.js tem uma lista de erros próprios. Confira como Error se comporta no Node.js, uma descrição de cada erro e motivos comuns para acontecerem neste [artigo da Alura sobre erros do Node.js](https://www.alura.com.br/artigos/lidando-com-erros-node-js).
