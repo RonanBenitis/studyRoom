@@ -164,6 +164,13 @@
     - [MONITORANDO MÉTRICAS ATRAVÉS DE URL](#monitorando-métricas-através-de-url)
   - [SOBRE O GREP](#sobre-o-grep)
     - [Testando comportamento](#testando-comportamento)
+  - [AGENDANDO TAREFAS](#agendando-tarefas)
+    - [Passo a passo](#passo-a-passo-3)
+      - [Comandos usados](#comandos-usados)
+      - [Valores de agendamento em Crontab](#valores-de-agendamento-em-crontab)
+  - [MAIS COMANDO PARA MONITORAMENTO](#mais-comando-para-monitoramento)
+    - [Resumo](#resumo-1)
+    - [Realizando agendamento](#realizando-agendamento)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -1570,6 +1577,12 @@ Para verificar se o servidor web está de fato rodando em nosso servidor, utiliz
 ```bash
 sudo systemctl status nginx
 ```
+- `systemd`: System Daemon
+  - Um daemon é um processo que roda em segundo plano, como um serviço do sistema.
+- `systemctl`: System Control
+> systemctl é um comando usado para gerenciar serviços e processos do sistema no Linux. Ele faz parte do Systemd, que é o sistema de inicialização e gerenciamento de serviços na maioria das distribuições modernas (Ubuntu, Debian, Fedora, etc.). Ele controla iniciar, parar, reiniciar, habilitar e desabilitar serviços.
+>
+>Pensa no systemctl como um "controle remoto" para iniciar, parar, reiniciar e monitorar serviços do sistema. 📡
 
 Mas, e se rodassemos o `systemctl status` sem informar `nginx`?
 ```bash
@@ -1866,7 +1879,7 @@ pgrep nginx
 ### Encaminhando resultados
 Para encaminharmos os resultados para outro lugar, como para dentro de um arquivo, utilizamos o simbolo de `>`.
 ```bash
-pgrep nginx >  /dev/null
+pgrep nginx > /dev/null
 ```
 - Direcionando a saida desse comando para o descarte (lixeira)
 
@@ -1981,4 +1994,82 @@ cat teste.txt | grep -i banana
 # Banana
 # Maçã e Banana
 # Banana e Maçã
+```
+
+## AGENDANDO TAREFAS
+Agora vamos realizar agendamento para rodar nosso scripts sem precisarmos entrar no servidor e rodá-los, coletando o log de suas operações.
+
+### Passo a passo
+1. Rodaremos o comando `crontab -e`
+   1. Retornou que `No such file or directory`, é normal que não tenha instalado nativamente, então, atualizaremos o sistema com o `sudo <gerenciador_distro> update` e `sudo <gerenciador_distro> install cron`
+   2. Na distro da Amazon, chama-se `cronie` a ferramenta
+2. Comando executado com sucesso, abriu-se o nano
+   1. `cron` é uma ferramenta para agendar execução de scripts e tarefas em ambiente Linux.
+3. No `home`, criamos um arquivo chamado `saida_nginx.txt`
+   1. `touch saida_nginx.txt`
+4. Entramos no `crontab -e` novamente
+5. Configuraremos para execução de minuto a minuto
+   1. `* * * * * /home/ec2-user/monitoramento.sh >> /home/ec2-user/saida_nginx.txt`
+   2. `[marcação de periodo de execução] [comando a ser executado]`
+   3. `* * * * *`, significa que queremos que execute todos os dias, todos os meses, todos os anos e todos os minutos
+6. Esperamos um tempo e verificamos o conteúdo de `saida_nginx.txt`
+   1. Veremos que teremos entradas neste arquivo conforme configuramos
+
+**Observação**
+- Na AWS, foi necessário inicializar o cron
+```bash
+sudo systemctl enable crond # inicialização automatica ao reinicializar
+sudo systemctl start crond # inicializando
+```
+
+#### Comandos usados
+`crontab`
+- crontab significa "cron table" (tabela do cron).
+- Ele gerencia tarefas agendadas no Linux, usando o serviço cron.
+- Com ele, podemos programar comandos para rodar automaticamente em horários específicos.
+- O -e significa "edit" (editar).
+- Quando rodamos crontab -e, ele abre o arquivo de configuração onde podemos definir tarefas agendadas para o usuário atual.
+- Esse arquivo contém linhas de comandos seguidos da programação de quando devem ser executados.
+
+#### Valores de agendamento em Crontab
+[Crontab guru - Ferramenta boa para conferencia](https://crontab.guru/)
+- `* * * * *`: A cada minuto
+- `30 * * * *`: A cada minuto trinta (Executará uma vez por hora no minuto 30)
+- `*/30 * * * *`: A cada trigésimo minuto
+
+## MAIS COMANDO PARA MONITORAMENTO
+Implementando script que identifique os 15 processos com maior consumo de memória em um dado instante usando os comandos ps, grep e head(utilize o pipe para direcionar a saída de um comando como entrada para outro) e, na sequência, agende a execução do script utilizando o crontab.
+```bash
+#!/bin/bash
+
+# Definimos o caminho para o arquivo de saída
+output_file="/caminho/do/seu/diretorio/top_processes_$(date +\%Y\%m\%d_\%H\%M).txt"
+
+# Listamos os 15 processos com maior consumo de memória e salvamos no arquivo de saída
+ps -e -o pid,%mem --sort=-%mem | head -n 16 > "$output_file"
+```
+- `ps`: Exibe informações sobre processos
+- `-e`: Mostra todos os processos em execução no sistema
+- `-o`: Define colunas a serem exibidas
+  - `PID`: ID do processo
+  - `%mem`: Procentagem da memória RAM utilizada pelo processo
+- `--sort=-%mem`: Ordem decrescente com base no uso da memória
+  - `-`: Menos indica ordem decrescente
+- `| head -n 16`: Pipe encaminha a saida do `ps` para o comando `head`
+  - `head -n 16`: Pega apenas as 16 primeiras linhas da saida, **incluindo o cabeçalho e os 15 processos que mais usam RAM**
+
+### Resumo
+Observe que a variável output_file representa o caminho completo para o arquivo de saída. O nome do arquivo inclui a data e hora atual formatada.
+
+O comando ps lista todos os processos do sistema, a opção -e indica que queremos listar todos os processos em execução e a opção -o pid,%mem especifica as informações (colunas da tabela de resultados) que desejamos exibir na saída. Em nosso caso, PID (número de identificação do processo) e percentual de memória utilizado (%). Por fim, o --sort=-%mem é usado para ordenar a saída com base no percentual de memória, em ordem decrescente. O sinal de menos (-) antes de %mem indica a ordenação de modo decrescente.
+
+Então, usamos | (pipe) para encaminhar esse resultado de saída para o comando head -n 16 que irá selecionar apenas os 15 primeiros processos listados. Note que usamos -16, pois a primeira linha é geralmente ocupada pelo cabeçalho da tabela.
+
+O resultado é do head é então redirecionado para o arquivo especificado pela variável output_file.
+
+### Realizando agendamento
+Para agendar a execução do script a cada 5 minutos, basta adicionar uma entrada no crontab. Podemos executar o comando crontab -e para editar o crontab e adicione a seguinte linha:
+
+```bash
+*/5 * * * * /caminho/do/script.sh
 ```
