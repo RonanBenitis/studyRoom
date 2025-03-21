@@ -555,3 +555,141 @@ O mesmo pode ser aplicado ao setter, como, no nosso caso sendo uma plataforma de
 
 Aí, se em um futuro o sistema passe a aceitar pré estreia, já se sabe onde atualizar o código.
 > O setter encapsula, esconde a lógica do nosso objeto, de forma que alterações futuras possam ser concentradas em um único lugar. Ou seja, pode parecer bobo no começo, mas está nos ajudando a se preparar para o futuro.
+>
+> Ecapsular é visto como "proteger o atributo", onde, provavelmente começaremos a pensar que **todos os atributos deverão serem privado**
+
+## PALAVRA THIS DIFERENCIANDO PARAMETRO E ATRIBUTO DE OBJETO
+“This”, traduzindo para o português (Isto/este/esta), é usado para fazer referência aos atributos da classe, especialmente em métodos que têm parâmetros com o mesmo nome do atributo da classe em que estamos trabalhando.
+
+Para compreendermos essa ideia na prática, vamos ver um exemplo:
+```java
+public class Conta { 
+    private double saldo;
+    private int numero;
+
+    public void deposita(double valor) {
+        saldo = saldo + valor;
+    }
+}
+```
+
+Repare que nesse primeiro exemplo, dentro da classe conta, nós temos os atributos saldo e numero, e em seguida o método deposita, que recebe como parâmetro um double valor. Nesse caso, não temos nenhum atributo com o mesmo nome do parâmetro e estamos dentro da classe, o que nos permite utilizar o atributo saldo a vontade, sem a necessidade do “this”.
+
+Algo diferente ocorre quando temos um atributo da classe com o mesmo nome de um parâmetro de algum método dessa mesma classe:
+```java
+public class Lampada {
+    private boolean ligada;
+    private String modelo;
+
+    public void acendeLampada(boolean ligada) {
+       ligada = ligada;
+    }
+}
+```
+Perceba que nesse exemplo, temos um atributo da classe chamado ligada, e o método acendeLampada que define um novo valor para esse atributo.
+
+O método recebe como parâmetro um boolean que tem o mesmo nome do atributo da classe. É aí que está o problema! O que faríamos para saber quem é o atributo da classe e quem é o parâmetro do método?
+
+Nessa situação vamos fazer o uso da palavra chave “this”:
+```java
+public class Lampada {
+    private boolean ligada;
+    private String modelo;
+
+    public void acendeLampada(boolean ligada) {
+       this.ligada = ligada;
+    }
+}
+```
+Podemos concluir então que “this” se refere ao objeto atual e não ao parâmetro do método. É comum usarmos o this para eliminar essa confusão entre os atributos e parâmetros, sendo que ele não é uma exclusividade do Java, pois outras linguagens de programação orientadas a objetos também possuem esse recurso.
+
+## REFLEXÃO SOBRE ENCAPSULAMENTO
+
+Apesar de ter todos os getters e setters, este código possui um problema de encapsulamento:
+```java
+public class Conta {
+    private int numero;
+    private int agencia;
+    private double saldo;
+
+    public void deposita(double valor) {
+        saldo += valor;
+    }
+
+    public void saca(double valor) {
+        if (valor <= saldo) {
+            saldo -= valor;
+        } else {
+            System.out.println("Saldo insuficiente.");
+        }
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setAgencia(int agencia) {
+        this.agencia = agencia;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getAgencia() {
+        return agencia;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}
+```
+
+A classe não deveria ter o método setSaldo.
+- O atributo saldo somente deveria ser modificado pela própria classe, por meio dos métodos sacar e depositar, mas ao declarar um método setter para ele o encapsulamento será quebrado, pois o seu valor poderá ser modificado arbitrariamente de fora da classe.
+
+# <span style="color: #87BBA2">Reaproveitando caracteristicas e comportamentos</span>
+
+## APROVEITANDO O MODELO PARA SÉRIES
+
+### Modelo de classe
+![modelo de classe de filme](assets/modelo_classe_filme.png)
+
+![modelo de classe filme e serie](assets/modelo_classe_filme_serie.png)
+
+Percebemos que encontramos muitas coisas repetidas entre Filme e Serie, ou seja, muitos "possiveis ctrl+c e ctrl+v".
+
+Já vimos que evitar repetição de código é algo extremamente desejável e uma forma muito boa para deixar o código mais organizado, semantico e evitar repetições, é na utilização de **Herança**, construindo uma **Super Classe** que contenha os atributos e métodos comuns a todas as classes que a herdarão.
+
+Nas **classes filhas**, as que herdam a **super classe**, vamos especializá-las com suas especificadas
+> Os dois modelos ficariam muito parecidos. Para evitar tanto código repetido, podemos usar o recurso de herança. Criaremos um tipo maior, um supertipo que centraliza os elementos comuns, e depois especializamos a classe Serie para separar o que ela tem a mais. Com o mecanismo da herança, a classe Serie herdará tudo do supertipo e poderá ter mais alguns atributos.
+
+### Herança
+![heranca](assets/heranca.png)
+Note que criaremos uma terceira classe, que será o **super tipo (super classe, classe ancestral)** chamada **TITULO**.
+
+Como série terá todos os atributos e propriedades de Filme, **por que não herdamos Série a partir de Filme?**
+- É muito comum dizermos que uma classe **é, também, aquele que ela herda**.
+  - Algo como: **um Carro é um Veículo, assim como Moto é um Veículo, mas Carro não é Moto e nem vice-e-versa**.
+  - É a mesma lógica acima, **Um Filme é um Titulo (do meu catalogo), uma Série também é um Titulo (do meu catalogo), mas Série não é um Filme**, e por isso não herdamos Série a partir de Filme. Fazer isso **seria uma gambiarra**.
+
+> Como exemplo, vamos considerar cães e gatos. Gatos têm pelos, fazem barulhos e têm cores. Cães também têm pelos, fazem barulhos e têm cores. Então, para evitar repetição, podemos dizer que cães herdam todas as características de gatos? Cães são gatos?
+>
+> Essa relação estaria errada. Precisamos de um supertipo com características em comum, por exemplo, animal ou mamífero. Assim, cães e gatos podem herdar do supertipo: um cão é um animal e um gato é um animal também.
+
+### Diagrama de classe com Herança
+![diagrama_herança](assets/modelo_heranca.png)
+
+### Código com Herança
+Agora, passaremos tudo o que `Filme` tinha para nova classe chamada `Titulo` e especializamos um pouco a classe `Filme`. Para criar a relação de herança, utilizaremos a palavra reservada do Java que aplica herança à uma classe, o **extends**.
+
+Como lemos o código
+- Class Filme: Todo filme
+- Extends Titulo: Todo filme é um titulo
+- Atributos e métodos: Todo filme tem um `<atributo>`, todo filma sabe fazer um `<metodo>`
+- Herança: Além disso, ela fazer tudo o que Filme tem e faz, e ela tem tudo o que Titulo tem e faz
