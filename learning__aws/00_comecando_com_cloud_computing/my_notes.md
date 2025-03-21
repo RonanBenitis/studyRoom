@@ -107,6 +107,13 @@
       - [5️⃣ **Distribuição de Arquivos Estáticos**](#5️⃣-distribuição-de-arquivos-estáticos)
     - [🏗️ **Como Funciona um Servidor Web?**](#️-como-funciona-um-servidor-web)
     - [🚀 **Servidor Web em Cloud (AWS)**](#-servidor-web-em-cloud-aws)
+  - [CRIANDO UM SITE DE TESTE](#criando-um-site-de-teste)
+    - [Passo a passo para popular servidor web](#passo-a-passo-para-popular-servidor-web)
+- [Explorando recursos](#explorando-recursos)
+  - [GERENCIANDO SERVIÇOS VIA AWS CLI](#gerenciando-serviços-via-aws-cli)
+    - [AWS CLI](#aws-cli)
+    - [Conclusão](#conclusão-1)
+  - [MONITORAMENTO DE INSTANCIAS EC2 COM AWS CLI](#monitoramento-de-instancias-ec2-com-aws-cli)
 
 
 # <span style="color: #87BBA2">NAVEGANDO NA NUVEM</span>
@@ -919,3 +926,162 @@ Ou acessar via **IP público** da sua instância no navegador!
 
 Se precisar de mais detalhes, manda aí, parceirão! 🚀🔥
 
+## CRIANDO UM SITE DE TESTE
+Agora vamos popoular o servidor com paginas web. É importante destacar que um side pode ter **diferentes componentes e arquiteturas** a depender do conteúdo que vamos disponibilizar para o público. Mas, de modo geral, segue-se a seguinte arquitetura:
+![arquitetura padrão de aplicação web](assets/arquitetura_padrao_web.png)
+- Frontend
+  - Componente de interação direta entre Usuários e Backend. É onde se encontra a experiencia de navegação.
+- Backend
+  - Armazena a lógica de funcionamento (Lógica de negócios) da aplicação
+  - > Como o nome já indica, está tudo aquilo que funciona por trás de uma aplicação. É um componente que fica mais próximo dos dados da aplicação, ou seja, realizando uma ponte entre os dados do navegador de uma pessoa usuária e o banco de dados e vice-versa.
+- Banco de dados
+
+### Passo a passo para popular servidor web
+
+**Acessando diretório do Apache em que consulta-se as paginas que serão providas aos usuários**
+```bash 
+cd / # voltar para a pasta raiz (a pasta de maior nivel)
+cd /var/www/html # local onde geralmente guarda-se as paginas
+```
+
+**Criando um arquivo dentro do diretorio**
+```bash
+sudo nano index.html
+```
+- `sudo` - super user do
+- `nano` - editor de texto
+- `index.html` - nome do arquivo que estamos criando (se não colocamor nada, adicionaremos ao salvar um conteudo)
+
+**Conteudo do arquivo criado**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mergulhe em tecnologia!</title>
+</head>
+<body>
+    <h1>Boa-vindas ao site mais interess'ante de tecnologia da web!</h1>
+    <p>Este é um site hospedado em uma instância EC2.</p>
+</body>
+</html>
+```
+
+**Configurando as permissões corretas para serem lidos pelo servidor Apache**
+```bash
+sudo chmod 644 index.html
+```
+- `chmod` - change mode
+
+**Reiniciando servidor para aplicar mudanças**
+```bash
+sudo systemctl restart httpd
+```
+
+**Criando mais uma pagina no servidor web**
+```bash
+sudo nano sobre.html
+```
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tecnologia para todas as pessoas!</title>
+</head>
+<body>
+    <h1>Sobre nossa página</h1>
+    <p>Este site está em construção. Em breve, teremos uma página super interativa.</p>
+    <a href="index.html">Voltar para a página inicial</a>
+</body>
+</html>
+```
+```bash
+sudo chmod 664 sobre.html
+```
+- Para acessar a nova pagina: `link-publico-da-instancia/sobre.html`
+
+# <span style="color: #87BBA2">Explorando recursos</span>
+
+## GERENCIANDO SERVIÇOS VIA AWS CLI
+Para gerenciarmos os serviços da instancia, não precisamos realiza-lo apenas pela Dashboard da AWS (como reiniciar ou encerrar instancia). Para realizar essa operação fora da Dashboard, utilizamos a **AWS CLI**.
+
+### AWS CLI
+Fora do ambiente da instancia, no caso, em nosso terminal externo, instalaremos a **AWS CLI**
+
+**Instalando AWS CLI**
+```bash
+sudo apt-get install awscli
+```
+- `apt-get`: Gerenciador de pacote do Ubuntu. Similar ao `yum`, mas, neste caso para distribuições baseadas em **Debian** (que é o caso do Ubuntu). Já o `yum` é comum para distribuições baseadas em **CentOs**.
+
+**Configurando AWS CLI**
+```bash
+aws configure
+```
+- Depois deste comando, pede-se o Key ID para acesso à AWS
+- Será necessário criar as chaves de acesso
+
+**Criando chave de acesso a AWS CLI**
+- Vamos ao **IAM (Identity and Access Manager)**
+  - Para ir rapido, colocamos `IAM` na barra de pesquisa do dashboard AWS
+- Menu lateral > usuários > Instrutor foi no usuário de seu nome
+  - Neste local terá as informações de usuário, politicas de permissões, os grupos de usuário que ele pertence
+- No painel do usuário selecional, vamos em uma barra de rolagem horizontal e clicamos em **Credenciais de segurança**
+- Veremos os logins de console, autenticiação multifator (MFA) e, mais abaixo, **chave de acesso**
+- Para o **casos de uso**, selecionaremos **Command Line Interface (CLI)**
+- Selecionamos na caixa de confirmação
+- Criamos uma label para essa chave
+- **Chave criada!** E imporante, **SÓ PODEMOS VISUALIZAR ESSA CHAVE UMA VEZ**, caso perdermos essa chave, teremos que criar outra e desativar as antigas.
+  - É quase como perder uma chave de verdade
+
+**Continuidade na configuração da AWS CLI**
+- Copiamos o Access Key Id e colamos onde está sendo solicitado no prompt
+- Agora, pede-se a **chave secreta QUE SÓ PODEMOS VISUALIZAR UMA VEZ**
+  - Copiamos a chave secreta e colocamos no prompt de comando
+- `Default region name [s]`: Aqui colocaremos especificamente a região que estamos utilizando (no caso, está sendo Ohio). No caso, o código (visto no Dashboard) é `us-east-2`.
+- `Default output format [s]`: Utilizaremos o formato `json`. Só escrever `json` mesmo.
+- Agora já temos acesso à AWS CLI utilizando o terminal do nosso computador
+
+**Testando conexão com AWS**
+```bash
+aws ec2 descrive-instances
+```
+- Trará uma lista, como saída (em JSON, pois pedimos JSON), com todas as informações relativas às instancias que eu tenho em execução dentro da minha conta AWS
+- Podemos ver, como retorno, um `InstanceId` e podemos utilizá-lo para dar um reboot e outros comandos para esta instancia sem a necessidade de ir na AWS, entrar nas instancias de EC2, clicar reiniciar e afins.
+
+**Reinicinado instancia pelo AWS CLI**
+```bash
+aws ec2 reboot-instances --instance-ids <id_da_instancia>
+```
+- Nada é retornado, isso significa que o comando rodou.
+
+### Conclusão
+Usar a AWS CLI é interessante para automatizar esse tipo de tarefa e simplificar nossa interação com os serviços na AWS. No entanto, existem outras opções para interagir com os serviços da AWS. Por exemplo, ao construirmos uma solução ou uma aplicação web, podemos chamar os serviços da AWS diretamente do nosso código usando o AWS SDK
+
+## MONITORAMENTO DE INSTANCIAS EC2 COM AWS CLI
+A AWS CLI (Command Line Interface) é uma ferramenta muito prática para gerenciamento de recursos da AWS diretamente do terminal de um computador. A ferramenta oferece uma maneira rápida, eficiente e automatizada para executar diversas tarefas, incluindo o monitoramento de instâncias EC2.
+
+Que tal explorarmos os principais comandos da AWS CLI para monitorar a integridade, desempenho e demanda de instâncias EC2? Confira alguns comandos, a seguir:
+
+- describe-instances → fornece informações detalhadas sobre suas instâncias EC2, incluindo estado, tipo de instância, região, endereço IP, dentre outros aspectos.
+```bash
+aws ec2 describe-instances
+```
+
+- monitor-instances → permite monitorar métricas de instâncias em tempo real, como uso de CPU, memória, rede e E/S de disco.
+```bash
+aws ec2 monitor-instances --instance-ids i-0123456789abcdef0
+```
+
+- get-metric-statistics → recupera estatísticas específicas de métricas para um determinado período de tempo. Você pode usá-lo para obter informações mais precisas sobre o desempenho da instância.
+```bash
+aws cloudwatch get-metric-statistics --metric-name CPUUtilization --namespace AWS/EC2 --statistics Average --period 300 --start-time 2023-10-04T17:00:00Z --end-time 2023-10-04T17:30:00Z --dimensions InstanceId=i-0123456789abcdef0
+```
+
+- create-alarm → cria um alarme que notificará você quando uma métrica específica exceder um limite predefinido. È uma ferramenta útil para detectar problemas de desempenho ou indisponibilidade da instância.
+```bash
+aws cloudwatch create-alarm --alarm-name MyEC2Alarm --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 300 --evaluation-periods 2 --threshold 80 --comparison-operator GreaterThanThreshold --alarm-actions arn:aws:sns:us-east-1:123456789012:my-topic
+```
+
+- describe-alarms → lista todos os alarmes configurados para suas instâncias EC2.
+aws cloudwatch describe-alarms
+> Para descobrir mais comandos e recursos avançados aplicáveis a outros serviços da AWS, recomendamos que você explore a documentação oficial da [WS CLI](https://docs.aws.amazon.com/pt_br/cli/).
