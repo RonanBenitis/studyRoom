@@ -171,6 +171,8 @@
   - [MAIS COMANDO PARA MONITORAMENTO](#mais-comando-para-monitoramento)
     - [Resumo](#resumo-1)
     - [Realizando agendamento](#realizando-agendamento)
+  - [ATIVIDADES](#atividades)
+  - [DIRETÓRIOS COMUNS DE UM AMBIENTE LINUX](#diretórios-comuns-de-um-ambiente-linux)
 
 # <span style="color: #87BBA2">LINUX E DEVOPS</span>
 
@@ -2073,3 +2075,48 @@ Para agendar a execução do script a cada 5 minutos, basta adicionar uma entrad
 ```bash
 */5 * * * * /caminho/do/script.sh
 ```
+
+## ATIVIDADES
+- Crie um script que utiliza comandos como ps e grep para monitorar os processos que estão utilizando uma porcentagem significativa da CPU.
+  - `ps aux --sort=-%cpu | head -n 6`
+    - Sintaxe BSD (sem `-`): `ps aux`
+    - Sintaxe UNIX (com `-`): `ps -e -o`
+      - `a`: Mostra processos de todos os usuários e não apenas os do usuário atual
+      - `u`: Exibe informações detalhadas no formato `User Format`, como usuário dono do processo, uso de CPU e memória, e tempo de execução
+      - `x`: Inclui processos sem terminal associado (daemon/background) como serviços do sistema
+- Desenvolva um script que utiliza comandos como ps e sort para exibir os processos que estão consumindo mais memória.
+  - `ps aux --sort=-%mem | head -n 6`
+    - Sintaxe BSD (sem `-`): `ps aux`
+    - Sintaxe UNIX (com `-`): `ps -e -o`
+      - `a`: Mostra processos de todos os usuários e não apenas os do usuário atual
+      - `u`: Exibe informações detalhadas no formato `User Format`, como usuário dono do processo, uso de CPU e memória, e tempo de execução
+      - `x`: Inclui processos sem terminal associado (daemon/background) como serviços do sistema
+- Crie um script que verifica se um processo específico está em execução e exibe seu status.
+```bash
+#!/bin/bash
+processo="nginx"
+if pgrep $processo > /dev/null; then
+  echo "$processo está em execução."
+else
+  echo "$processo não está em execução."
+fi
+```
+- Elabore um script para analisar os logs do sistema em busca de mensagens de erro relacionadas a processos.
+  - `tail -n 10 /var/log/syslog | grep "error"`
+  - O script mostra as últimas 10 linhas do log do sistema relacionadas a mensagens de erro.
+- Crie um script para monitorar as mensagens de erro no log do sistema em intervalos regulares usando cron jobs. O script deve registrar em um arquivo as últimas 5 linhas de mensagens de erro, possibilitando uma visão periódica da atividade do sistema.
+```bash
+# Adicione a seguinte linha ao crontab para executar o script a cada duas horas
+0 */2 * * * /caminho/do/seu/script.sh
+```
+  - O script adiciona as últimas 5 linhas de mensagens de erro ao arquivo de log especificado e é configurado para ser executado a cada duas horas usando cron.
+
+## DIRETÓRIOS COMUNS DE UM AMBIENTE LINUX
+- /: Diretório raiz do sistema;
+- /bin: Binários essenciais dos usuários;
+- /boot: Arquivos relacionados ao processo de inicialização;
+- /home: Diretório raiz dos diretórios pessoais dos usuários;
+- /lib: Bibliotecas compartilhadas e módulos do kernel;
+- /usr: Programas e bibliotecas utilizadas pelo usuário;
+- /var: Dados variáveis, como arquivos transitórios, logs do sistema, entre outros;
+- /tmp: Arquivos temporários
