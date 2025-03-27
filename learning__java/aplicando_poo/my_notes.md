@@ -693,3 +693,329 @@ Como lemos o código
 - Extends Titulo: Todo filme é um titulo
 - Atributos e métodos: Todo filme tem um `<atributo>`, todo filma sabe fazer um `<metodo>`
 - Herança: Além disso, ela fazer tudo o que Filme tem e faz, e ela tem tudo o que Titulo tem e faz
+
+## MESMO NOME, COMPORTAMENTOS DIFERENTES
+Agora, ao pensarmos em pegar a **duração de minutos em Série**, perceberemos que ela deverá funcionar diferente do que ocorre quando pegamos **duração de minutos em Filmes**.
+- Em **Filmes**, atribuimos a duração em minutos diretamente através de um setter, pois, faz sentido, já que sua duração é estabelecida assim que um filme é lançado
+- Em **Série**, esse calculo já é diferente, pois, uma série não conta com apenas um episódio, e sim uma série deles. Então, para buscar os minutos dessa classe, precisaremos fazer um calculo da soma dos minutos de cada episódio, sendo um comportamento distinto do que visto em filmes.
+- Faremos isso utilizando o mesmo método, mas, com comportamento distinto.
+
+### Sobrescrita de Métodos
+Poderíamos considerar criar um método getDuracaoEmMinutosDeUmaSerie() na classe Serie, mas ficaríamos com dois métodos similares, o que pode causar confusão. Quando eu codar "lost.", aparecerão duas sugestões de métodos com nomes muito parecidos. Qual que eu uso?
+
+Na verdade, queremos sobrescrever o método getDuracaoEmMinutos().
+
+Ao irmos no código da classe de **Série**, ao digitarmos apenas `public getDu` já é sugerido a nós a criação de um método de `getDuracao`, preenchendo-se automaticamente da seguinte forma:
+```java
+@Override
+public int getDuracaoEmMinutos() {
+    return super.getDuracaoEmMinutos();
+}
+```
+- O preenchimento foi automatico pois a classe **Série** extende da classe **Titulo**, o qual possuia esse método escrito.
+- `@Override` indica a sobrescrita desse método, ou seja, utilizará a mesma assinatura do método com comportamento diferente **nas instancias DESTA classe**
+  - Ou seja, quando chamarmos **Filme**, seguira o comportamento do **Titulo**. Quando chamarmos **Serie**, seguira o comportamento sobrescrito.
+  - `@Override` é um **Java Notation** que indica a sobrescrita. **É opcional o acrescimo desta notação, mas é altamente recomendado**
+- `return super.getDuracaoEmMinutos();`: `super.` significa indicar atributos ou métodos da **super classe (ou chamado classe mãe, classe ancestral, etc)**. Nesse caso está dizendo "retorne o retorno de `getDuracaoMinutos()` da classe mãe", o qual não utilizaremos, mas, poderiamos realizar operações em cima deste retorno.
+
+- **Classe mãe**: Classe de generalização, chamada também de superclasse ou classe ancestral.
+  - No nosso exemplo, trata-se de **Titulo**
+- **Classe filha**: Classe de especialização, chamada também de classe herdeira ou subclasse
+  - No nosso exemplo, trata-se de **Filme e Série**
+- **Atributos**: Também conhecido como campos
+- **Métodos**: Também conhecido como funções ou funções de instancia
+
+### Importancia da notação
+Apesar de opcional, a notação de **@Override** não é apenas para facilitar na visualização, mas sim para a IDE mapear que este método está sobrescrevendo o da classe mãe, e, então, qualquer alteração no método da classe mãe levantará avisos e rastreabilidade nas classes que herdam esse método, indicando a necessidade de aplicar as alterações realizadas nas classes filhas.
+
+### O poder da sobrescrita
+Sobrescrita de métodos é uma ferramenta poderosa e fundamental!
+
+Quando começarmos a consumir serviços da internet para os filmes, vamos reparar que as bibliotecas que usaremos para conectar em web services e fazer o parser do JSON e do XML usam bastante esse recurso.
+
+É interessante fazer uma analogia com encapsulamento do carro, por exemplo. Para dirigir um carro, temos o voltante e os pedais de aceleração e breque. Não importa se o motor é a álcool ou a gasolina, pisar no acelerador é como invocar um método, é a maneira como fazemos o combustível exercer seu papel.
+
+Se temos uma especialização de um carro elétrico ou um carro voador, por exemplo, ele continua funcionando quando pisamos no acelerador. Não precisamos saber o que acontece debaixo capô — se o motor funciona com eletricidade, a gás, a hidrogênio etc.
+
+No caso do nosso projeto, criamos as classes juntos, mas seria comum que quem desenvolveu a classe Principal não fosse a mesma pessoa que desenvolveu a classe Titulo.
+
+Então, eu estou trabalhando na classe Principal e decido usar o método getDuracaoEmMinutos() da classe Serie, desenvolvida pela Jacque. Enquanto usuário dessa classe, não preciso saber qual é o cálculo realizado, estou apenas invocando o método para obter o resultado e mostrá-lo no front-end, por exemplo.
+
+Não preciso me preocupar com a regra de negócio, alguém já pensou no cálculo e sobrescreveu o método, isto é, alterou o comportamento herdado da classe mãe.
+
+Com o tempo, notaremos que esses recursos de herança, sobrescrita e polimorfismo (que aprenderemos em breve) aparecerão com muita frequência. Então, vale a pena prestar bastante atenção!
+
+## MAIS SOBRE HERANÇA E SOBRESCRITA
+A herança é um conceito fundamental da orientação a objetos, sendo implementada em Java através da relação é um entre classes. Isso significa que uma classe pode herdar atributos e métodos de outra classe, tornando com isso o código mais reutilizável.
+
+No Java, a herança é realizada através da palavra-chave extends. A classe que herda é chamada de subclasse, e a classe que é herdada é chamada de superclasse. A subclasse pode acessar todos os atributos e métodos públicos e protegidos da superclasse, além de poder sobrescrever os métodos da superclasse para criar comportamentos específicos.
+
+```java
+public class Conta {
+
+  private String titular;
+  private double saldo;
+
+  public void sacar(double valor) {
+    if (valor <= 0) {
+      System.out.println("Valor deve ser maior do que zero!");
+    } else if (saldo >= valor) {
+      saldo -= valor;
+      System.out.println("Saque realizado com sucesso. Saldo atual: " +saldo);
+    } else {
+      System.out.println("Saldo insuficiente.");
+    }
+  }
+
+  public void depositar(double valor) {
+    if (valor > 0) {
+      saldo += valor;
+      System.out.println("Depósito realizado com sucesso. Saldo atual: " +saldo);
+    } else {
+      System.out.println("Valor deve ser maior do que zero!");
+    }
+  }
+
+  //getters e setters
+}
+```
+```java
+public class ContaPoupanca extends Conta {
+
+  private double taxaDeJuros;
+
+  public void calcularJuros() {
+    double juros = this.getSaldo() * taxaDeJuros;
+    System.out.println("Juros atual: " +juros);
+  }
+
+  public void sacar(double valor) {
+    double taxaSaque = 0.01;
+    super.sacar(valor + taxaSaque);
+  }
+
+  //getters e setters
+}
+```
+
+No código anterior, a classe Conta é a superclasse e a classe ContaPoupanca é a subclasse. A classe ContaPoupanca herda os atributos e métodos da classe Conta, e adiciona um novo atributo taxaDeJuros e um novo método calcularJuros. Embora os atributos sejam herdados, como eles foram declarados como private na superclasse, não poderão ser acessados diretamente na subclasse, devendo então serem utlizados os métodos getters/setter, que são públicos.
+
+Repare também no código anterior que a subclasse sobrescreveu o método sacar, para que seja descontada a taxa de saque, além de utilizar a palavra chave super para chamar o método da superclasse, evitando com isso duplicar um código já existente. Essa é a grande vantagem da herança: reaproveitamento de código com flexibilidade para sobrescrever comportamentos.
+
+### Herança multipla
+Em Java, é importante notar que a herança múltipla não é permitida. A herança múltipla ocorre quando uma subclasse herda de duas ou mais superclasses. Por exemplo:
+```java
+public class ContaPoupanca extends Conta, Pagamento {
+  //codigo da classe omitido
+}
+```
+
+O código anterior não compila, pois o extends aceita apenas uma única classe, ou seja, uma classe pode ter apenas uma superclasse.
+
+Entretanto, é possível criar uma hierarquia de classes utilizando herança, simulando com isso uma herança múltipla. Por exemplo:
+```java
+public class Conta {
+  //codigo da classe omitido
+}
+```
+```java
+public class ContaCorrente extends Conta {
+  //codigo da classe omitido
+}
+```
+```java
+public class ContaCorrentePessoaFisica extends ContaCorrente {
+  //codigo da classe omitido
+}
+```
+No código anterior, a classe ContaCorrentePessoaFisica está herdando de ContaCorrente, que por sua vez herda da classe Conta, ou seja, indiretamente a classe ContaCorrentePessoaFisica vai herdar de Conta, pois sua superclasse herda dela.
+
+## MAIS SOBR ANNOTATIONS
+As anotações, também conhecidas como annotations, são uma forma de adicionar configurações ao código Java de uma maneira bem simples. Elas são usadas para fornecer informações adicionais sobre o código, como o significado de uma classe, um método ou um atributo.
+
+No Java, as anotações são definidas com o uso do símbolo "@" seguido do nome da anotação. Por exemplo, a anotação @Deprecated é usada para indicar que um método ou classe está obsoleto e não deve ser mais utilizado. Outra anotação muito útil é a @Override, conforme foi demonstrado no último vídeo, que indica que um método está sobrescrevendo o mesmo método definido na sua classe mãe.
+
+Diversas especificações e frameworks Java, como Hibernate, Bean Validation e Spring, utilizam anotações. Por exemplo, no Bean Validation a anotação @NotNull é usada para validar que um atributo não seja nulo.
+
+As anotações são muito úteis e comuns em aplicações Java, sendo importante que você esteja familiarizado com esse recurso, pois certamente o utilizará bastante em seus projetos.
+
+## EVITANDO CÓDIGO DUPLICADO
+Agora, criaremos uma classe para realizar calculo de tempo da quantidade de filmes e séries que pretendemos maratonar, e, para isso, criaremos um novo pacote também.
+
+```java
+package br.com.alura.screenmatch.calculos;
+
+import br.com.alura.screenmatch.modelos.Filme;
+
+public class  CalculadoraDeTempo {
+    private int tempoTotal;
+
+    public int getTempoTotal() {
+        return tempoTotal;
+    }
+
+    public void inclui(Filme f) {
+        // Pega o valor de duração do filme e incrementa no atributo tempoTotal dessa instancia
+        tempoTotal += f.getDuracaoEmMinutos();
+    }
+}
+```
+- Nos atributos, não precisamos colocar valores de inicialização neles, pois, automaticamente o `Java` já os inicializa. Então, `tempoTotal` já é considerado 0, ou seja, seria igual escrevermos `private int tempoTotal = 0;`
+  - Por isso, em variáveis, não se dá para fazer isso, pois as variaveis não são inicializadas automaticamente.
+
+### Porque calculadora não possui setter?
+Não colocaremos setter pois queremos que a calculadora some o atributo de um filme, e não nós jogarmos um valor para dentro do atributo da classe "diretamente". O método `inclui` já garante a funcionalidade que desejamos preservando a ideia de uma calculadora de tempo de filme.
+
+É possivel, também, existir classes que nem getter e nem setter possui.
+>  Por exemplo, se estivéssemos trabalhando com uma conexão com banco dados. Existem várias situações em que não precisamos manipular atributos diretamente. Voltando à analogia do carro, não precisamos abrir o capô para acionar algum botão, trata-se de um funcionamento interno.
+
+### Sobrecarga de métodos
+Agora, caso queiramos calcular o tempo para se maratonar uma série, não podemos simplesmente jogar no `incluir(Filme f)`, pois, uma série é da classe **Série**.
+
+Para isso, **sobrecarregaremos** o método `incluir(Filme f)`, criando o `incluir(Serie s)`.
+
+A **Sobrecarga** é quando utilizamos um mesmo método para ter comportamentos diferentes a depender dos parametros que são fornecidos a ele.
+
+```java
+public void inclui(Filme f) {
+    // Pega o valor de duração do filme e incrementa no atributo tempoTotal dessa instancia
+    this.tempoTotal += f.getDuracaoEmMinutos();
+}
+
+public void inclui(Serie s) {
+    this.tempoTotal += s.getDuracaoEmMinutos();
+}
+```
+Porém, ao realizar isso, aconteceu algo que não gostamos: **Cópia de código**. Ou seja, o método está realizando a **mesma ação**, mas, para entidades diferentes. Quando temos cópia de código dessa maneira, caso tivermos diversos outros casos, como, **inclui(DesenhoAnimado), inclui(Anime), inclui(Jogo)**, começaremos ter o mesmo comportamento copiado e colado.
+
+Caso tivermos alguma refatoração a ser realizada, ocasionará na refatoração manual em todos os locais copiados. Isso é um sinal que o **Code Design (Design das Classes)** não está adequada.
+- Neste caso, é por conta do **alto acoplamento** que está sendo gerado
+  - O acoplamento, nesse sentido, é o "Se eu precisar mexer em algo, precisarei mexer aqui, aqui e ali", "adicionado algo, precisamos mexer aqui, aqui e ali".
+- O **acoplamento** sempre existirá, mas, é importante que cheguemos no **mais baixo acoplamento possivel**
+
+### Polimorfismo
+Polimorfismo é poder chamar um objeto de várias formas, seja pela especialização ou pela generalização. Inclusive, o termo polimorfismo pode ser traduzido como "muitas formas".
+
+Agora, para reduzir drasticamente o acoplamento:
+```java
+public void inclui(Titulo titulo) {
+    this.tempoTotal += titulo.getDuracaoEmMinutos();
+}
+```
+- Dessa forma, tanto **Filme** quanto **Série**, assim como **todas as classes que herdarem de Titulo** poderão utilizar este mesmo método e ter sua doração em minutos incrementada na calculadora.
+
+#### Métodos sobrescritos são respeitados
+O arquivo Principal não tem nenhum erro de compilação e, ao executar o projeto, verificaremos que ele continua somando como fazia antes. O resultado ainda é 5380 minutos.
+
+Na verdade, esse titulo.getDuracaoEmMinutos() não chama o método da classe Titulo, não é? É só uma referência. Quando passamos uma série, mesmo que esteja escrito titulo.getDuracaoEmMinutos(), estamos chamando o método da subclasse específica. Se for uma série, ele usa o cálculo de série; se for um filme, ele usa o cálculo de filme.
+
+Ou seja, quando o método `inclui(Titulo titulo)` chama o `titulo.getDuracaoEmMinutos()`, o método que será chamado corresponderá à classe passada em seu parametro:
+- Se foi passado uma classe `Titulo`, o método será do `Titulo`;
+- Se foi passado uma classe `Filme`, o método será o mesmo do `Titulo`, pois `Filme` herda este método para ele.
+- Se foi passado uma classe `Serie`, o método **será o da sobrescrito pela `Serie`**, tendo um comportamento distindo dos acima, mesmo que o `inclui` tenha chamado um `Titulo titulo`.
+
+**Esse é o poder do Polimorfismo!**
+
+### Diferença na Compilação para Execução
+
+```java
+public void inclui(Titulo titulo) {
+    System.out.println("Adicionando a duração em minutos de " + titulo);
+    this.tempoTotal += titulo.getDuracaoEmMinutos();
+}
+```
+
+Chamadas
+```java
+CalculadoraDeTempo calculadora = new CalculadoraDeTempo();
+calculadora.inclui(meuFilme);
+calculadora.inclui(outroFilme);
+calculadora.inclui(lost);
+System.out.println(calculadora.getTempoTotal());
+
+/*
+Adicionando a duração em minutos de br.com.alura.screenmatch.modelos.Filme@174d20a
+Adicionando a duração em minutos de br.com.alura.screenmatch.modelos.Filme@66d2e7d9
+Adicionando a duração em minutos de br.com.alura.screenmatch.modelos.Serie@1efbd816
+5360
+*/
+```
+
+"Ué? Mas ele não estava adicionando um monte de titulo?":
+- Repare que estamos imprimindo na referência titulo, `System.out.println("Adicionando a duração em minutos de " + titulo);`, mas, no momento da execução o Java **sabe qual é essa referência e irá trata-la daquela forma**, se é uma Série, executará como uma Série, se é um Filme, executará o método que o Filme herdou.
+- Com isso, notamos uma diferença entre **Compilação** e **Execução**, pois, em Compilação, definimos ao Java que este método aceita, como parametros, uma superclasse Titulo (assim como todas as quais o herda) e em **Execução**, o Java saberá **extamente** qual é a classe e o objeto que estará entrando ali.
+
+Reparamos. também, que o nome da classe, na verdade, é o nome do seu pacote seguido de um ponto e o nome da classe. Esse nome reduzido que usamos no código é um **apelido que definimos na importação.**
+
+Esse recurso será empregado em inúmeras classes. Por exemplo, uma conexão com banco de dados, em que temos opções como MySQL ou Oracle. Quando invocamos um método para abrir uma conexão, o sistema a abrirá conforme o elemento.
+
+Ou seja, existem até conceitos abstratos que aplicam herança, polimorfismo e reescrita de métodos. Estamos ainda no início dos estudos e teremos exercícios e desafios para consolidar os novos conhecimentos.
+
+## MODIFICADOR PROTECTED
+Ao usar herança no Java, temos a possibilidade de utilizar o modificador de acesso protected, que permite que os atributos de uma classe sejam acessados por outras classes do mesmo pacote e também por suas subclasses, independentemente do pacote em que se encontram.
+
+O modificador protected é útil em situações em que uma classe precisa permitir que suas subclasses acessem diretamente seus atributos, sem a necessidade de restringir o acesso apenas pelos métodos getters e setters. Por exemplo, suponha que temos as seguintes classes em um projeto:
+```java
+public class Conta {
+
+  private String titular;
+  private double saldo;
+
+  public void sacar(double valor) {
+    //implementacao do metodo omitida
+  }
+
+  public void depositar(double valor) {
+    //implementacao do metodo omitida
+  }
+
+  //getters e setters
+}
+```
+```java
+public class ContaPoupanca extends Conta {
+
+  private double taxaDeJuros;
+
+  public void calcularJuros() {
+    double juros = this.getSaldo() * taxaDeJuros;
+    System.out.println("Juros atual: " +juros);
+  }
+
+  //getters e setters
+}
+```
+No código anterior, repare que no método calcularJuros, da classe ContaPoupanca, o atributo saldo não é acessado diretamente, pois ele foi declarado como private na classe Conta, devendo então seu acesso ser feito pelo método getSaldo().
+
+Podemos declarar o atributo saldo como protected, para evitar essa situação e liberar o acesso direto a ele pelas classes que herdam da classe Conta:
+```java
+public class Conta {
+
+  private String titular;
+  protected double saldo;
+
+  public void sacar(double valor) {
+    //implementacao do metodo omitida
+  }
+
+  public void depositar(double valor) {
+    //implementacao do metodo omitida
+  }
+
+  //getters e setters
+}
+```
+```java
+public class ContaPoupanca extends Conta {
+
+  private double taxaDeJuros;
+
+  public void calcularJuros() {
+    double juros = this.saldo * taxaDeJuros;
+    System.out.println("Juros atual: " +juros);
+  }
+
+  //getters e setters
+}
+```
+Repare que agora o atributo saldo foi acessado diretamente pela classe ContaPoupanca.'

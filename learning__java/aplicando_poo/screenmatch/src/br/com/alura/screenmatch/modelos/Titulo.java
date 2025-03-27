@@ -6,6 +6,7 @@ public class Titulo {
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
+
     private int duracaoEmMinutos;
 
     public int getTotalDeAvaliacoes() {
@@ -26,6 +27,10 @@ public class Titulo {
 
     public void setDuracaoEmMinutos(int duracaoEmMinutos) {
         this.duracaoEmMinutos = duracaoEmMinutos;
+    }
+
+    public int getDuracaoEmMinutos() {
+        return duracaoEmMinutos;
     }
 
     public void exibeFichaTecnica() {
