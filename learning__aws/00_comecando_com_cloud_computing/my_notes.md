@@ -114,6 +114,23 @@
     - [AWS CLI](#aws-cli)
     - [Conclusão](#conclusão-1)
   - [MONITORAMENTO DE INSTANCIAS EC2 COM AWS CLI](#monitoramento-de-instancias-ec2-com-aws-cli)
+  - [INVESTIGANDO AWS SDK, NUVEM PRIVADA VIRTUAL (VPC) E CLOUDWATCH](#investigando-aws-sdk-nuvem-privada-virtual-vpc-e-cloudwatch)
+    - [Pontos importantes no desenvolvimento web](#pontos-importantes-no-desenvolvimento-web)
+    - [Virtual Private Cloud](#virtual-private-cloud)
+    - [Monitoramento da instancia](#monitoramento-da-instancia)
+    - [CloudWatch](#cloudwatch)
+  - [MAIS SOBRE VPC](#mais-sobre-vpc)
+  - [RECAPTULANDO CONEXÃO COM AWS CLI](#recaptulando-conexão-com-aws-cli)
+    - [Explicação do Shell Scripting acima](#explicação-do-shell-scripting-acima)
+      - [🔹 **Cabeçalho do Script**](#-cabeçalho-do-script)
+      - [🔹 **Definição do Arquivo de Saída**](#-definição-do-arquivo-de-saída)
+      - [🔹 **Obtendo o Status das Instâncias EC2**](#-obtendo-o-status-das-instâncias-ec2)
+      - [🔹 **Verificando Erros**](#-verificando-erros)
+      - [🔹 **Se a execução foi bem-sucedida, salva no arquivo**](#-se-a-execução-foi-bem-sucedida-salva-no-arquivo)
+      - [🔹 **Se houver erro, exibe uma mensagem de erro**](#-se-houver-erro-exibe-uma-mensagem-de-erro)
+      - [🔥 **Resumo do Fluxo**](#-resumo-do-fluxo)
+      - [🚀 **Como rodar esse script?**](#-como-rodar-esse-script)
+      - [📌 **Possíveis Melhorias**](#-possíveis-melhorias)
 
 
 # <span style="color: #87BBA2">NAVEGANDO NA NUVEM</span>
@@ -1085,3 +1102,207 @@ aws cloudwatch create-alarm --alarm-name MyEC2Alarm --metric-name CPUUtilization
 - describe-alarms → lista todos os alarmes configurados para suas instâncias EC2.
 aws cloudwatch describe-alarms
 > Para descobrir mais comandos e recursos avançados aplicáveis a outros serviços da AWS, recomendamos que você explore a documentação oficial da [WS CLI](https://docs.aws.amazon.com/pt_br/cli/).
+
+## INVESTIGANDO AWS SDK, NUVEM PRIVADA VIRTUAL (VPC) E CLOUDWATCH
+Além da AWS CLI, haverá situações que iremos querer integrar outros serviços da AWS em nossa aplicação. Para isso, utilizamos o SDK (Software Development Kit).
+
+O SDK, é basicamente um conjunto de bibliotecas com APIs para interação direto com os serviços da AWS.
+- Temos integração do SDK para diversas plataformas, como Python, .NET, Java e afins.
+- Existe integrações para, por exemplo, banco de dados da Amazon (RDS), S3 (Serviço de armazenamento de objetos) dentre outras funcionalidades
+
+### Pontos importantes no desenvolvimento web
+- Geralmente, armazenamos os dados sensiveis em nosso servidores locais, como Data Centeres
+  - Não queremos deixar isso disponível por ai
+  - Outra solução é utilizando VPC (Virtual Private Cloud)
+    - Assim, é necessário organizar esses componentes nos data centers utilizando os servidores e serviços da AWS. Isso envolve implementar mecanismos na rede para proteger os dados, como colocar os bancos de dados em redes privadas, ou seja, sub-redes privadas.
+    - Para organizar nossos componentes em diferentes sub-redes, utilizamos o serviço VPC(Amazon Virtual Private Cloud, em português "Nuvem privada virtual"), acessível através do console da AWS.
+
+### Virtual Private Cloud
+Na barra de pesquisa ("Alt + S"), digitamos o termo "VPC". O primeiro serviço listado é o "Isolated Cloud Resources" (Recursos da Nuvem Isolados), que corresponde ao VPC. Ao clicar neste item, acessamos o VPC, que nos auxilia a isolar e proteger nossos componentes e módulos da solução.
+
+Dessa forma, podemos criar um site corporativo que fica acessível apenas para os endereços IP pertencentes àquela organização. Utilizando esses recursos, conseguimos implementar filtros, monitorar o tráfego e garantir que conteúdos internos da organização não sejam acessíveis externamente.
+
+![Diagrama VPC](assets/diagrama_vpc.png.png)
+
+Com as VPCs, conseguimos dividir os componentes da aplicação Web e proteger os seus conteúdos mais sensíveis e estratégicos.
+- Conseguimos configurar tabela de roteamento para controle de tráfego de rede também
+
+### Monitoramento da instancia
+Para isso, ao acessarmos o painel das instâncias EC2, onde as instâncias estão em execução, ao clicarmos no ID da nossa primeira instância (o servidor_web criado ao longo do projeto), encontramos abaixo do resumo da instância uma série de abas, incluindo detalhes, monitoramento, segurança, rede e aspectos de monitoramento.
+
+No monitoramento, podemos visualizar diversos gráficos com métricas de desempenho e acessos dessa instância. Dessa forma, podemos avaliar a frequência de acesso à nossa aplicação, entender a demanda e decidir se precisamos escalar adicionando mais recursos ou instâncias, ou ainda melhorar as configurações da instância para garantir um melhor atendimento às pessoas usuárias que acessam nosso site de tecnologia.
+
+### CloudWatch
+CloudWatch é um serviço que fornece métricas, indicadores e alertas, para acompanhamento em tempo real de todos os serviços que estão sendo utilizados na núvem.
+
+## MAIS SOBRE VPC
+A Amazon Virtual Private Cloud (VPC) é uma solução que permite criar uma rede virtual isolada na nuvem, proporcionando controle total sobre a sua infraestrutura de rede.
+
+Podemos imaginar a VPC como nossa própria rede privada virtual dentro do ambiente AWS (a tradução livre do termo VPC é exatamente nuvem privada virtual!).
+
+Ao configurar uma VPC, podemos definir nosso próprio espaço de endereço IP, sub-redes, tabelas de roteamento e gateways de internet. O que isso significa? Significa que podemos criar uma arquitetura de rede personalizada adaptada às necessidades específicas de uma aplicação ou mesmo de uma organização.
+
+A VPC permite também estabelecer conexões seguras entre redes locais e os recursos na nuvem AWS, como instâncias EC2, bancos de dados RDS e servidores Lambda. Essas conexões possibilitam a extensão de uma infraestrutura de rede existente para a nuvem, garantindo uma migração suave e integrada.
+
+Além disso, a VPC pode oferecer uma camada adicional de segurança, pois podemos controlar o acesso à nossa infraestrutura utilizando listas de controle de acesso de segurança (ACLs) e grupos de segurança. Esse controle garante que apenas o tráfego autorizado tenha permissão para entrar e sair de nossas redes, protegendo dados e aplicativos de nossas organizações contra ameaças externas.
+
+##  RECAPTULANDO CONEXÃO COM AWS CLI
+Para começar, vamos instalar o AWS CLI em nosso ambiente. Se estivermos usando um ambiente Linux, como no exemplo, podemos seguir os seguintes comandos:
+```bash
+sudo apt-get update
+sudo apt-get install awscli
+```
+Com o AWS CLI instalado, precisamos configurá-lo com nossas credenciais da AWS para que possamos acessar e gerenciar os serviços na nuvem.
+
+No terminal, digite o seguinte comando e insira suas credenciais quando solicitado:
+```bash
+aws configure
+```
+
+Insira sua AWS Access Key, AWS Secret Access Key, região padrão (por exemplo, us-east-1), e formato de saída padrão (por exemplo, json).
+
+Com o AWS CLI configurado, podemos gerenciar nossas instâncias EC2 diretamente do terminal. Por exemplo, se quisermos verificar quantas instâncias EC2 estão em execução na nossa conta, podemos usar o seguinte comando
+```bash
+aws ec2 describe-instances
+```
+
+Para reiniciar uma instância específica, podemos usar o seguinte comando, substituindo i-1234567890abcdef0 pelo ID da instância que desejamos reiniciar:
+```bash
+aws ec2 reboot-instances --instance-ids i-1234567890abcdef0
+```
+
+Essa automação simplifica o gerenciamento de instâncias EC2, permitindo-nos realizar tarefas comuns diretamente do terminal.
+
+Além disso, podemos automatizar ainda mais utilizando scripts e agendando tarefas com ferramentas como o cron para executar comandos de gerenciamento de instâncias EC2 em horários específicos ou em resposta a determinados eventos.
+
+Aqui está um script simples em bash que utiliza o AWS CLI para obter o status de todas as instâncias EC2 em execução e armazena essas informações em um arquivo de texto (.txt):
+```bash
+#!/bin/bash
+
+# Defina o nome do arquivo de saída
+output_file="status_instancias.txt"
+
+# Use o comando AWS CLI para obter o status das instâncias EC2
+status=$(aws ec2 describe-instance-status --query "InstanceStatuses[*].{ID:InstanceId,Status:InstanceState.Name}" --output text)
+
+# Verifique se houve algum erro ao obter o status das instâncias
+if [ $? -eq 0 ]; then
+    # Se não houver erro, salve o status das instâncias no arquivo
+    echo "$status" > "$output_file"
+    echo "O status das instâncias foi salvo em $output_file"
+else
+    # Se houver erro, exiba uma mensagem de erro
+    echo "Erro ao obter o status das instâncias EC2."
+fi
+```
+Para usarmos esse script, basta colar o código acima para um arquivo de texto, por exemplo, salvando como instance_status.sh no nano, e dar permissão de execução:
+```bash
+chmod +x get_instance_status.sh
+```
+Em seguida, podemos executá-lo utilizando o seguinte comando:
+```bash
+./instance_status.sh
+```
+Como resultado da execução desse script, obteremos o status de todas as instâncias EC2 em execução salvas em um arquivo chamado status_instancias.txt. No arquivo teremos o ID da instância e seu respectivo status.
+
+Automatizar a gestão de instâncias EC2 não só economiza tempo, mas também garante consistência e precisão nas operações realizadas na nuvem.
+
+### Explicação do Shell Scripting acima
+
+#### 🔹 **Cabeçalho do Script**
+```bash
+#!/bin/bash
+```
+- O `#!/bin/bash` indica que o script será executado usando o **interpretador Bash**.  
+- Isso é chamado de **shebang** e define qual shell será usado para rodar o script.  
+
+---
+
+#### 🔹 **Definição do Arquivo de Saída**
+```bash
+output_file="status_instancias.txt"
+```
+- Aqui, o nome do arquivo onde o status das instâncias será salvo é definido como **`status_instancias.txt`**.  
+- Esse arquivo será criado ou sobrescrito quando o script for executado.  
+
+---
+
+#### 🔹 **Obtendo o Status das Instâncias EC2**
+```bash
+status=$(aws ec2 describe-instance-status --query "InstanceStatuses[*].{ID:InstanceId,Status:InstanceState.Name}" --output text)
+```
+📌 **O que esse comando faz?**  
+1️⃣ Usa o **AWS CLI** para rodar `describe-instance-status`, que lista o status das instâncias EC2.  
+2️⃣ O `--query` filtra a saída para exibir apenas os **IDs das instâncias** e seus respectivos **estados**.  
+3️⃣ O `--output text` formata a saída em **texto simples**, tornando mais fácil de processar.  
+4️⃣ O resultado é armazenado na variável **`status`**.  
+
+📌 **Exemplo de saída do comando**:  
+```
+i-0a1b2c3d4e5f6g7h running
+i-0x9y8z7w6v5u4t3s stopped
+```
+Ou seja, ele retorna o **ID da instância** seguido do **status atual** (ex: `running`, `stopped`, etc.).  
+
+---
+
+#### 🔹 **Verificando Erros**
+```bash
+if [ $? -eq 0 ]; then
+```
+📌 **O que significa ` $? `?**  
+- O ` $? ` retorna o **código de saída** do último comando executado.  
+- **Se for `0`**, significa que o comando rodou com **sucesso**.  
+- **Se for diferente de `0`**, significa que houve **erro** ao rodar o comando.  
+
+---
+
+#### 🔹 **Se a execução foi bem-sucedida, salva no arquivo**
+```bash
+echo "$status" > "$output_file"
+echo "O status das instâncias foi salvo em $output_file"
+```
+📌 **O que acontece aqui?**  
+- A saída armazenada em `$status` é escrita dentro do arquivo `status_instancias.txt`.  
+- O `>` sobrescreve o arquivo (se quiser **adicionar** sem sobrescrever, usaria `>>`).  
+- Em seguida, exibe uma mensagem confirmando que o status foi salvo com sucesso.  
+
+---
+
+#### 🔹 **Se houver erro, exibe uma mensagem de erro**
+```bash
+else
+    echo "Erro ao obter o status das instâncias EC2."
+fi
+```
+📌 **O que acontece aqui?**  
+- Se o comando `aws ec2 describe-instance-status` falhar (por exemplo, se as credenciais AWS estiverem erradas ou a rede estiver indisponível), uma mensagem de erro será exibida.  
+
+---
+
+#### 🔥 **Resumo do Fluxo**
+1️⃣ **Define o nome do arquivo de saída**.  
+2️⃣ **Obtém o status das instâncias EC2 usando o AWS CLI**.  
+3️⃣ **Verifica se o comando rodou com sucesso**.  
+4️⃣ **Se sim**, salva os dados no arquivo `status_instancias.txt` e exibe uma mensagem de sucesso.  
+5️⃣ **Se não**, exibe uma mensagem de erro.  
+
+---
+
+#### 🚀 **Como rodar esse script?**
+Se você já configurou o **AWS CLI** na sua instância EC2 com permissões adequadas, pode rodar o script assim:  
+```bash
+chmod +x meu_script.sh  # Torna o script executável
+./meu_script.sh         # Executa o script
+```
+Depois, para visualizar o arquivo gerado:  
+```bash
+cat status_instancias.txt
+```
+
+---
+
+#### 📌 **Possíveis Melhorias**
+✅ **Adicionar Timestamp** no arquivo de saída para não sobrescrever dados anteriores.  
+✅ **Melhorar o tratamento de erros** (por exemplo, verificar se a AWS CLI está instalada antes de rodar o comando).  
+✅ **Formatar a saída em JSON ou CSV**, caso queira importar os dados em outro sistema.
